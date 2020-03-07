@@ -1,8 +1,8 @@
 ----------------------------   Person Role   ----------------------------
 
-INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('1', 'Broker');
-INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('2', 'Donor');
-INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('3', 'Donee');
+INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('Broker');
+INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('Donor');
+INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('Donee');
 
 ----------------------------   Donor Status   ----------------------------
 
@@ -64,12 +64,10 @@ INSERT INTO "B00074902"."ALLERGEN" (NAME) VALUES('Glutten');
 
 ----------------------------   Meal Type   ----------------------------
 
-INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('1', 'vegan');
-INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('2', 'chicken');
-INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('3', 'vegetarian');
-INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('4', 'seafood');
-INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('5', 'red meat');
-INSERT INTO "B00074902"."CUISINE" (NAME) VALUES ('NoPreference');
-
+INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('Vegan');
+INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('Chicken');
+INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('Vegetarian');
+INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('Seafood');
+INSERT INTO "B00074902"."MEAL_TYPE" (NAME) VALUES ('RedMeat');
 
 -----------------------------------------------------------------------
