@@ -1,28 +1,40 @@
 package com.foodforcharity.api.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
+import com.foodforcharity.api.entities.convertors.BooleanCharacterConverter;
 
 @Entity
-@Table(name="b00074902.Request")
+@Table(name = "Request", schema = "b00074902")
 public class Request {
     @Id
-    @GeneratedValue
-    private Integer id;
-    int FoodId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private long id;
 
-    @OneToOne(mappedBy = "DoneeId")
+    @OneToOne
     Donor donor;
 
-    @Column(name = "Quantity")
-    int quantity;
+    @OneToOne
+    Donee donee;
+
+    @Column(name = "FinalPrice")
+    int finalPrice;
+
+    @Column(name = "DiscountApplied")
+    int discountApplied;
 
     @Column(name = "RequestTime")
-    Date requestTime ;
+    Date requestTime;
 
-    // CONSTRAINT fk_Request_FoodId FOREIGN KEY(FoodId) REFERENCES b00074902.Food(Id);
-    // CONSTRAINT fk_Request_DoneeId FOREIGN KEY(DoneeId) REFERENCES b00074902.Donee(Id)
+    @Column(name = "IsActive")
+    @Convert(converter = BooleanCharacterConverter.class)
+    Boolean IsActive;
+
+    @OneToMany(mappedBy = "request", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<SubRequest> subRequest;
+
 }
-

@@ -1,13 +1,21 @@
 package com.foodforcharity.api.entities;
+
 import javax.persistence.*;
+
 @Entity
-@Table(name="b00074902.PersonRole")
+@Table(name = "PersonRole", schema = "b00074902")
 public class PersonRole {
     @Id
-    @GeneratedValue
-    private Integer id;
-    
-    @Column(name="Name")
-    String name; 
-}
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private long id;
 
+    @Column(name = "Name")
+    String name;
+
+    public PersonRole(String name){
+        this.name = name;
+    }
+
+    public PersonRole(){};
+}

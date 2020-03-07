@@ -1,9 +1,10 @@
 package com.foodforcharity.api.repository;
 
-import org.springframework.data.repository.CrudRepository;
- import org.springframework.stereotype.Repository;
-import com.foodforcharity.api.entities.Donor; 
+import com.foodforcharity.api.entities.Donor;
+import com.foodforcharity.api.entities.Person;
 
- @Repository 
- public interface DonorRepository extends CrudRepository<Donor,Integer>{ 
- }
+import org.springframework.data.repository.CrudRepository;
+
+public interface DonorRepository extends CrudRepository<Donor, Long> {
+    Donor findByPerson(Person person);
+}

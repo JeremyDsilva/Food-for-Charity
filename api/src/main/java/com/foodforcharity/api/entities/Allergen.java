@@ -3,21 +3,14 @@ package com.foodforcharity.api.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "b00074902.Allergen")
+@Table(name = "Allergen", schema = "b00074902")
 public class Allergen {
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
 
     @Column(name = "Name")
-    public String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String name;
 
 }

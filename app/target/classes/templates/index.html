@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"lang="en">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+    <div layout:fragment="content">
+        <div class="jumbotron main-content">
+            <h1>Welcome to Landon Hotel Admin</h1>
+            <p>The original Landon perseveres after 50 years in the heart of West London. The West End neighborhood has something for everyone—from theater to dining to historic sights. And the not-to-miss Rooftop Cafe is a great place for travelers and locals to engage over drinks, food, and good conversation.</p>
+        </div>
+        <div class="container">
+            <h3>What do you want to do?</h3>
+            <ul>
+                <li><a th:href="@{/guests}">View Guests</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
