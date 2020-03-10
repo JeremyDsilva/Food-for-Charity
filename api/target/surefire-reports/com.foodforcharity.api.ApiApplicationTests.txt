@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.foodforcharity.api.ApiApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.61 s - in com.foodforcharity.api.ApiApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.218 s - in com.foodforcharity.api.ApiApplicationTests

@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}"lang="en">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container main-content">
+        <h3>Guest View</h3>
+        <form method="post" action="#" th:action="${guest != null} ? '/guests/'+${guest.id} : '/guests'" th:object="${guestModel}">
+            <div class="form-row">
+                <div class="col">
+                    <input th:id="firstName" th:name="firstName" type="text" class="form-control" placeholder="First Name" th:value="${guest != null} ? ${guest.firstName}"/>
+                </div>
+                <div class="col">
+                    <input th:id="lastName" th:name="lastName" type="text" class="form-control" placeholder="Last Name" th:value="${guest != null} ? ${guest.lastName}"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input th:id="emailAddress" th:name="emailAddress" type="text" class="form-control" placeholder="Email Address" th:value="${guest != null} ? ${guest.emailAddress}"/>
+                </div>
+                <div class="col">
+                    <input th:id="phoneNumber" th:name="phoneNumber" type="text" class="form-control" placeholder="Phone Number" th:value="${guest != null} ? ${guest.phoneNumber}"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <input th:id="address" th:name="address" type="text" class="form-control" placeholder="Address" th:value="${guest != null} ? ${guest.address}"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-7">
+                    <input th:id="country" th:name="country" type="text" class="form-control" placeholder="Country" th:value="${guest != null} ? ${guest.country}"/>
+                </div>
+                <div class="col">
+                    <input th:id="state" th:name="state" type="text" class="form-control" placeholder="State" th:value="${guest != null} ? ${guest.state}"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <a th:href="@{/guests}">Return to All Guests</a>
+    </div>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/table.js}"></script>
+</div>
+</body>
+</html>

@@ -90,7 +90,7 @@ public class Enum {
     }
 
     static public enum Cuisine {
-        Indain(1);
+        Italian(1), Chinese(2), Indian(3), Thai(4), Mongolian(5), Japanese(6), Arab(7), French(8), Spanish(9), Mexican(10), Indonasian(11), Philapino(12), Greek(13), Portugal(14), Hawaain(15), Brazilian(16), Vietnam(17), Turkish(18), Belgravian(19), NoPreference(20);
 
         private final int value;
 

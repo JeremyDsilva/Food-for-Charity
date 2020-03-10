@@ -221,7 +221,6 @@ INSERT INTO "B00074902"."REQUEST" (ID, DONOR_ID, DONEE_ID, FINAL_PRICE, DISCOUNT
 INSERT INTO "B00074902"."REQUEST" (ID, DONOR_ID, DONEE_ID, FINAL_PRICE, DISCOUNT_APPLIED, REQUEST_TIME, IS_ACTIVE, IS_RATED) VALUES ('2', '1', '3', '170.46', '531', TO_TIMESTAMP('2020-03-09 17:41:32.038000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'N', 'Y');
 INSERT INTO "B00074902"."REQUEST" (ID, DONOR_ID, DONEE_ID, FINAL_PRICE, DISCOUNT_APPLIED, REQUEST_TIME, IS_ACTIVE, IS_RATED) VALUES ('3', '2', '5', '158.14', '98', TO_TIMESTAMP('2020-03-09 17:41:32.038000000', 'YYYY-MM-DD HH24:MI:SS.FF'), 'N', 'N');
 
----------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------Sub Request------------------------------------------------------------------
 INSERT INTO "B00074902"."SUB_REQUEST" (ID, REQUEST_ID, FOOD_ID, QUANTITY, PRICE_AT_PURCHASE) VALUES ('1', '1', '3', '2', '15');
 INSERT INTO "B00074902"."SUB_REQUEST" (ID, REQUEST_ID, FOOD_ID, QUANTITY, PRICE_AT_PURCHASE) VALUES ('2', '1', '19', '3', '49');

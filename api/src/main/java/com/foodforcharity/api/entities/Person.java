@@ -14,7 +14,7 @@ public class Person {
   private long id;
 
   @Column(name = "Username")
-  String userName;
+  String username;
 
   @Column(name = "PasswordHash")
   String passwordHash;
@@ -31,8 +31,8 @@ public class Person {
           @JoinColumn(name = "RoleId", referencedColumnName = "id") })
   List<PersonRole> roles;
 
-  public Person(String userName, String passwordHash, String passwordSalt, Date lastLoginTime, List<PersonRole> roles) {
-    this.userName = userName;
+  public Person(String username, String passwordHash, String passwordSalt, Date lastLoginTime, List<PersonRole> roles) {
+    this.username = username;
     this.passwordHash = passwordHash;
     this.passwordSalt = passwordSalt;
     this.lastLoginTime = lastLoginTime;
