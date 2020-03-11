@@ -1,13 +1,9 @@
-com\foodforcharity\api\common\Enum$MealType.class
-com\foodforcharity\api\repository\SpiceLevelRepository.class
 com\foodforcharity\api\entities\DoneeType.class
 com\foodforcharity\api\entities\Request.class
 com\foodforcharity\api\repository\DonorRepository.class
 com\foodforcharity\api\entities\Complaint.class
 com\foodforcharity\api\entities\SubRequest.class
 com\foodforcharity\api\repository\PersonRepository.class
-com\foodforcharity\api\common\Enum$Cuisine.class
-com\foodforcharity\api\common\Enum$SpiceLevel.class
 com\foodforcharity\api\entities\Allergen.class
 com\foodforcharity\api\entities\DoneeSpiceRange.class
 com\foodforcharity\api\repository\RequestRepository.class
@@ -16,15 +12,10 @@ com\foodforcharity\api\entities\Food.class
 com\foodforcharity\api\repository\DoneeRepository.class
 com\foodforcharity\api\entities\Donee.class
 com\foodforcharity\api\entities\Donor.class
-com\foodforcharity\api\common\Enum$DonorStatus.class
 com\foodforcharity\api\entities\DoneePriceRange.class
-com\foodforcharity\api\common\Enum$Allergen.class
 com\foodforcharity\api\entities\ErrorLog.class
 com\foodforcharity\api\entities\DonorStatus.class
-com\foodforcharity\api\common\Enum.class
 com\foodforcharity\api\entities\Person.class
-com\foodforcharity\api\common\Enum$DoneeType.class
-com\foodforcharity\api\common\Enum$PersonRole.class
 com\foodforcharity\api\repository\ErrorLogRepository.class
 com\foodforcharity\api\entities\SpiceLevel.class
 com\foodforcharity\api\entities\DoneeStatus.class
@@ -32,6 +23,5 @@ com\foodforcharity\api\entities\PersonRole.class
 com\foodforcharity\api\entities\convertors\BooleanCharacterConverter.class
 com\foodforcharity\api\entities\MealType.class
 com\foodforcharity\api\repository\ComplaintRepository.class
-com\foodforcharity\api\common\Enum$DoneeStatus.class
 com\foodforcharity\api\entities\Cuisine.class
 com\foodforcharity\api\repository\FoodRepository.class
