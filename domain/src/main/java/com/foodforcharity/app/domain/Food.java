@@ -15,10 +15,10 @@ public class Food {
 
   String descriptionText;
 
-  int price;
+  float orginalPrice;
 
-  int spiceLevel;
-  
+  SpiceLevel spiceLevel;
+
   int quantityAvailable;
 
   Donor donor;
