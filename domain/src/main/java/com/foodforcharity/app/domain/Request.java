@@ -18,7 +18,6 @@ public class Request {
 
     Date requestTime;
 
-    
     Boolean IsActive;
 
     List<SubRequest> subRequest;

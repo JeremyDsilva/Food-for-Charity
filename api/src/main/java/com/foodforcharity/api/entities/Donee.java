@@ -42,8 +42,8 @@ public class Donee {
   @Column(name = "QuantityRequested")
   int quantityRequested;
 
-  @OneToOne
-  Person person;
+//   @OneToOne
+//   Person person;
 
   @OneToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "MapDoneeAllergen", joinColumns = {

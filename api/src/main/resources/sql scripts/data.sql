@@ -11,6 +11,8 @@ INSERT INTO "B00074902"."PERSON" (ID, USERNAME, PASSWORD_HASH, PASSWORD_SALT, LA
 INSERT INTO "B00074902"."PERSON" (ID, USERNAME, PASSWORD_HASH, PASSWORD_SALT, LAST_LOGIN_TIME) VALUES ('24', 'Verdes Grill', '55b09d426e89ec6bcf39763a55f523e7', '9304625765e5a3589d5ac0', TO_TIMESTAMP('2020-02-03 12:59:20.202000000', 'YYYY-MM-DD HH24:MI:SS.FF'));
 INSERT INTO "B00074902"."PERSON" (ID, USERNAME, PASSWORD_HASH, PASSWORD_SALT, LAST_LOGIN_TIME) VALUES ('25', 'Sonic', '839954a155a2757591372168f63c4fd6', '359436635e5a3589d5afa', TO_TIMESTAMP('2020-02-03 12:59:20.202000000', 'YYYY-MM-DD HH24:MI:SS.FF'));
 
+INSERT INTO "B00074902"."PERSON" (ID, USERNAME, PASSWORD_HASH, PASSWORD_SALT, LAST_LOGIN_TIME) VALUES ('30', 'Jeremy', '839954a155a2757591372168f63c4fd6', '359436635e5a3589d5afa', TO_TIMESTAMP('2020-02-03 12:59:20.202000000', 'YYYY-MM-DD HH24:MI:SS.FF'));
+
 -----------------------------------------------------------------  Map Person Role -----------------------------------------------------------------
 
 INSERT INTO "B00074902"."MAP_PERSON_ROLE" (PERSON_ID, ROLE_ID) VALUES ('1', '3');
@@ -24,6 +26,13 @@ INSERT INTO "B00074902"."MAP_PERSON_ROLE" (PERSON_ID, ROLE_ID) VALUES ('22', '2'
 INSERT INTO "B00074902"."MAP_PERSON_ROLE" (PERSON_ID, ROLE_ID) VALUES ('23', '2');
 INSERT INTO "B00074902"."MAP_PERSON_ROLE" (PERSON_ID, ROLE_ID) VALUES ('24', '2');
 INSERT INTO "B00074902"."MAP_PERSON_ROLE" (PERSON_ID, ROLE_ID) VALUES ('25', '2');
+
+INSERT INTO "B00074902"."MAP_PERSON_ROLE" (PERSON_ID, ROLE_ID) VALUES ('30', '1');
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------  Broker  -----------------------------------------------------------------
+
+INSERT INTO "B00074902"."BROKER" (PERSON_ID) VALUES ('30');
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------  Donee  -----------------------------------------------------------------  

@@ -3,6 +3,7 @@ package com.foodforcharity.api.entities;
 import java.util.List;
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "Donor", schema = "b00074902")
 public class Donor {
@@ -37,9 +38,6 @@ public class Donor {
 
     @OneToOne
     DonorStatus donorStatus;
-
-    @OneToOne
-    Person person;
 
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     List<Food> menu;

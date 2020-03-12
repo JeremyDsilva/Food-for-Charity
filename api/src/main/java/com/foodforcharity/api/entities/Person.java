@@ -1,12 +1,12 @@
 package com.foodforcharity.api.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Person", schema = "b00074902")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,20 +25,10 @@ public class Person {
   @Column(name = "LastLoginTime")
   Date lastLoginTime;
 
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinTable(name = "MapPersonRole", joinColumns = {
       @JoinColumn(name = "PersonId", referencedColumnName = "id") }, inverseJoinColumns = {
           @JoinColumn(name = "RoleId", referencedColumnName = "id") })
-  List<PersonRole> roles;
-
-  public Person(String username, String passwordHash, String passwordSalt, Date lastLoginTime, List<PersonRole> roles) {
-    this.username = username;
-    this.passwordHash = passwordHash;
-    this.passwordSalt = passwordSalt;
-    this.lastLoginTime = lastLoginTime;
-    this.roles = roles;
-  }
-
-  public Person(){};
+  PersonRole roles;
 
 }

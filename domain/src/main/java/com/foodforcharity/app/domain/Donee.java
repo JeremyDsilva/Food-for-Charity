@@ -1,10 +1,17 @@
 package com.foodforcharity.app.domain;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
+import com.foodforcharity.common.Authority;
+import com.foodforcharity.common.Authority.DoneeStatus;
+import com.foodforcharity.common.Authority.PersonRole;
 import com.foodforcharity.common.Enum.*;
 
-public class Donee {
+import org.springframework.security.core.GrantedAuthority;
+
+public class Donee extends Person {
   
   long id;
 
@@ -38,6 +45,8 @@ public class Donee {
 
   DoneeSpiceRange spiceRange;
 
-  Person person;
-
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+      return Arrays.asList(new Authority(PersonRole.Donor, doneeStatus));
+  }  
 }
