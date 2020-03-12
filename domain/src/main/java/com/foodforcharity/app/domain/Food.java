@@ -17,6 +17,8 @@ public class Food {
 
   int price;
 
+  int spiceLevel;
+  
   int quantityAvailable;
 
   Donor donor;
