@@ -1,9 +1,10 @@
-select
+    select
         person0_.id as id1_14_,
         person0_.last_login_time as last_login_time2_14_,
         person0_.password_hash as password_hash3_14_,
         person0_.password_salt as password_salt4_14_,
         person0_.username as username5_14_,
+        person0_4_.role_id as role_id1_25_,
         person0_2_.address_description as address_descriptio1_4_,
         person0_2_.city as city2_4_,
         person0_2_.country as country3_4_,
@@ -24,21 +25,24 @@ select
         person0_3_.phone_number as phone_number7_9_,
         person0_3_.rating as rating8_9_,
         case
-            when person0_1_.id is not null then 1
-            when person0_2_.id is not null then 2
-            when person0_3_.id is not null then 3
+            when person0_1_.person_id is not null then 1 
+            when person0_2_.person_id is not null then 2
+            when person0_3_.person_id is not null then 3
             when person0_.id is not null then 0
         end as clazz_
     from
         b00074902.person person0_
     left outer join
         b00074902.broker person0_1_
-            on person0_.id=person0_1_.id
+            on person0_.id=person0_1_.person_id
     left outer join
         b00074902.donee person0_2_
-            on person0_.id=person0_2_.id
+            on person0_.id=person0_2_.person_id
     left outer join
-        b00074902.donor person0_3_
-            on person0_.id=person0_3_.id
+        b00074902.donor person0_3_ 
+            on person0_.id=person0_3_.person_id
+    left outer join
+        map_person_role person0_4_
+            on person0_.id=person0_4_.person_id
     where
-        person0_.username='Sonic';
+        person0_.username='AnnitaRosinski';

@@ -1,10 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.foodforcharity.api.ApiApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 6.387 s <<< FAILURE! - in com.foodforcharity.api.ApiApplicationTests
-contextLoads  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [donor_person_id] in table [b00074902.food]
-Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [donor_person_id] in table [b00074902.food]
-Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema-validation: missing column [donor_person_id] in table [b00074902.food]
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.256 s - in com.foodforcharity.api.ApiApplicationTests

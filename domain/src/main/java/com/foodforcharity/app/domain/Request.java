@@ -8,9 +8,9 @@ public class Request {
    
     long id;
 
-    Donor donor;
+    // Donor donor;
 
-    Donee donee;
+    // Donee donee;
 
     int finalPrice;
 

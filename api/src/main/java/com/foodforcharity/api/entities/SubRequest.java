@@ -19,7 +19,7 @@ public class SubRequest {
     @Column(name = "Quantity")
     int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Request request;
 
 }

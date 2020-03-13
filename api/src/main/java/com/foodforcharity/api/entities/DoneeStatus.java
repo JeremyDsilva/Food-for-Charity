@@ -15,7 +15,7 @@ public class DoneeStatus {
     @Column(name = "Name")
     String name;
 
-    @Column(name = "HasAccess")
-    @Convert(converter = BooleanCharacterConverter.class)
-    Boolean hasAccess;
+    // @Column(name = "HasAccess")
+    // @Convert(converter = BooleanCharacterConverter.class)
+    // Boolean hasAccess;
 }

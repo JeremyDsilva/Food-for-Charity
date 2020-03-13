@@ -1,5 +1,6 @@
 package com.foodforcharity.api.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -7,11 +8,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Person", schema = "b00074902")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Person {
+public abstract class Person  implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "Id")
-  private long id;
+  private long PersonId;
 
   @Column(name = "Username")
   String username;

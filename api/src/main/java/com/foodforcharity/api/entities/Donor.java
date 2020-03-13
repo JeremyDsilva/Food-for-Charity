@@ -1,16 +1,21 @@
 package com.foodforcharity.api.entities;
 
-import java.util.List;
-import javax.persistence.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Donor", schema = "b00074902")
-public class Donor {
-    @Id
+@PrimaryKeyJoinColumn(name = "PersonId")
+public class Donor extends Person {
+    // @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private long id;
+    public long donorId;
 
     @Column(name = "DonorName")
     String donorName;
@@ -38,8 +43,5 @@ public class Donor {
 
     @OneToOne
     DonorStatus donorStatus;
-
-    @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
-    List<Food> menu;
-
+    
 }

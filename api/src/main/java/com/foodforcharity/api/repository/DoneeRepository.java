@@ -1,10 +1,11 @@
-// package com.foodforcharity.api.repository;
+package com.foodforcharity.api.repository;
 
-// import com.foodforcharity.api.entities.Donee;
-// import com.foodforcharity.api.entities.Person;
+import java.util.Optional;
 
-// import org.springframework.data.repository.CrudRepository;
+import com.foodforcharity.api.entities.Donee;
 
-// public interface DoneeRepository extends CrudRepository<Donee, Long> {
-//     Donee findByPerson(Person person);
-// }
+import org.springframework.data.repository.CrudRepository;
+
+public interface DoneeRepository extends CrudRepository<Donee, Long> {
+    Optional<Donee> findByDoneeId(long donorId);
+}

@@ -13,9 +13,4 @@ public class PersonRole {
     @Column(name = "Name")
     String name;
 
-    public PersonRole(String name){
-        this.name = name;
-    }
-
-    public PersonRole(){};
 }

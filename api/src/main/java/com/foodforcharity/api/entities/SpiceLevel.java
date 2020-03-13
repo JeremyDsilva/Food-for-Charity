@@ -13,26 +13,4 @@ public class SpiceLevel {
     @Column(name = "Name")
     private String name;
 
-    public SpiceLevel(String name){
-        this.name = name;
-    }
-
-    public SpiceLevel(){}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    };
-
 }

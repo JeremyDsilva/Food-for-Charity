@@ -3,6 +3,7 @@ C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering
 C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\entities\SpiceLevel.java
 C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\repository\RequestRepository.java
 C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\entities\Cuisine.java
+C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\entities\Broker.java
 C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\entities\Allergen.java
 C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\entities\convertors\BooleanCharacterConverter.java
 C:\Users\jerem\Documents\University\07 - Spring 2020\COE420 Software Engineering\foodforcharity\api\src\main\java\com\foodforcharity\api\repository\PersonRepository.java

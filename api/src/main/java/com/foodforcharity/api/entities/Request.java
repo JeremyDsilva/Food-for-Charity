@@ -16,11 +16,11 @@ public class Request {
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "donorId", referencedColumnName = "id")
+    @JoinColumn(name = "DonorId", referencedColumnName = "id")
     Donor donor;
 
     @OneToOne
-    @JoinColumn(name = "doneeId", referencedColumnName = "id")
+    @JoinColumn(name = "DoneeId", referencedColumnName = "id")
     Donee donee;
 
     @Column(name = "FinalPrice")

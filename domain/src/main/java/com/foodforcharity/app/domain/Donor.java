@@ -1,18 +1,10 @@
 package com.foodforcharity.app.domain;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
-import com.foodforcharity.common.Authority;
 import com.foodforcharity.common.Authority.DonorStatus;
-import com.foodforcharity.common.Authority.PersonRole;
-
-import org.springframework.security.core.GrantedAuthority;
 
 public class Donor extends Person {
-
-    long id;
+    
+    public long donorId;
 
     String donorName;
 
@@ -31,12 +23,5 @@ public class Donor extends Person {
     int numberOfRating;
 
     DonorStatus donorStatus;
-
-    List<Food> menu;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new Authority(PersonRole.Donor, donorStatus));
-    }
-
+    
 }

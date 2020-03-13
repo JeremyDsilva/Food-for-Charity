@@ -5,6 +5,7 @@ import java.util.List;
 import com.foodforcharity.common.Enum.Allergen;
 import com.foodforcharity.common.Enum.Cuisine;
 import com.foodforcharity.common.Enum.MealType;
+import com.foodforcharity.common.Enum.SpiceLevel;
 
 
 public class Food {
@@ -17,11 +18,11 @@ public class Food {
 
   int price;
 
-  int spiceLevel;
+  SpiceLevel spiceLevel;
   
   int quantityAvailable;
 
-  Donor donor;
+  // Donor donor;
 
   List<Allergen> allergens;
 
