@@ -16,13 +16,13 @@ public class Food {
 
   String descriptionText;
 
-  int price;
+  float orginalPrice;
 
   SpiceLevel spiceLevel;
-  
+
   int quantityAvailable;
 
-  // Donor donor;
+  Donor donor;
 
   List<Allergen> allergens;
 
