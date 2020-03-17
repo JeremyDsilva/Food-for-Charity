@@ -1,0 +1,7 @@
+com\foodforcharity\app\service\ComplaintRepository.class
+com\foodforcharity\app\service\RequestRepository.class
+com\foodforcharity\app\service\DonorRepository.class
+com\foodforcharity\app\service\DoneeRepository.class
+com\foodforcharity\app\service\ErrorLogRepository.class
+com\foodforcharity\app\service\FoodRepository.class
+com\foodforcharity\app\service\PersonRepository.class

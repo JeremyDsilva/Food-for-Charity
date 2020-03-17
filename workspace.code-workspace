@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "common"
+		},
+		{
+			"path": "domain"
+		},
+		{
+			"path": "service"
+		},
+		{
+			"path": "usecase"
+		},
+		{
+			"path": "web"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "security"
+		}
+	]
+}

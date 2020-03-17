@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Authority {
 
-    static public enum AuthorityEnum {
+    static public enum AuthorityEnum implements DbEnumeration<AuthorityEnum> {
         Broker(1), Donee(2), Donor(3), CreateRequest(4), MakeFoodAvailable(5), NoAuthority(6);
 
         private final int value;
@@ -19,7 +19,7 @@ public class Authority {
         }
     }
 
-    static public enum PersonRole {
+    static public enum PersonRole implements DbEnumeration<PersonRole> {
         Broker(1, AuthorityEnum.Broker), Donee(2, AuthorityEnum.Donee), Donor(3, AuthorityEnum.Donor);
 
         private final int value;
@@ -57,7 +57,7 @@ public class Authority {
         }
     }
 
-    static public enum DonorStatus implements Status {
+    static public enum DonorStatus implements Status, DbEnumeration<DonorStatus> {
         Initial(1, AuthorityEnum.Donor), Active(2, AuthorityEnum.MakeFoodAvailable),
         Inactive(3, AuthorityEnum.MakeFoodAvailable), Suspended(3, AuthorityEnum.NoAuthority);
 
@@ -83,7 +83,7 @@ public class Authority {
 
     }
 
-    static public enum DoneeStatus implements Status {
+    static public enum DoneeStatus implements Status, DbEnumeration<DoneeStatus> {
         Initial(1, AuthorityEnum.Donee), Active(2, AuthorityEnum.CreateRequest),
         Suspended(3, AuthorityEnum.NoAuthority);
 
