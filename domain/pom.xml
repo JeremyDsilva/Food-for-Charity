@@ -10,7 +10,6 @@
 	<artifactId>domain</artifactId>
 	<packaging>jar</packaging>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>com.foodforcharity</groupId>

@@ -21,6 +21,7 @@ public class Cuisine implements Serializable {
     }
 
 	@Id
+	@Column(name = "id")
 	private String name;
 
 	// bi-directional many-to-one association to MapDoneeCuisine

@@ -9,6 +9,7 @@ import com.foodforcharity.app.usecase.useraccount.register.RegisterCommand;
 import com.foodforcharity.app.usecase.useraccount.register.RegisterCommandHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 
 public class Mediator {
 
@@ -28,6 +29,11 @@ public class Mediator {
 	private <R> Boolean add(Class<? extends Command<R>> command, CommandHandler<? extends Command<R>, R> commandHandler) {
 		return commandHandlerMap.putIfAbsent(command, commandHandler) == null;
 	}
+
+    @Async
+    public <Response> Future<Response> publishAsync(Command<Response> command){
+        return commandHandlerMap.get(command.getClass()).handle(command);
+    }
 
     public <Response> Future<Response> publish(Command<Response> command){
         return commandHandlerMap.get(command.getClass()).handle(command);
