@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.foodforcharity.app.domain.ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.339 s - in com.foodforcharity.app.domain.ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.921 s - in com.foodforcharity.app.domain.ApplicationTests
