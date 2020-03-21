@@ -21,7 +21,7 @@ public class PersonController {
 
     String registerPerson(Model model) throws InterruptedException, ExecutionException {
         RegisterCommand registerCommand = new RegisterCommand();
-        Boolean isSuccessful = mediator.publish(registerCommand).get();      
+        Boolean isSuccessful = mediator.publishAsync(registerCommand).get();      
         model.addAttribute("Sucess", isSuccessful);
         return "register-view";        
     }

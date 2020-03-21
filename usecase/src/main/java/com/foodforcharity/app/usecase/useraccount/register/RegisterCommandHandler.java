@@ -1,11 +1,12 @@
 package com.foodforcharity.app.usecase.useraccount.register;
 
-import java.util.concurrent.Future;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.service.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RegisterCommandHandler implements CommandHandler<RegisterCommand, Boolean> {
 
     private final PersonRepository personRepository;
@@ -16,7 +17,7 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, B
     }
 
     @Override
-    public Future<Boolean> handle(RegisterCommand command) {
+    public Boolean handle(RegisterCommand command) {
 
         return null;
     }

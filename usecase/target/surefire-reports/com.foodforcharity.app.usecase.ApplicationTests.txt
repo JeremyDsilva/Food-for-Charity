@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.foodforcharity.app.usecase.ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.505 s - in com.foodforcharity.app.usecase.ApplicationTests

@@ -1,17 +1,15 @@
 package com.foodforcharity.app.usecase.useraccount.changepassword;
 
 import java.util.Optional;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import com.foodforcharity.app.domain.entity.Person;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.service.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswordCommand, Boolean> {
 
     private final PersonRepository personRepository;
@@ -35,17 +33,16 @@ public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswo
     public Boolean handle(ChangePasswordCommand command) {
         try {
 
-            Optional<Person> dbPerson = personRepository.findByUsername(command.getUserName());
+            Optional<Person> dbPerson = personRepository.findByUsername(command.userName);
 
             if (dbPerson.isPresent()) {
                 Person person = dbPerson.get();
-                if (person.getPasswordHash() == getPasswordHash(command.getOldPassword())) {
+                if (person.getPasswordHash() == getPasswordHash(command.oldPassword)) {
                     // setnew password
-                    person.setPasswordHash(getPasswordHash(command.getNewPassword()));
-                    person.setPasswordSalt(getPasswordSalt(command.getNewPassword()));
+                    person.setPasswordHash(getPasswordHash(command.newPassword));
+                    person.setPasswordSalt(getPasswordSalt(command.newPassword));
 
-                    // save back to repository
-                    personRepository.save(person);
+                    personRepository.save(person); // save back to repository
 
                     return true;
                 } else {
