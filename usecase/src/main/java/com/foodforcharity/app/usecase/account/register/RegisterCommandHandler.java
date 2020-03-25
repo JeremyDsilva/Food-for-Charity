@@ -1,25 +1,21 @@
-// package com.foodforcharity.app.usecase.useraccount.register;
+package com.foodforcharity.app.usecase.account.register;
 
-// import com.foodforcharity.app.mediator.CommandHandler;
-// import com.foodforcharity.app.service.PersonRepository;
+import com.foodforcharity.app.mediator.CommandHandler;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 
-// @Service
-// public class RegisterCommandHandler implements CommandHandler<RegisterCommand, Boolean> {
+@Service
+public class RegisterCommandHandler implements CommandHandler<RegisterCommand, Void> {
 
-//     private final PersonRepository personRepository;
+	public RegisterCommandHandler(){
 
-//     @Autowired
-//     RegisterCommandHandler(PersonRepository personRepository){
-//         this.personRepository = personRepository;
-//     }
+	}
 
-//     @Override
-//     public Boolean handle(RegisterCommand command) {
+	@Override
+	public Void handle(RegisterCommand command) {
 
-//         return null;
-//     }
-    
-// }
+		return null;
+
+	}
+
+}
