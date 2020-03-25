@@ -1,8 +1,11 @@
-// package com.foodforcharity.app.usecase.useraccount.register;
+package com.foodforcharity.app.usecase.account.register;
 
-// import com.foodforcharity.app.mediator.Command;
+import com.foodforcharity.app.mediator.Command;
 
-// public class RegisterCommand implements Command<Boolean> {
+public class RegisterCommand implements Command<Void> {
 
+	public RegisterCommand(){
 
-// }
+	}
+
+}
