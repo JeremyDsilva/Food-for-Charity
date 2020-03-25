@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<!--	Food list where the donor can add, modify or delete a food item
+        from the list 
+        
+-->
+<head>
+<meta charset="UTF-8">
+<title>Food List</title>
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+</style>
+</head>
+
+<body>
+  <script>
+    function SomeDeleteRowFunction(o) {
+     //no clue what to put here?
+     var p=o.parentNode.parentNode;
+         p.parentNode.removeChild(p);
+    }
+    </script>
+<input type="button" onclick="window.location.href = 'add-menu-item.html';" value="Add Item"/>
+<table id="myTable">
+    <tr class="header">
+      <th style="width:60%;">Name</th>
+      <th style="width:40%;">Type</th>
+      <th style="width:20%;"></th>
+      <th style="width:20%;"></th>
+    </tr>
+    <tr>
+      <td>Flafel</td>
+      <td>Arabian</td>
+      <td><input type="button" onclick="window.location.href = 'modify-menu-item.html';" value="modify"/></td>
+      <td><input type="button" onclick="SomeDeleteRowFunction(this)" value="delete"/></td>
+    </tr>
+  </table>
+  <template class="new-item">
+    
+  </template>
+  <template class="modify-item">
+    
+  </template>
+</body>
+</html>
