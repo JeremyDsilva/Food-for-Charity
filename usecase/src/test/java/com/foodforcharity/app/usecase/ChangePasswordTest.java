@@ -1,7 +1,7 @@
 package com.foodforcharity.app.usecase;
 
 import com.foodforcharity.app.mediator.Mediator;
-import com.foodforcharity.app.usecase.useraccount.changepassword.ChangePasswordCommand;
+import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ public class ChangePasswordTest {
 
     @Test
     public void testHandler() {
-        ChangePasswordCommand command = new ChangePasswordCommand("AnnitaRosinski", "abcd", "password");
+        ChangePasswordCommand command = new ChangePasswordCommand(Long.valueOf(1), "abcd", "password");
         mediator.publish(command);
     }
 

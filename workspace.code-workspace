@@ -16,9 +16,6 @@
 			"path": "web"
 		},
 		{
-			"path": "."
-		},
-		{
 			"path": "security"
 		}
 	]
