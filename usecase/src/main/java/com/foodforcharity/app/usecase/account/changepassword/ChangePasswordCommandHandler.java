@@ -1,4 +1,4 @@
-package com.foodforcharity.app.usecase.useraccount.changepassword;
+package com.foodforcharity.app.usecase.account.changepassword;
 
 import java.util.Optional;
 
@@ -19,39 +19,24 @@ public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswo
         this.personRepository = personRepository;
     }
 
-    private String getPasswordHash(String Password) {
-        // hashing algo
-        return Password;
-    }
-
-    private String getPasswordSalt(String Password) {
-        // hashing algo
-        return Password;
-    }
-
     @Override
     public Boolean handle(ChangePasswordCommand command) {
+        
         try {
 
-            Optional<Person> dbPerson = personRepository.findByUsername(command.userName);
+            Optional<Person> dbPerson = personRepository.findById(command.personId);
 
             if (dbPerson.isPresent()) {
                 Person person = dbPerson.get();
-                if (person.getPasswordHash() == getPasswordHash(command.oldPassword)) {
-                    // setnew password
-                    person.setPasswordHash(getPasswordHash(command.newPassword));
-                    person.setPasswordSalt(getPasswordSalt(command.newPassword));
-
-                    personRepository.save(person); // save back to repository
-
+                if (person.getPasswordHash() == command.oldPassword) {
+                    person.setPasswordHash(command.newPassword);
+                    personRepository.save(person);
                     return true;
                 } else {
                     return false;
                 }
             }
-
             else {
-                // return false
                 return false;
             }
 

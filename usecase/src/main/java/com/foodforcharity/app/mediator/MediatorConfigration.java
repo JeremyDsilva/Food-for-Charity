@@ -1,15 +1,10 @@
 package com.foodforcharity.app.mediator;
 
 import java.util.Hashtable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import com.foodforcharity.app.usecase.useraccount.changepassword.ChangePasswordCommand;
-import com.foodforcharity.app.usecase.useraccount.changepassword.ChangePasswordCommandHandler;
+import com.foodforcharity.app.usecase.account.changepassword.*;
 
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,16 +14,18 @@ import org.springframework.context.annotation.Configuration;
 public class MediatorConfigration {
 
     CommandHandler<ChangePasswordCommand, Boolean> changePasswordCommandHandler;
+    
+    private final MediatorImplementation mediator;
 
     @Autowired
     MediatorConfigration(CommandHandler<ChangePasswordCommand, Boolean> changePasswordCommandHandler) {
+        mediator = new MediatorImplementation();
         this.changePasswordCommandHandler = changePasswordCommandHandler;
     }
 
     @Bean
     public Mediator createMediator() {
-        MediatorImplementation mediator = new MediatorImplementation();
-        mediator.add(ChangePasswordCommand.class, changePasswordCommandHandler);
+        mediator.add(ChangePasswordCommand.class, changePasswordCommandHandler);       
 
         return mediator;
     }
@@ -36,12 +33,9 @@ public class MediatorConfigration {
     private class MediatorImplementation implements Mediator {
 
         private Hashtable<Class<? extends Command<?>>, CommandHandler> commandHandlerMap;
-        private ExecutorService executor;
 
-        @Autowired
         MediatorImplementation() {
             commandHandlerMap = new Hashtable<Class<? extends Command<?>>, CommandHandler>();
-            this.executor = Executors.newSingleThreadExecutor();
         }
 
         private <R> Boolean add(Class<? extends Command<R>> command,

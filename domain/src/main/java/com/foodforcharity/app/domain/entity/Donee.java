@@ -52,12 +52,12 @@ public class Donee extends Person {
 	private DoneeType doneeType;
 
 	// bi-directional many-to-one association to DoneePriceRange
-	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "donee", fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<DoneePriceRange> doneePriceRanges;
 
 	// bi-directional many-to-one association to DoneeSpiceRange
-	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "donee", fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<DoneeSpiceRange> doneeSpiceRanges;
 

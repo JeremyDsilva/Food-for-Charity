@@ -1,9 +1,5 @@
 com\foodforcharity\app\mediator\CommandHandler.class
-com\foodforcharity\app\usecase\useraccount\changepassword\ChangePasswordCommand.class
-com\foodforcharity\app\usecase\useraccount\register\RegisterCommand.class
 com\foodforcharity\app\mediator\Mediator.class
-com\foodforcharity\app\usecase\useraccount\changepassword\ChangePasswordCommandHandler.class
-com\foodforcharity\app\usecase\useraccount\register\RegisterCommandHandler.class
 com\foodforcharity\app\mediator\MediatorConfigration.class
 com\foodforcharity\app\mediator\MediatorConfigration$MediatorImplementation.class
 com\foodforcharity\app\mediator\Command.class
