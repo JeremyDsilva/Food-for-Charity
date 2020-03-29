@@ -2,6 +2,11 @@ package com.foodforcharity.app.domain.entity;
 
 import javax.persistence.*;
 
+import com.foodforcharity.app.domain.constant.DoneeStatus;
+import com.foodforcharity.app.domain.constant.DoneeType;
+import com.foodforcharity.app.domain.convertor.DoneeStatusConverter;
+import com.foodforcharity.app.domain.convertor.DoneeTypeConverter;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -42,13 +47,13 @@ public class Donee extends Person {
 	private Integer quantityRequested;
 
 	// bi-directional many-to-one association to DoneeStatus
-	@ManyToOne
-	@JoinColumn(name = "DONEE_STATUS_ID")
+	@JoinColumn(name = "DONEE_STATUS")
+	@Convert(converter = DoneeStatusConverter.class)
 	private DoneeStatus doneeStatus;
 
 	// bi-directional many-to-one association to DoneeType
-	@ManyToOne
-	@JoinColumn(name = "DONEE_TYPE_ID")
+	@JoinColumn(name = "DONEE_TYPE")
+	@Convert(converter = DoneeTypeConverter.class)
 	private DoneeType doneeType;
 
 	// bi-directional many-to-one association to DoneePriceRange
@@ -67,7 +72,7 @@ public class Donee extends Person {
 			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "AllergenId", referencedColumnName = "id") })
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Allergen> mapDoneeAllergens;
+	private List<Allergen> allergens;
 
 	// bi-directional many-to-one association to MapDoneeCuisine
 	@OneToMany(fetch = FetchType.EAGER)
@@ -75,7 +80,7 @@ public class Donee extends Person {
 			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "CuisineId", referencedColumnName = "id") })
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Cuisine> mapDoneeCuisines;
+	private List<Cuisine> cuisines;
 
 	// bi-directional many-to-one association to MapDoneeMealType
 	@OneToMany(fetch = FetchType.EAGER)
@@ -83,7 +88,7 @@ public class Donee extends Person {
 			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "MealTypeId", referencedColumnName = "id") })
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<MealType> mapDoneeMealTypes;
+	private List<MealType> mealTypes;
 
 	// bi-directional many-to-one association to Request
 	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)

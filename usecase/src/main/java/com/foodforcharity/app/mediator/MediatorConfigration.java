@@ -2,7 +2,7 @@ package com.foodforcharity.app.mediator;
 
 import java.util.Hashtable;
 
-import com.foodforcharity.app.usecase.account.changepassword.*;
+import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,12 +1,12 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import java.util.List;
+import com.foodforcharity.app.domain.convertor.ConstantEntity;
+import com.foodforcharity.app.domain.convertor.MealTypeStringConverter;
 
 
 /**
@@ -15,44 +15,36 @@ import java.util.List;
  */
 @Entity
 @Table(name="MEAL_TYPE")
-public class MealType implements Serializable {
+public class MealType extends ConstantEntity<com.foodforcharity.app.domain.constant.MealType> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	static public enum Value {
-        Vegan, Vegetratian, Chicken, Seafood, RedMeat;
-    }
 
-	@Id
-	@Column(name = "id")
-	private String name;
+	// // bi-directional many-to-one association to MapDoneeMealType
+	// @OneToMany(fetch=FetchType.LAZY)
+	// @JoinTable(name="MapDoneeMealType", joinColumns={
+	// 	@JoinColumn(name="MealTypeId",referencedColumnName="id")}
+	// 	,inverseJoinColumns = {
+	// 				 @JoinColumn(name = "DoneeId", referencedColumnName = "id") })
+	// @Fetch(value = FetchMode.SUBSELECT)
+	// private List<Donee> donees;
 
-	// bi-directional many-to-one association to MapDoneeMealType
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="MapDoneeMealType", joinColumns={
-		@JoinColumn(name="MealTypeId",referencedColumnName="id")}
-		,inverseJoinColumns = {
-					 @JoinColumn(name = "DoneeId", referencedColumnName = "id") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Donee> donees;
+	// // bi-directional many-to-one association to MapFoodMealType
+	// @OneToMany(fetch=FetchType.LAZY)
+	// @JoinTable(name="MapFoodMealType", joinColumns={
+	// 	@JoinColumn(name="MealTypeId",referencedColumnName="id")}
+	// 	,inverseJoinColumns = {
+	// 				 @JoinColumn(name = "FoodId", referencedColumnName = "id") })
+	// @Fetch(value = FetchMode.SUBSELECT)
+	// private List<Food> foods;
 
-	// bi-directional many-to-one association to MapFoodMealType
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="MapFoodMealType", joinColumns={
-		@JoinColumn(name="MealTypeId",referencedColumnName="id")}
-		,inverseJoinColumns = {
-					 @JoinColumn(name = "FoodId", referencedColumnName = "id") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Food> foods;
-
+	
 	public MealType() {
+		super(new MealTypeStringConverter());
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public MealType(com.foodforcharity.app.domain.constant.MealType mealType) {
+		this();
+		setConstant(mealType);
 	}
 
 	// public List<MapDoneeMealType> getMapDoneeMealTypes() {

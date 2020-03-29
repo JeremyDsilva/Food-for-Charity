@@ -3,6 +3,7 @@ package com.foodforcharity.app.domain.entity;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.convertor.DonorStatusConverter;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -51,8 +55,9 @@ public class Donor extends Person {
 	private Integer rating;
 
 	//bi-directional many-to-one association to DonorStatus
-	@ManyToOne
-	@JoinColumn(name="DONOR_STATUS_ID")
+	// @ManyToOne
+	@Column(name="DONOR_STATUS")
+	@Convert(converter = DonorStatusConverter.class)
 	private DonorStatus donorStatus;
 
 	// // bi-directional many-to-one association to Person

@@ -1,55 +1,44 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Entity;
 
-import java.util.List;
+import com.foodforcharity.app.domain.convertor.ConstantEntity;
+import com.foodforcharity.app.domain.convertor.CuisineStringConverter;
 
 /**
  * The persistent class for the CUISINE database table.
  * 
  */
 @Entity
-public class Cuisine implements Serializable {
+public class Cuisine extends ConstantEntity<com.foodforcharity.app.domain.constant.Cuisine> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	static public enum Value  {
-        Italian, Chinese, Indian, Thai, Mongolian, Japanese, Arab, French, Spanish, Mexican, Indonasian, Philapino, Greek, Portugal, Hawaain, Brazilian, Vietnam, Turkish, Belgravian, NoPreference;
-    }
+	// // bi-directional many-to-one association to MapDoneeCuisine
+	// @OneToMany(fetch = FetchType.LAZY)
+	// @JoinTable(name = "MapDoneeCuisine", joinColumns = {
+	// 		@JoinColumn(name = "CuisineId", referencedColumnName = "id") }, inverseJoinColumns = {
+	// 				@JoinColumn(name = "DoneeId", referencedColumnName = "id") })
+	// @Fetch(value = FetchMode.SUBSELECT)
+	// private List<Donee> donees;
 
-	@Id
-	@Column(name = "id")
-	private String name;
+	// // bi-directional many-to-one association to MapFoodCuisine
+	// @OneToMany(fetch = FetchType.LAZY)
+	// @JoinTable(name = "MapFoodCuisine", joinColumns = {
+	// 		@JoinColumn(name = "CuisineId", referencedColumnName = "id") }, inverseJoinColumns = {
+	// 				@JoinColumn(name = "FoodId", referencedColumnName = "id") })
+	// @Fetch(value = FetchMode.SUBSELECT)
+	// private List<Food> foods;
 
-	// bi-directional many-to-one association to MapDoneeCuisine
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "MapDoneeCuisine", joinColumns = {
-			@JoinColumn(name = "CuisineId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "DoneeId", referencedColumnName = "id") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Donee> donees;
-
-	// bi-directional many-to-one association to MapFoodCuisine
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "MapFoodCuisine", joinColumns = {
-			@JoinColumn(name = "CuisineId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "FoodId", referencedColumnName = "id") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Food> foods;
-
-	public Cuisine() {
+	public Cuisine(){
+		super(new CuisineStringConverter());
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	public Cuisine(com.foodforcharity.app.domain.constant.Cuisine cuisine) {
+		this();
+		setConstant(cuisine);
+	}	
 
 	// public List<MapDoneeCuisine> getMapDoneeCuisines() {
 	// return this.mapDoneeCuisines;

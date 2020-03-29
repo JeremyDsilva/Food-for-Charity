@@ -28,7 +28,7 @@ INSERT INTO "B00074902"."DONEE_STATUS" (NAME, Authority_Id) VALUES ('Suspended',
 
 ----------------------------   DoneeType   ----------------------------
 
-INSERT INTO "B00074902"."DONEE_TYPE" (NAME) VALUES ('Indivisual');
+INSERT INTO "B00074902"."DONEE_TYPE" (NAME) VALUES ('Individual');
 INSERT INTO "B00074902"."DONEE_TYPE" (NAME) VALUES ('Organization');
 
 ----------------------------   Spice Level   ----------------------------

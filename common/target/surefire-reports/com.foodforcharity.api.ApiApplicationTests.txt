@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.foodforcharity.api.ApiApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.426 s <<< FAILURE! - in com.foodforcharity.api.ApiApplicationTests
-com.foodforcharity.api.ApiApplicationTests  Time elapsed: 0.425 s  <<< ERROR!
-java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test
-

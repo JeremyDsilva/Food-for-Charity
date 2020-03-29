@@ -3,6 +3,9 @@ package com.foodforcharity.app.domain.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.foodforcharity.app.domain.convertor.ConstantEntity;
+import com.foodforcharity.app.domain.convertor.SpiceLevelStringConverter;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -15,40 +18,31 @@ import java.util.List;
  */
 @Entity
 @Table(name="SPICE_LEVEL")
-public class SpiceLevel implements Serializable {
+public class SpiceLevel extends ConstantEntity<com.foodforcharity.app.domain.constant.SpiceLevel> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	static public enum Value {
-        NoSpice, MildSpice, MediumSpice, Hot, ExtraHot;
-    }
+	// //bi-directional many-to-one association to DoneeSpiceRange
+	// @OneToMany(mappedBy="startLevel", fetch=FetchType.EAGER)
+	// private List<DoneeSpiceRange> doneeStartSpice;
 
-	@Id
-	@Column(name = "id")
-	private String name;
+	// //bi-directional many-to-one association to DoneeSpiceRange
+	// @OneToMany(mappedBy="endLevel", fetch=FetchType.EAGER)
+	// private List<DoneeSpiceRange> doneeEndSpice;
 
-	//bi-directional many-to-one association to DoneeSpiceRange
-	@OneToMany(mappedBy="startLevel", fetch=FetchType.EAGER)
-	private List<DoneeSpiceRange> doneeStartSpice;
+	// //bi-directional many-to-one association to Food
+	// @OneToMany(mappedBy="spiceLevel", fetch=FetchType.LAZY)
+	// @Fetch(value = FetchMode.SUBSELECT)
+	// private List<Food> foods;
 
-	//bi-directional many-to-one association to DoneeSpiceRange
-	@OneToMany(mappedBy="endLevel", fetch=FetchType.EAGER)
-	private List<DoneeSpiceRange> doneeEndSpice;
-
-	//bi-directional many-to-one association to Food
-	@OneToMany(mappedBy="spiceLevel", fetch=FetchType.LAZY)
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Food> foods;
-
-	public SpiceLevel() {
+	public SpiceLevel(){
+		super(new SpiceLevelStringConverter());
 	}
 
-	public String getName() {
-		return this.name;
-	}
+	public SpiceLevel(com.foodforcharity.app.domain.constant.SpiceLevel spiceLevel) {
+		this();
+		setConstant(spiceLevel);
+	}	
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	// public List<DoneeSpiceRange> getDoneeSpiceRanges1() {
 	// 	return this.doneeSpiceRanges1;

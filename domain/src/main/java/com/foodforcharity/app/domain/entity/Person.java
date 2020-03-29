@@ -1,8 +1,18 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 
 /**
  * The persistent class for the PERSON database table.
@@ -11,6 +21,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,11 +39,12 @@ public abstract class Person implements Serializable {
 	private String passwordSalt;
 
 	// bi-directional many-to-one association to MapPersonRole
-	@OneToMany(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinTable(name = "MapPersonRole", joinColumns = {
 			@JoinColumn(name = "id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "RoleId", referencedColumnName = "id") })
-	private List<PersonRole> personRoles;
+	// @Convert(converter = PersonRoleConverter.class)
+	private PersonRole personRole;
 
 	public Person() {
 	}
@@ -61,26 +73,13 @@ public abstract class Person implements Serializable {
 		this.passwordSalt = passwordSalt;
 	}
 
-	// public List<MapPersonRole> getMapPersonRoles() {
-	// 	return this.mapPersonRoles;
-	// }
+	public com.foodforcharity.app.domain.constant.PersonRole getPersonRole(){
+		return personRole.getConstant();
+	}
 
-	// public void setMapPersonRoles(List<MapPersonRole> mapPersonRoles) {
-	// 	this.mapPersonRoles = mapPersonRoles;
-	// }
+	public void setPersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole){
+		this.personRole.setConstant(personRole);
+	}
 
-	// public MapPersonRole addMapPersonRole(MapPersonRole mapPersonRole) {
-	// 	getMapPersonRoles().add(mapPersonRole);
-	// 	mapPersonRole.setPerson(this);
-
-	// 	return mapPersonRole;
-	// }
-
-	// public MapPersonRole removeMapPersonRole(MapPersonRole mapPersonRole) {
-	// 	getMapPersonRoles().remove(mapPersonRole);
-	// 	mapPersonRole.setPerson(null);
-
-	// 	return mapPersonRole;
-	// }
 
 }
