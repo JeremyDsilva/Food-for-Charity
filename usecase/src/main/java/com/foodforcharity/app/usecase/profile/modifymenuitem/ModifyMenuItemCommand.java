@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import com.foodforcharity.app.mediator.Command;
 
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable.Op;
+
 public class ModifyMenuItemCommand implements Command<Void> {
-	
+
 	long donorId;
 
 	long foodId;
@@ -14,7 +16,7 @@ public class ModifyMenuItemCommand implements Command<Void> {
 
 	Optional<Integer> mealForNPeople;
 
-	Optional<Integer> price;
+	Optional<Integer> originalPrice;
 
 	Optional<Integer> quantityAvailable;
 
@@ -23,19 +25,23 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	}
 
 	/**
+	 * Public Constructor
+	 * 
 	 * @param donorId
 	 * @param foodId
 	 */
 	public ModifyMenuItemCommand(long donorId, long foodId) {
 		this.donorId = donorId;
 		this.foodId = foodId;
-		descriptionText = Optional.empty();
-		mealForNPeople = Optional.empty();
-		price = Optional.empty();
+		this.descriptionText = Optional.empty();
+		this.mealForNPeople = Optional.empty();
+		this.originalPrice = Optional.empty();
+		this.quantityAvailable = Optional.empty();
+
 	}
 
 	/**
-	 * @param descriptionText the descriptionText to set 
+	 * @param descriptionText the descriptionText to set
 	 * @return
 	 */
 	public void setDescriptionText(String descriptionText) {
@@ -55,7 +61,7 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	 * @return
 	 */
 	public void setPrice(Integer price) {
-		this.price = Optional.of(price);
+		this.originalPrice = Optional.of(price);
 	}
 
 	/**
