@@ -5,58 +5,66 @@ import java.util.Optional;
 import com.foodforcharity.app.mediator.Command;
 
 public class ModifyMenuItemCommand implements Command<Void> {
+	
 	long donorId;
+
 	long foodId;
-	Optional<String> foodName;
+
 	Optional<String> descriptionText;
-	Optional<Integer> originalPrice;
+
 	Optional<Integer> mealForNPeople;
+
+	Optional<Integer> price;
+
 	Optional<Integer> quantityAvailable;
-	Optional<String> spiceLevel; // varchar in db -> what should the datatype be?
 
 	public ModifyMenuItemCommand() {
 
 	}
 
 	/**
-	 * Public Constructor
-	 * 
 	 * @param donorId
 	 * @param foodId
 	 */
 	public ModifyMenuItemCommand(long donorId, long foodId) {
 		this.donorId = donorId;
 		this.foodId = foodId;
+		descriptionText = Optional.empty();
+		mealForNPeople = Optional.empty();
+		price = Optional.empty();
 	}
 
-	public ModifyMenuItemCommand setFoodName(Optional<String> foodName) {
-		this.foodName = foodName;
-		return this;
+	/**
+	 * @param descriptionText the descriptionText to set 
+	 * @return
+	 */
+	public void setDescriptionText(String descriptionText) {
+		this.descriptionText = Optional.of(descriptionText);
 	}
 
-	public ModifyMenuItemCommand setDescriptionText(Optional<String> descriptionText) {
-		this.descriptionText = descriptionText;
-		return this;
+	/**
+	 * @param mealForNPeople the mealForNPeople to set
+	 * @return
+	 */
+	public void setMealForNPeople(Integer mealForNPeople) {
+		this.mealForNPeople = Optional.of(mealForNPeople);
 	}
 
-	public ModifyMenuItemCommand setOriginalPrice(Optional<Integer> originalPrice) {
-		this.originalPrice = originalPrice;
-		return this;
+	/**
+	 * @param price the price to set
+	 * @return
+	 */
+	public void setPrice(Integer price) {
+		this.price = Optional.of(price);
 	}
 
-	public ModifyMenuItemCommand setMealForNPeople(Optional<Integer> mealForNPeople) {
-		this.mealForNPeople = mealForNPeople;
-		return this;
-	}
-
-	public ModifyMenuItemCommand setQuantityAvailable(Optional<Integer> quantityAvailable) {
-		this.quantityAvailable = quantityAvailable;
-		return this;
-	}
-
-	public ModifyMenuItemCommand setSpiceLevel(Optional<String> spiceLevel) {
-		this.spiceLevel = spiceLevel;
-		return this;
+	/**
+	 * 
+	 * @param quantityAvailable
+	 * @return
+	 */
+	public void setQuantityAvailable(Integer quantityAvailable) {
+		this.quantityAvailable = Optional.of(quantityAvailable);
 	}
 
 }

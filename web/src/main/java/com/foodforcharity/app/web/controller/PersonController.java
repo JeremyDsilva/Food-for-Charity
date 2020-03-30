@@ -10,6 +10,7 @@ import com.foodforcharity.app.web.model.AuthenticationResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,11 +56,13 @@ public class PersonController {
 
     @PostMapping("/changepassword")
     @ResponseBody
-    public Boolean changePassword(Model model, @RequestParam(defaultValue = "password") String password,
+    public Boolean changePassword(Authentication authentication, Model model, @RequestParam(defaultValue = "password") String password,
             @RequestParam(defaultValue = "newPassword") String newPassword) throws ExecutionException {
         /*
          * Get person id from session
          */
+
+         
         long personId = 1;
 
         ChangePasswordCommand command = new ChangePasswordCommand(personId, password, newPassword);
