@@ -15,7 +15,7 @@ public class ViewComplaintsCommand implements Command<Void> {
 	 * @param personId
 	 */
 	public ViewComplaintsCommand(long personId) {
-		personId = personId;
+		this.personId = personId;
 	}
 
 }

@@ -3,8 +3,8 @@ package com.foodforcharity.app.usecase.profile.deletemenuitem;
 import com.foodforcharity.app.mediator.Command;
 
 public class DeleteMenuItemCommand implements Command<Void> {
-	long foodId;
 	long donorId;
+	long foodId;
 
 	public DeleteMenuItemCommand() {
 
@@ -16,9 +16,9 @@ public class DeleteMenuItemCommand implements Command<Void> {
 	 * @param foodId
 	 * @param donorId
 	 */
-	public DeleteMenuItemCommand(long foodId, long donorId) {
-		this.foodId = foodId;
+	public DeleteMenuItemCommand(long donorId, long foodId) {
 		this.donorId = donorId;
+		this.foodId = foodId;
 	}
 
 }

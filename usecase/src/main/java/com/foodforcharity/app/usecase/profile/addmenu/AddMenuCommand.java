@@ -1,5 +1,6 @@
 package com.foodforcharity.app.usecase.profile.addmenu;
 
+import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.mediator.Command;
 
 public class AddMenuCommand implements Command<Void> {
@@ -9,7 +10,7 @@ public class AddMenuCommand implements Command<Void> {
 	int originalPrice;
 	int mealForNPeople;
 	int quantityAvailable;
-	String spiceLevel; // varchar in db -> what should the datatype be?
+	SpiceLevel spiceLevel; 
 
 	public AddMenuCommand() {
 
@@ -27,7 +28,7 @@ public class AddMenuCommand implements Command<Void> {
 	 * @param spiceLevel
 	 */
 	public AddMenuCommand(long donorId, String foodName, String descriptionText, int originalPrice, int mealForNPeople,
-			int quantityAvailable, String spiceLevel) {
+			int quantityAvailable, SpiceLevel spiceLevel) {
 		this.donorId = donorId;
 		this.foodName = foodName;
 		this.descriptionText = descriptionText;

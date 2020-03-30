@@ -3,18 +3,18 @@ package com.foodforcharity.app.usecase.account.register;
 import java.util.Optional;
 
 import com.foodforcharity.app.domain.constant.DoneeType;
+import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.mediator.Command;
 
 public class RegisterCommand implements Command<Void> {
 	String name;
 	String password;
 	String email;
-	String personRole;
 	String phoneNumber;
 	String city;
 	String address;
-	// only if registering as a donee
-	// -> also why is the database type as string
+	
+	PersonRole personRole;
 	Optional<DoneeType> doneeType;
 	Optional<Integer> memberCount;
 
@@ -33,7 +33,7 @@ public class RegisterCommand implements Command<Void> {
 	 * @param city
 	 * @param address
 	 */
-	public RegisterCommand(String name, String password, String email, String personRole, String phoneNumber,
+	public RegisterCommand(String name, String password, String email, PersonRole personRole, String phoneNumber,
 			String city, String address) {
 		this.name = name;
 		this.password = password;

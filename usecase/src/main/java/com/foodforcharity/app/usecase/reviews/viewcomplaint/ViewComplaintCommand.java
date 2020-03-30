@@ -3,7 +3,7 @@ package com.foodforcharity.app.usecase.reviews.viewcomplaint;
 import com.foodforcharity.app.mediator.Command;
 
 public class ViewComplaintCommand implements Command<Void> {
-	long PersonId;
+	long personId;
 	long compaintId;
 
 	public ViewComplaintCommand() {
@@ -17,7 +17,7 @@ public class ViewComplaintCommand implements Command<Void> {
 	 * @param compaintId
 	 */
 	public ViewComplaintCommand(long personId, long compaintId) {
-		PersonId = personId;
+		this.personId = personId;
 		this.compaintId = compaintId;
 	}
 

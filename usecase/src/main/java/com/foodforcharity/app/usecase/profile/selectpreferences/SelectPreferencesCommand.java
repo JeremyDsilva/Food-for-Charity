@@ -80,8 +80,8 @@ public class SelectPreferencesCommand implements Command<Void> {
 	 * 
 	 * @param cuisines
 	 */
-	public void setCuisines(Optional<List<Cuisine> cuisines) {
-		this.cuisines =Optional.of( cuisines);
+	public void setCuisines(List<Cuisine> cuisines) {
+		this.cuisines = Optional.of(cuisines);
 	}
 
 	/**

@@ -37,4 +37,20 @@ public class CreateRequestCommand implements Command<Void> {
 		this.foodQuantityPairs = foodQuantityPairs;
 	}
 
+	/**
+	 * Public Constructor
+	 * 
+	 * @param doneeId
+	 * @param donorId
+	 */
+	public CreateRequestCommand(long doneeId, long donorId) {
+		this.doneeId = doneeId;
+		this.donorId = donorId;
+	}
+
+	public void addFood(long foodId, int quantity){
+		foodQuantityPairs.add(new FoodQuantityPair(foodId, quantity));
+	}
+
+
 }
