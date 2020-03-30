@@ -1,4 +1,4 @@
-package com.foodforcharity.app.service;
+package com.foodforcharity.app.web.configration;
 
 import java.util.concurrent.Executor;
 
