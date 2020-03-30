@@ -38,27 +38,24 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	 * @param descriptionText the descriptionText to set 
 	 * @return
 	 */
-	public ModifyMenuItemCommand setDescriptionText(String descriptionText) {
+	public void setDescriptionText(String descriptionText) {
 		this.descriptionText = Optional.of(descriptionText);
-		return this;
 	}
 
 	/**
 	 * @param mealForNPeople the mealForNPeople to set
 	 * @return
 	 */
-	public ModifyMenuItemCommand setMealForNPeople(Integer mealForNPeople) {
+	public void setMealForNPeople(Integer mealForNPeople) {
 		this.mealForNPeople = Optional.of(mealForNPeople);
-		return this;
 	}
 
 	/**
 	 * @param price the price to set
 	 * @return
 	 */
-	public ModifyMenuItemCommand setPrice(Integer price) {
+	public void setPrice(Integer price) {
 		this.price = Optional.of(price);
-		return this;
 	}
 
 	/**
@@ -66,9 +63,8 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	 * @param quantityAvailable
 	 * @return
 	 */
-	public ModifyMenuItemCommand setQuantityAvailable(Integer quantityAvailable) {
+	public void setQuantityAvailable(Integer quantityAvailable) {
 		this.quantityAvailable = Optional.of(quantityAvailable);
-		return this;
 	}
 
 }
