@@ -6,7 +6,7 @@ public class ChangePasswordCommand implements Command<Boolean> {
     Long personId;
     String oldPassword;
     String newPassword;
-    
+
     /**
      * @param personId
      * @param oldPassword
