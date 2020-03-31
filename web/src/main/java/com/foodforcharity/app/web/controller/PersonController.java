@@ -2,6 +2,7 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.login.LoginCommand;
@@ -38,15 +39,16 @@ public class PersonController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<AuthenticationResponse> getLoginView(
-            @RequestBody AuthenticationRequest authenticationRequest) throws ExecutionException {
+    public ResponseEntity<AuthenticationResponse> getLoginView(@RequestBody AuthenticationRequest authenticationRequest)
+            throws ExecutionException {
 
         LoginCommand command = new LoginCommand(authenticationRequest.getUsername(),
                 authenticationRequest.getPassword());
 
-        String jwt = mediator.publishAsync(command).get();
+        Response<String> jwt = mediator.publishAsync(command).get();
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        return ResponseEntity.ok(new AuthenticationResponse(jwt.getResponse()));
+
     }
 
     @GetMapping("/changepassword")
@@ -56,18 +58,18 @@ public class PersonController {
 
     @PostMapping("/changepassword")
     @ResponseBody
-    public Boolean changePassword(Authentication authentication, Model model, @RequestParam(defaultValue = "password") String password,
+    public Boolean changePassword(Authentication authentication, Model model,
+            @RequestParam(defaultValue = "password") String password,
             @RequestParam(defaultValue = "newPassword") String newPassword) throws ExecutionException {
         /*
          * Get person id from session
          */
 
-         
         long personId = 1;
 
         ChangePasswordCommand command = new ChangePasswordCommand(personId, password, newPassword);
 
-        Boolean isSuccessful = mediator.publishAsync(command).get();
+        Boolean isSuccessful =  mediator.publishAsync(command).get();
 
         return isSuccessful;
     }

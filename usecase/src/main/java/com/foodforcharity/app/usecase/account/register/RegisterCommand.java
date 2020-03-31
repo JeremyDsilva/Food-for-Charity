@@ -4,9 +4,10 @@ import java.util.Optional;
 
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class RegisterCommand implements Command<Void> {
+public class RegisterCommand implements Command<Response<Void>> {
 	String name;
 	String password;
 	String email;
