@@ -21,8 +21,8 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	Optional<Integer> originalPrice;
 
 	Optional<Integer> quantityAvailable;
-	Optional<List<Cuisine>> cuisines;
-	Optional<List<MealType>> mealTypes;
+	Optional<Cuisine> cuisine;
+	Optional<MealType> mealType;
 	Optional<List<Allergen>> allergens;
 
 	public ModifyMenuItemCommand() {
@@ -42,8 +42,8 @@ public class ModifyMenuItemCommand implements Command<Void> {
 		this.mealForNPeople = Optional.empty();
 		this.originalPrice = Optional.empty();
 		this.quantityAvailable = Optional.empty();
-		this.cuisines = Optional.empty();
-		this.mealTypes = Optional.empty();
+		this.cuisine = Optional.empty();
+		this.mealType = Optional.empty();
 		this.allergens = Optional.empty();
 	}
 
@@ -92,16 +92,17 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	 * 
 	 * @param cuisines
 	 */
-	public void setCuisines(List<Cuisine> cuisines) {
-		this.cuisines = Optional.of(cuisines);
+	public void setCuisine(Cuisine cuisines) {
+		this.cuisine = Optional.of(cuisines);
 	}
 
 	/**
 	 * 
 	 * @param mealTypes
 	 */
-	public void setMealTypes(List<MealType> mealTypes) {
-		this.mealTypes = Optional.of(mealTypes);
+	public void setMealType(MealType mealTypes) {
+		this.mealType = Optional.of(mealTypes);
 	}
+
 
 }
