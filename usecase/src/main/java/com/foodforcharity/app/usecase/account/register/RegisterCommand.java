@@ -14,9 +14,10 @@ public class RegisterCommand implements Command<Response<Void>> {
 	String phoneNumber;
 	String city;
 	String address;
+	String country;
 	
-	PersonRole personRole;
-	Optional<DoneeType> doneeType;
+	PersonRole personRole; // donor/donee 
+	Optional<DoneeType> doneeType; // org/ind
 	Optional<Integer> memberCount;
 
 	public RegisterCommand() {
@@ -33,9 +34,10 @@ public class RegisterCommand implements Command<Response<Void>> {
 	 * @param phoneNumber
 	 * @param city
 	 * @param address
+	 * @param country;
 	 */
 	public RegisterCommand(String name, String password, String email, PersonRole personRole, String phoneNumber,
-			String city, String address) {
+			String city,String country, String address) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
@@ -43,8 +45,10 @@ public class RegisterCommand implements Command<Response<Void>> {
 		this.phoneNumber = phoneNumber;
 		this.city = city;
 		this.address = address;
+		this.country= country;
 		this.doneeType = Optional.empty();
 		this.memberCount = Optional.empty();
+		
 	}
 
 	/**
