@@ -1,5 +1,11 @@
 package com.foodforcharity.app.usecase.profile.addmenu;
 
+import java.util.List;
+import java.util.Optional;
+
+import com.foodforcharity.app.domain.constant.Allergen;
+import com.foodforcharity.app.domain.constant.Cuisine;
+import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.mediator.Command;
 
@@ -10,7 +16,13 @@ public class AddMenuCommand implements Command<Void> {
 	int originalPrice;
 	int mealForNPeople;
 	int quantityAvailable;
-	SpiceLevel spiceLevel; 
+	SpiceLevel spiceLevel;
+	MealType mealType;
+	Cuisine cuisine;
+	/*
+	 * optional becasue not every food item necessarily has an allergen
+	 */
+	Optional<List<Allergen>> allergens;
 
 	public AddMenuCommand() {
 
@@ -26,9 +38,13 @@ public class AddMenuCommand implements Command<Void> {
 	 * @param mealForNPeople
 	 * @param quantityAvailable
 	 * @param spiceLevel
+	 * @param mealType
+	 * @param cuisine
+	 * @param allergens
 	 */
 	public AddMenuCommand(long donorId, String foodName, String descriptionText, int originalPrice, int mealForNPeople,
-			int quantityAvailable, SpiceLevel spiceLevel) {
+			int quantityAvailable, SpiceLevel spiceLevel, MealType mealType, Cuisine cuisine,
+			Optional<List<Allergen>> allergens) {
 		this.donorId = donorId;
 		this.foodName = foodName;
 		this.descriptionText = descriptionText;
@@ -36,6 +52,16 @@ public class AddMenuCommand implements Command<Void> {
 		this.mealForNPeople = mealForNPeople;
 		this.quantityAvailable = quantityAvailable;
 		this.spiceLevel = spiceLevel;
+		this.mealType = mealType;
+		this.cuisine = cuisine;
+		this.allergens = allergens;
 	}
 
+	/**
+	 * 
+	 * @param allergens
+	 */
+	public void setAllergens(List<Allergen> allergens) {
+		this.allergens = Optional.of(allergens);
+	}
 }

@@ -1,7 +1,11 @@
 package com.foodforcharity.app.usecase.profile.modifymenuitem;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.foodforcharity.app.domain.constant.Allergen;
+import com.foodforcharity.app.domain.constant.Cuisine;
+import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.mediator.Command;
 
 public class ModifyMenuItemCommand implements Command<Void> {
@@ -17,6 +21,9 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	Optional<Integer> originalPrice;
 
 	Optional<Integer> quantityAvailable;
+	Optional<List<Cuisine>> cuisines;
+	Optional<List<MealType>> mealTypes;
+	Optional<List<Allergen>> allergens;
 
 	public ModifyMenuItemCommand() {
 
@@ -35,7 +42,17 @@ public class ModifyMenuItemCommand implements Command<Void> {
 		this.mealForNPeople = Optional.empty();
 		this.originalPrice = Optional.empty();
 		this.quantityAvailable = Optional.empty();
+		this.cuisines = Optional.empty();
+		this.mealTypes = Optional.empty();
+		this.allergens = Optional.empty();
+	}
 
+	/**
+	 * 
+	 * @param allergens
+	 */
+	public void setAllergens(List<Allergen> allergens) {
+		this.allergens = Optional.of(allergens);
 	}
 
 	/**
@@ -69,6 +86,22 @@ public class ModifyMenuItemCommand implements Command<Void> {
 	 */
 	public void setQuantityAvailable(Integer quantityAvailable) {
 		this.quantityAvailable = Optional.of(quantityAvailable);
+	}
+
+	/**
+	 * 
+	 * @param cuisines
+	 */
+	public void setCuisines(List<Cuisine> cuisines) {
+		this.cuisines = Optional.of(cuisines);
+	}
+
+	/**
+	 * 
+	 * @param mealTypes
+	 */
+	public void setMealTypes(List<MealType> mealTypes) {
+		this.mealTypes = Optional.of(mealTypes);
 	}
 
 }
