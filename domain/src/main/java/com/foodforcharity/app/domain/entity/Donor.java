@@ -1,6 +1,7 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -14,6 +15,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.convertor.DonorStatusConverter;
+import com.foodforcharity.app.domain.security.PersonStatus;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -205,6 +207,11 @@ public class Donor extends Person {
 		request.setDonor(null);
 
 		return request;
+	}
+
+	@Override
+	public Optional<PersonStatus> getPersonStatus() {
+		return Optional.of(donorStatus);
 	}
 
 }

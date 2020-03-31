@@ -1,6 +1,7 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+
+import com.foodforcharity.app.domain.security.PersonStatus;
 
 /**
  * The persistent class for the PERSON database table.
@@ -49,6 +52,20 @@ public abstract class Person implements Serializable {
 	public Person() {
 	}
 
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return this.username;
 	}
@@ -73,13 +90,16 @@ public abstract class Person implements Serializable {
 		this.passwordSalt = passwordSalt;
 	}
 
-	public com.foodforcharity.app.domain.constant.PersonRole getPersonRole(){
+	public com.foodforcharity.app.domain.constant.PersonRole getPersonRole() {
 		return personRole.getConstant();
 	}
 
-	public void setPersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole){
+	public void setPersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole) {
 		this.personRole.setConstant(personRole);
 	}
 
+	public Optional<PersonStatus> getPersonStatus() {
+		return Optional.empty();
+	}
 
 }

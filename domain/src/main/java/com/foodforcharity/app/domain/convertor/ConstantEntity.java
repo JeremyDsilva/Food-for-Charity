@@ -1,5 +1,8 @@
 package com.foodforcharity.app.domain.convertor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
@@ -23,6 +26,14 @@ public abstract class ConstantEntity<E extends Enum<E>> {
 
 	public void setConstant(E attribute){
 		this.id = converter.convertToDatabaseColumn(attribute);
-	}
+    }
+
+    public static <E extends Enum<E>> List<E> getConstants(List<? extends ConstantEntity<E>> constantEntities){
+        List<E> list = new ArrayList<E>(); 
+        for (var entity : constantEntities) {
+            list.add(entity.getConstant());
+        }
+        return list;
+    }
 
 }

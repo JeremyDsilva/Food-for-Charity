@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The persistent class for the FOOD database table.
@@ -57,7 +58,7 @@ public class Food implements Serializable {
 			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "CuisineId", referencedColumnName = "id") })
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Cuisine> mapFoodCuisines;
+	private List<Cuisine> cuisines;
 
 	// bi-directional many-to-one association to MapFoodMealType
 	@OneToMany(fetch = FetchType.EAGER)
@@ -227,6 +228,48 @@ public class Food implements Serializable {
 		subRequest.setFood(null);
 
 		return subRequest;
+	}
+
+	/**
+	 * @return the allergens
+	 */
+	public List<com.foodforcharity.app.domain.constant.Allergen> getAllergens() {
+		return Allergen.getConstants(allergens);
+	}
+
+	/**
+	 * @param allergens the allergens to set
+	 */
+	public void setAllergens(List<com.foodforcharity.app.domain.constant.Allergen> allergens) {
+		this.allergens = allergens.stream().map(attribute -> new Allergen(attribute)).collect(Collectors.toList());
+	}
+
+	/**
+	 * @return the cuisines
+	 */
+	public List<com.foodforcharity.app.domain.constant.Cuisine> getCuisines() {
+		return Cuisine.getConstants(cuisines);
+	}
+
+	/**
+	 * @param cuisines the cuisines to set
+	 */
+	public void setCuisines(List<com.foodforcharity.app.domain.constant.Cuisine> cuisines) {
+		this.cuisines = cuisines.stream().map(attribute -> new Cuisine(attribute)).collect(Collectors.toList());
+	}
+
+	/**
+	 * @return the mealTypes
+	 */
+	public List<com.foodforcharity.app.domain.constant.MealType> getMealTypes() {
+		return MealType.getConstants(mealTypes);
+	}
+
+	/**
+	 * @param mealTypes the mealTypes to set
+	 */
+	public void setMealTypes(List<com.foodforcharity.app.domain.constant.MealType> mealTypes) {
+		this.mealTypes = mealTypes.stream().map(attribute -> new MealType(attribute)).collect(Collectors.toList());
 	}
 
 }

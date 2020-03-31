@@ -1,16 +1,27 @@
 package com.foodforcharity.app.domain.entity;
 
-import javax.persistence.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
+import com.foodforcharity.app.domain.convertor.ConstantEntity;
 import com.foodforcharity.app.domain.convertor.DoneeStatusConverter;
 import com.foodforcharity.app.domain.convertor.DoneeTypeConverter;
+import com.foodforcharity.app.domain.security.PersonStatus;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import java.util.List;
 
 /**
  * The persistent class for the DONEE database table.
@@ -309,5 +320,54 @@ public class Donee extends Person {
 
 		return request;
 	}
+
+	@Override
+	public Optional<PersonStatus> getPersonStatus() {
+		return Optional.of(doneeStatus);
+	}
+
+	/**
+	 * @return the allergens
+	 */
+	public List<com.foodforcharity.app.domain.constant.Allergen> getAllergens() {
+		return Allergen.getConstants(allergens);
+	}
+
+	/**
+	 * @param allergens the allergens to set
+	 */
+	public void setAllergens(List<com.foodforcharity.app.domain.constant.Allergen> allergens) {
+		this.allergens = allergens.stream().map(attribute -> new Allergen(attribute)).collect(Collectors.toList());
+	}
+
+	/**
+	 * @return the cuisines
+	 */
+	public List<com.foodforcharity.app.domain.constant.Cuisine> getCuisines() {
+		return Cuisine.getConstants(cuisines);
+	}
+
+	/**
+	 * @param cuisines the cuisines to set
+	 */
+	public void setCuisines(List<com.foodforcharity.app.domain.constant.Cuisine> cuisines) {
+		this.cuisines = cuisines.stream().map(attribute -> new Cuisine(attribute)).collect(Collectors.toList());
+	}
+
+	/**
+	 * @return the mealTypes
+	 */
+	public List<com.foodforcharity.app.domain.constant.MealType> getMealTypes() {
+		return MealType.getConstants(mealTypes);
+	}
+
+	/**
+	 * @param mealTypes the mealTypes to set
+	 */
+	public void setMealTypes(List<com.foodforcharity.app.domain.constant.MealType> mealTypes) {
+		this.mealTypes = mealTypes.stream().map(attribute -> new MealType(attribute)).collect(Collectors.toList());
+	}
+
+	
 
 }

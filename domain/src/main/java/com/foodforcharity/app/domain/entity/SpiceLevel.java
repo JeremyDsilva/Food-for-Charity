@@ -1,15 +1,12 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.foodforcharity.app.domain.convertor.ConstantEntity;
 import com.foodforcharity.app.domain.convertor.SpiceLevelStringConverter;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import java.util.List;
 
 
 /**
