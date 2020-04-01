@@ -8,7 +8,7 @@
 <div layout:fragment="content">
     <div class="container main-content">
         <h3>Food for Charity Login</h3>
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{user/login}" method="post">
             <div th:if="${param.error}">
                 <div class="alert alert-danger">
                     Invalid username or password.
