@@ -9,6 +9,7 @@
 **/.settings/*
 **/.classpath
 **/.project
+**/bin
 
 # vscode files
 workspace.code-workspace

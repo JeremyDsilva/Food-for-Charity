@@ -6,6 +6,7 @@ import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.login.LoginCommand;
+import com.foodforcharity.app.usecase.account.register.RegisterCommand;
 import com.foodforcharity.app.web.model.AuthenticationRequest;
 import com.foodforcharity.app.web.model.AuthenticationResponse;
 
@@ -83,9 +84,9 @@ public class PersonController {
     public String register() throws ExecutionException{
         RegisterCommand command = new RegisterCommand();
 
-        Boolean isSuccessful = mediator.publishAsync(command).get();
+       Response<Void> response = mediator.publishAsync(command).get();
 
-        if(isSuccessful){
+        if(response.success()){
             return "home";
         }
         else return "login";
