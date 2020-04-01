@@ -72,4 +72,21 @@ public class PersonController {
         return isSuccessful;
     }
 
+    @GetMapping("/register")
+    public String getRegisterView(Model model){
+        return "register";
+    }
+    
+    @PostMapping("/register")
+    public String register() throws ExecutionException{
+        RegisterCommand command = new RegisterCommand();
+
+        Boolean isSuccessful = mediator.publishAsync(command).get();
+
+        if(isSuccessful){
+            return "home";
+        }
+        else return "login";
+    }
+
 }
