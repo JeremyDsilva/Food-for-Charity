@@ -45,7 +45,7 @@ public abstract class Person implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinTable(name = "MapPersonRole", joinColumns = {
 			@JoinColumn(name = "id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "RoleId", referencedColumnName = "id") })
+					@JoinColumn(name = "RoleId", referencedColumnName = "Name") })
 	// @Convert(converter = PersonRoleConverter.class)
 	private PersonRole personRole;
 

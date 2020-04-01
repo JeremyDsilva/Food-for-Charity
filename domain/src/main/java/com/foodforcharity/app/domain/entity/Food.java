@@ -3,6 +3,9 @@ package com.foodforcharity.app.domain.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.convertor.SpiceLevelStringConverter;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -40,15 +43,17 @@ public class Food implements Serializable {
 	private Donor donor;
 
 	// bi-directional many-to-one association to SpiceLevel
-	@ManyToOne
+	// @ManyToOne
 	@JoinColumn(name = "SPICE_LEVEL")
+	// @Convert(converter = SpiceLevelStringConverter.class)
+	@Enumerated(EnumType.STRING)
 	private SpiceLevel spiceLevel;
 
 	// bi-directional many-to-one association to MapFoodAllergen
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MapFoodAllergen", joinColumns = {
 			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "AllergenId", referencedColumnName = "id") })
+					@JoinColumn(name = "AllergenId", referencedColumnName = "Name") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Allergen> allergens;
 
@@ -56,7 +61,7 @@ public class Food implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MapFoodCuisine", joinColumns = {
 			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "CuisineId", referencedColumnName = "id") })
+					@JoinColumn(name = "CuisineId", referencedColumnName = "Name") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Cuisine> cuisines;
 
@@ -64,7 +69,7 @@ public class Food implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MapFoodMealType", joinColumns = {
 			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "MealTypeId", referencedColumnName = "id") })
+					@JoinColumn(name = "MealTypeId", referencedColumnName = "Name") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<MealType> mealTypes;
 

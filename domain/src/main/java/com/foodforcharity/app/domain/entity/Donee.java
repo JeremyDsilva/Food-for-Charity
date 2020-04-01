@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -15,7 +17,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
-import com.foodforcharity.app.domain.convertor.ConstantEntity;
 import com.foodforcharity.app.domain.convertor.DoneeStatusConverter;
 import com.foodforcharity.app.domain.convertor.DoneeTypeConverter;
 import com.foodforcharity.app.domain.security.PersonStatus;
@@ -59,12 +60,14 @@ public class Donee extends Person {
 
 	// bi-directional many-to-one association to DoneeStatus
 	@JoinColumn(name = "DONEE_STATUS")
-	@Convert(converter = DoneeStatusConverter.class)
+	// @Convert(converter = DoneeStatusConverter.class)
+	@Enumerated(EnumType.STRING)
 	private DoneeStatus doneeStatus;
 
 	// bi-directional many-to-one association to DoneeType
 	@JoinColumn(name = "DONEE_TYPE")
-	@Convert(converter = DoneeTypeConverter.class)
+	// @Convert(converter = DoneeTypeConverter.class)
+	@Enumerated(EnumType.STRING)
 	private DoneeType doneeType;
 
 	// bi-directional many-to-one association to DoneePriceRange
@@ -81,7 +84,7 @@ public class Donee extends Person {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MapDoneeAllergen", joinColumns = {
 			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "AllergenId", referencedColumnName = "id") })
+					@JoinColumn(name = "AllergenId", referencedColumnName = "Name") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Allergen> allergens;
 
@@ -89,7 +92,7 @@ public class Donee extends Person {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MapDoneeCuisine", joinColumns = {
 			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "CuisineId", referencedColumnName = "id") })
+					@JoinColumn(name = "CuisineId", referencedColumnName = "Name") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Cuisine> cuisines;
 
@@ -97,7 +100,7 @@ public class Donee extends Person {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "MapDoneeMealType", joinColumns = {
 			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "MealTypeId", referencedColumnName = "id") })
+					@JoinColumn(name = "MealTypeId", referencedColumnName = "Name") })
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<MealType> mealTypes;
 

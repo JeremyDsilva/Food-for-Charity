@@ -1,6 +1,7 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 
@@ -17,7 +18,7 @@ public class Allergen extends ConstantEntity<com.foodforcharity.app.domain.const
 	private static final long serialVersionUID = 1L;
 
 	public Allergen() {
-		super(new AllergenStringConverter());
+		super(new AllergenStringConverter(), Arrays.asList(com.foodforcharity.app.domain.constant.Allergen.values()));
 	}
 
 	public Allergen(com.foodforcharity.app.domain.constant.Allergen allergen) {
