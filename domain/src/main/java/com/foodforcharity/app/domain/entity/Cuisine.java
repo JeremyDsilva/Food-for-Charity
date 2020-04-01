@@ -1,6 +1,7 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 
@@ -32,7 +33,7 @@ public class Cuisine extends ConstantEntity<com.foodforcharity.app.domain.consta
 	// private List<Food> foods;
 
 	public Cuisine(){
-		super(new CuisineStringConverter());
+		super(new CuisineStringConverter(), Arrays.asList(com.foodforcharity.app.domain.constant.Cuisine.values()));
 	}
 
 	public Cuisine(com.foodforcharity.app.domain.constant.Cuisine cuisine) {

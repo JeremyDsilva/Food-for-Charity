@@ -1,0 +1,18 @@
+# Java
+*.class
+*.jar
+
+# Maven
+**/target/
+
+# Eclipse
+**/.settings/*
+**/.classpath
+**/.project
+
+# vscode files
+workspace.code-workspace
+**/.vscode/*
+
+# OS X
+.DS_Store

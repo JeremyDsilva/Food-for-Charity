@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,6 @@ import com.foodforcharity.app.domain.security.PersonStatus;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-
 /**
  * The persistent class for the DONOR database table.
  * 
@@ -31,46 +32,47 @@ public class Donor extends Person {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name="ADDRESS_DESCRIPTION")
+	@Column(name = "ADDRESS_DESCRIPTION")
 	private String addressDescription;
 
 	private String city;
 
 	private String country;
 
-	@Column(name="DONOR_NAME")
+	@Column(name = "DONOR_NAME")
 	private String donorName;
 
 	private String email;
 
-	@Column(name="NUMBER_OF_RATING")
+	@Column(name = "NUMBER_OF_RATING")
 	private Integer numberOfRating;
 
-	@Column(name="PHONE_NUMBER")
+	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
 
 	private Integer rating;
 
-	//bi-directional many-to-one association to DonorStatus
+	// bi-directional many-to-one association to DonorStatus
 	// @ManyToOne
 	@Column(name="DONOR_STATUS")
-	@Convert(converter = DonorStatusConverter.class)
+	// @Convert(converter = DonorStatusConverter.class)
+	@Enumerated(EnumType.STRING)
 	private DonorStatus donorStatus;
 
 	// // bi-directional many-to-one association to Person
 	// @OneToOne
 	// private Person person;
 
-	//bi-directional many-to-one association to Food
-	@OneToMany(mappedBy="donor", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Food
+	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Food> foods;
 
-	//bi-directional many-to-one association to Request
-	@OneToMany(mappedBy="donor", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Request
+	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Request> requests;
 
@@ -159,11 +161,11 @@ public class Donor extends Person {
 	}
 
 	// public Person getPerson() {
-	// 	return this.person;
+	// return this.person;
 	// }
 
 	// public void setPerson(Person person) {
-	// 	this.person = person;
+	// this.person = person;
 	// }
 
 	public List<Food> getFoods() {

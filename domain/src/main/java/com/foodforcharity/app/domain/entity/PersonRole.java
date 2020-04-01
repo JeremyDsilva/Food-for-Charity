@@ -1,6 +1,7 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -18,7 +19,7 @@ public class PersonRole extends ConstantEntity<com.foodforcharity.app.domain.con
 	private static final long serialVersionUID = 1L;
 
 	public PersonRole(){
-		super(new PersonRoleStringConverter());
+		super(new PersonRoleStringConverter(), Arrays.asList(com.foodforcharity.app.domain.constant.PersonRole.values()));
 	}
 
 	public PersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole) {
