@@ -75,6 +75,7 @@ public class Donor extends Person {
 	private List<Request> requests;
 
 	public Donor() {
+		super(com.foodforcharity.app.domain.constant.PersonRole.Donor);
 	}
 
 	public long getId() {

@@ -1,35 +1,26 @@
 ----------------------------   Person Role   ----------------------------
 
-INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('Broker');
-INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('Donor');
-INSERT INTO "B00074902"."PERSON_ROLE" (NAME) VALUES ('Donee');
-
-----------------------------   Authority   ----------------------------
-
-INSERT INTO "B00074902"."AUTHORITY" (Authority) VALUES ('Broker');
-INSERT INTO "B00074902"."AUTHORITY" (Authority) VALUES ('Donor');
-INSERT INTO "B00074902"."AUTHORITY" (Authority) VALUES ('Donee');
-INSERT INTO "B00074902"."AUTHORITY" (Authority) VALUES ('CreateRequest');
-INSERT INTO "B00074902"."AUTHORITY" (Authority) VALUES ('MakeFoodAvailable');
-INSERT INTO "B00074902"."AUTHORITY" (Authority) VALUES ('NoAuthority');
+INSERT INTO "B00074902"."PERSON_ROLE" (ID) VALUES ('Broker');
+INSERT INTO "B00074902"."PERSON_ROLE" (ID) VALUES ('Donor');
+INSERT INTO "B00074902"."PERSON_ROLE" (ID) VALUES ('Donee');
 
 ----------------------------   Donor Status   ----------------------------
 
-INSERT INTO "B00074902"."DONOR_STATUS" (NAME, Authority_Id) VALUES ('Initial', 2);
-INSERT INTO "B00074902"."DONOR_STATUS" (NAME, Authority_Id) VALUES ('Active', 5);
-INSERT INTO "B00074902"."DONOR_STATUS" (NAME, Authority_Id) VALUES ('Inactive', 5);
-INSERT INTO "B00074902"."DONOR_STATUS" (NAME, Authority_Id) VALUES ('Suspended', 6);
+INSERT INTO "B00074902"."DONOR_STATUS" (ID) VALUES ('Initial');
+INSERT INTO "B00074902"."DONOR_STATUS" (ID) VALUES ('Active');
+INSERT INTO "B00074902"."DONOR_STATUS" (ID) VALUES ('Inactive');
+INSERT INTO "B00074902"."DONOR_STATUS" (ID) VALUES ('Suspended');
 
 ----------------------------   Donee Status   ----------------------------
 
-INSERT INTO "B00074902"."DONEE_STATUS" (NAME, Authority_Id) VALUES ('Initial', 3);
-INSERT INTO "B00074902"."DONEE_STATUS" (NAME, Authority_Id) VALUES ('Active', 4);
-INSERT INTO "B00074902"."DONEE_STATUS" (NAME, Authority_Id) VALUES ('Suspended', 6);
+INSERT INTO "B00074902"."DONEE_STATUS" (ID) VALUES ('Initial');
+INSERT INTO "B00074902"."DONEE_STATUS" (ID) VALUES ('Active');
+INSERT INTO "B00074902"."DONEE_STATUS" (ID) VALUES ('Suspended');
 
 ----------------------------   DoneeType   ----------------------------
 
-INSERT INTO "B00074902"."DONEE_TYPE" (NAME) VALUES ('Individual');
-INSERT INTO "B00074902"."DONEE_TYPE" (NAME) VALUES ('Organization');
+INSERT INTO "B00074902"."DONEE_TYPE" (ID) VALUES ('Individual');
+INSERT INTO "B00074902"."DONEE_TYPE" (ID) VALUES ('Organization');
 
 ----------------------------   Spice Level   ----------------------------
 

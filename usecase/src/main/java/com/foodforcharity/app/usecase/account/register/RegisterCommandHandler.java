@@ -1,31 +1,32 @@
 package com.foodforcharity.app.usecase.account.register;
 
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.mediator.CommandHandler;
+import java.util.Optional;
 
+import com.foodforcharity.app.domain.constant.DoneeStatus;
+import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Person;
-import com.foodforcharity.app.domain.exception.Exception;
-import com.foodforcharity.app.domain.constant.PersonRole;
-import com.foodforcharity.app.domain.constant.DoneeStatus;
-import com.foodforcharity.app.domain.constant.DonorStatus;
-import com.foodforcharity.app.service.PersonRepository;
+import com.foodforcharity.app.domain.constant.Error;
+import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.service.DoneeRepository;
 import com.foodforcharity.app.service.DonorRepository;
+import com.foodforcharity.app.service.PersonRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.regex.Pattern; // --> again i am getting this even though i use it ??? why??
-
+/**
+ * CommandHandler class for RegisterCommand 
+ *
+ **/
 @Service
 public class RegisterCommandHandler implements CommandHandler<RegisterCommand, Response<Void>> {
 	private final PersonRepository personRepository;
 	private final DoneeRepository doneeRepository;
 	private final DonorRepository donorRepository;
-	// public RegisterCommandHandler(){
-
-	// }
 
 	/**
 	 * Public Constructor
@@ -34,6 +35,7 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, R
 	 * @param doneeRepository
 	 * @param donorRepository
 	 */
+	@Autowired
 	public RegisterCommandHandler(PersonRepository personRepository, DoneeRepository doneeRepository,
 			DonorRepository donorRepository) {
 		this.personRepository = personRepository;
@@ -44,59 +46,71 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, R
 	@Override
 	public Response<Void> handle(RegisterCommand command) {
 
-		if (isValid(command.email)) {
-			Optional<Person> dbPerson = personRepository.findByUsername(command.email);
-
-			if (dbPerson.isPresent()) {
-				return new Response<Void>(Exception.EmailAlreadyExist);
-			} else {
-
-				if (command.personRole == PersonRole.Donee) {
-					// check number of memebers
-					if (command.memberCount.get() < 0) {
-						return new Response<Void>(Exception.InvalidMemberCount);
-					} else {
-						Donee donee = new Donee();
-						donee.setUsername(command.email);
-						donee.setPersonRole(command.personRole);
-						donee.setPasswordHash(command.password); // for now
-						donee.setPasswordSalt(command.password); // for now
-						donee.setAddressDescription(command.address);
-						donee.setCity(command.city);
-						donee.setEmail(command.email);
-						donee.setCountry(command.country);
-						donee.setPhoneNumber(command.phoneNumber);
-						donee.setDoneeStatus(DoneeStatus.Initial);
-						donee.setQuantityRequested(0); // is this required over here??
-						donee.setDoneeType(command.doneeType.get());
-						doneeRepository.save(donee);
-						donee.setMemberCount(command.memberCount.get());
-						return new Response<Void>();
-					}
-
-				} else {
-					// for donor
-					Donor donor = new Donor();
-					donor.setUsername(command.email);
-					donor.setPersonRole(command.personRole);
-					donor.setPasswordHash(command.password); // for now
-					donor.setPasswordSalt(command.password); // for now
-					donor.setAddressDescription(command.address);
-					donor.setCity(command.city);
-					donor.setEmail(command.email);
-					donor.setCountry(command.country);
-					donor.setPhoneNumber(command.phoneNumber);
-					donor.setDonorStatus(DonorStatus.Initial);
-					donor.setDonorStatus(DonorStatus.Initial);
-					donorRepository.save(donor);
-
-					return new Response<Void>();
-				}
-			}
-
-		} else {
-			return new Response<Void>(Exception.InvalidEmail);
+		if (!isValid(command.email)) {
+			return new Response<Void>(Error.InvalidEmail);
 		}
+
+		Optional<Person> dbPerson = personRepository.findByUsername(command.email);
+		if (dbPerson.isPresent()) {
+			return new Response<Void>(Error.EmailAlreadyExist);
+		}
+
+		try {
+			if (command.personRole == PersonRole.Donee) {
+				// check number of memebers
+
+				int minimumMemberCount = 1;
+
+				if (command.memberCount.get() < minimumMemberCount) {
+					return new Response<Void>(Error.InvalidMemberCount);
+				}
+
+				Donee donee = new Donee();
+				donee.setUsername(command.email);
+				donee.setPasswordHash(command.password); // for now
+				donee.setPasswordSalt(command.password); // for now
+
+				donee.setDoneeName(command.name);
+				donee.setAddressDescription(command.address);
+				donee.setCity(command.city);
+				donee.setEmail(command.email);
+				donee.setCountry(command.country);
+				donee.setPhoneNumber(command.phoneNumber);
+
+				donee.setDoneeStatus(DoneeStatus.Initial);
+				donee.setQuantityRequested(0); // is this required over here??
+				donee.setDoneeType(command.doneeType.get());
+				donee.setMemberCount(command.memberCount.get());
+
+				doneeRepository.save(donee);
+
+			} else if (command.personRole == PersonRole.Donor) {
+				// for donor
+				Donor donor = new Donor();
+				donor.setUsername(command.email);
+				donor.setPasswordHash(command.password); // for now
+				donor.setPasswordSalt(command.password); // for now
+
+				donor.setDonorName(command.name);
+				donor.setAddressDescription(command.address);
+				donor.setCity(command.city);
+				donor.setEmail(command.email);
+				donor.setCountry(command.country);
+				donor.setPhoneNumber(command.phoneNumber);
+				donor.setRating(0);
+				donor.setNumberOfRating(0);
+
+				donor.setDonorStatus(DonorStatus.Initial);
+
+				donorRepository.save(donor);
+			} else {
+				return new Response<Void>(Error.UnknownError);
+			}
+		} catch (Exception e) {
+			return new Response<Void>(Error.UnknownError);
+		}
+
+		return new Response<Void>();
 
 	}
 

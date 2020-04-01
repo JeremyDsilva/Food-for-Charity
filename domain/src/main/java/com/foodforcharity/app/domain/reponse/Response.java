@@ -3,12 +3,12 @@ package com.foodforcharity.app.domain.reponse;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.foodforcharity.app.domain.exception.Exception;
+import com.foodforcharity.app.domain.constant.Error;
 
 public class Response<R> {
 
     public R response;
-    public List<Exception> errors;
+    public List<Error> errors;
 
     public Response(){
         this.errors = new ArrayList<>();
@@ -19,11 +19,11 @@ public class Response<R> {
         this.errors = new ArrayList<>();
     }
 
-    public Response(List<Exception> errors){
+    public Response(List<Error> errors){
         this.errors = errors;
     }
 
-    public Response(Exception error){
+    public Response(Error error){
         this();
         addError(error);
     }
@@ -32,7 +32,7 @@ public class Response<R> {
         return response;
     }
 
-    public  List<Exception> getError(){
+    public  List<Error> getError(){
         return errors;
     }
 
@@ -40,7 +40,7 @@ public class Response<R> {
         return errors == null || errors.size() == 0;
     }
 
-    public void addError(Exception exception){
+    public void addError(Error exception){
         errors.add(exception);
     }
     

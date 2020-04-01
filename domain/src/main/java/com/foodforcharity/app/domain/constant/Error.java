@@ -1,7 +1,8 @@
-package com.foodforcharity.app.domain.exception;
+package com.foodforcharity.app.domain.constant;
 
-public enum Exception {
+public enum Error {
 
+    UnknownError("Unknown Error"),
     IncorrectUsernameOrPassword("Incorrect Username Or Password"), 
     InvalidEmail("Email Format Is Invalid"),
     EmailAlreadyExist("Email Already Exist"),
@@ -9,7 +10,7 @@ public enum Exception {
 
     String message;
 
-    Exception(String message) {
+    Error(String message) {
         this.message = message;
     }
 

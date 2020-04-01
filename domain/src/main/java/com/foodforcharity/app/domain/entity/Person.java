@@ -52,6 +52,10 @@ public abstract class Person implements Serializable {
 	public Person() {
 	}
 
+	public Person(com.foodforcharity.app.domain.constant.PersonRole personRole){
+		this.personRole = new PersonRole(personRole); 
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -94,7 +98,7 @@ public abstract class Person implements Serializable {
 		return personRole.getConstant();
 	}
 
-	public void setPersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole) {
+	protected void setPersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole) {
 		this.personRole.setConstant(personRole);
 	}
 

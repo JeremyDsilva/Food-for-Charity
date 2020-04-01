@@ -13,6 +13,7 @@ public class Broker extends Person {
 	private static final long serialVersionUID = 1L;
 
 	public Broker() {
+		super(com.foodforcharity.app.domain.constant.PersonRole.Broker);
 	}
 
 }

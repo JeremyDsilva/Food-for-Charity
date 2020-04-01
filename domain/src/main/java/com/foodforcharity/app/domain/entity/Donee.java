@@ -107,6 +107,7 @@ public class Donee extends Person {
 	private List<Request> requests;
 
 	public Donee() {
+		super(com.foodforcharity.app.domain.constant.PersonRole.Donee);
 	}
 
 	public String getAddressDescription() {
