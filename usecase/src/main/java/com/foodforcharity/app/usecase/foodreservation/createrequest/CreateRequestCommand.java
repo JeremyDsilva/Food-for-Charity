@@ -2,9 +2,10 @@ package com.foodforcharity.app.usecase.foodreservation.createrequest;
 
 import java.util.List;
 
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class CreateRequestCommand implements Command<Void> {
+public class CreateRequestCommand implements Command<Response<Void>> {
 	// donee id, donorid, food id, qty of each food
 	long doneeId;
 	long donorId;

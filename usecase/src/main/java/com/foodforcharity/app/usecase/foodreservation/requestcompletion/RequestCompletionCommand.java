@@ -8,6 +8,7 @@ public class RequestCompletionCommand implements Command<Void> {
 
 	public RequestCompletionCommand() {
 
+	
 	}
 
 	/**

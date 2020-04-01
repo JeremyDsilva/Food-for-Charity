@@ -10,7 +10,9 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 	
 
 	public RequestCompletionCommandHandler() {
-
+		//1- check that request exists and is in active 
+		// check that donor id matches request donor id
+		// reset the request status
 	}
 	
 	@Override
