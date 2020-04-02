@@ -1,16 +1,18 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
-    <head th:fragment="head-fragment">
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
-        <link rel="stylesheet" href="../static/css/site.css" th:href="@{/css/site.css}"/>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">Food for Charity</title>
-    </head>
-    <body>
-        <header>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+
+<head th:fragment="head-fragment">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="../static/css/site.css" th:href="@{/css/site.css}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">Food for Charity</title>
+</head>
+
+<body>
+    <!-- <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <a class="navbar-brand" th:href="@{/index}">Food for Charity</a>
                 <div class="navbar-nav mr-auto">
@@ -31,19 +33,20 @@
                     </ul>
                 </div>
             </nav>
-        </header>
+        </header> -->
 
-        <main role="main">
-            <div layout:fragment="content"></div>
-        </main>
+    <main role="main">
+        <div layout:fragment="content"></div>
+    </main>
 
-        <footer class="footer">
-            <div class="container">
-                <p class="text-center text-uppercase text-muted">&copy; Frank P Moley III 2018</p>
-            </div>
-        </footer>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center text-uppercase text-muted">&copy; Frank P Moley III 2018</p>
+        </div>
+    </footer>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
 </html>

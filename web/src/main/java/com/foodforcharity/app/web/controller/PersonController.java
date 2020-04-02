@@ -81,15 +81,17 @@ public class PersonController {
     }
     
     @PostMapping("/register")
-    public String register() throws ExecutionException{
-        RegisterCommand command = new RegisterCommand();
+    public String register(@RequestBody RequestModel requestModel) throws ExecutionException{
+        RegisterCommand command = new RegisterCommand(requestModel.getName(), requestModel.getPassword(),
+            requestModel.getEmail(), requestModel.getPersonRole(), requestModel.PhoneNumber(),
+                requestModel.city(), requestModel.address());
 
        Response<Void> response = mediator.publishAsync(command).get();
 
         if(response.success()){
             return "home";
         }
-        else return "login";
+        else return ;
     }
 
 }
