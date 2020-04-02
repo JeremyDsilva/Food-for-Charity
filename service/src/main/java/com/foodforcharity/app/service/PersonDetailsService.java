@@ -34,7 +34,7 @@ public class PersonDetailsService implements UserDetailsService {
         Person person = personRepository.findByUsername(s)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with name %s does not exist", s)));
 
-        return withUsername(person.getUsername()).password(person.getPasswordHash())
+        return withUsername(person.getUsername()).password(person.getPassword())
                 // .authorities(user.getRoles())
                 .accountExpired(false).accountLocked(false).credentialsExpired(false).disabled(false).build();
     }
