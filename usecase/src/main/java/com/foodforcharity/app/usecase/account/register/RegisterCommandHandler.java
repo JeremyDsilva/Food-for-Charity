@@ -67,8 +67,7 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, R
 
 				Donee donee = new Donee();
 				donee.setUsername(command.email);
-				donee.setPasswordHash(command.password); // for now
-				donee.setPasswordSalt(command.password); // for now
+				donee.setPassword(command.password); // for now
 
 				donee.setDoneeName(command.name);
 				donee.setAddressDescription(command.address);
@@ -88,8 +87,7 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, R
 				// for donor
 				Donor donor = new Donor();
 				donor.setUsername(command.email);
-				donor.setPasswordHash(command.password); // for now
-				donor.setPasswordSalt(command.password); // for now
+				donor.setPassword(command.password); // for now
 
 				donor.setDonorName(command.name);
 				donor.setAddressDescription(command.address);

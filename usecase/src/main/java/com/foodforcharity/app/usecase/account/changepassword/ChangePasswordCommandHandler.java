@@ -21,22 +21,21 @@ public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswo
 
     @Override
     public Boolean handle(ChangePasswordCommand command) {
-        
+
         try {
 
             Optional<Person> dbPerson = personRepository.findById(command.personId);
 
             if (dbPerson.isPresent()) {
                 Person person = dbPerson.get();
-                if (person.getPasswordHash() == command.oldPassword) {
-                    person.setPasswordHash(command.newPassword);
+                if (person.getPassword() == command.oldPassword) {
+                    person.setPassword(command.newPassword);
                     personRepository.save(person);
                     return true;
                 } else {
                     return false;
                 }
-            }
-            else {
+            } else {
                 return false;
             }
 
