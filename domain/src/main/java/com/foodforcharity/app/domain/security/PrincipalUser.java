@@ -15,7 +15,7 @@ public class PrincipalUser extends User {
     final long personId;
 
     public PrincipalUser(Person person) {
-        super(person.getUsername(), person.getPasswordHash(), getAuthorities(person));
+        super(person.getUsername(), person.getPassword(), getAuthorities(person));
         personId = person.getId();
     }
 
@@ -23,10 +23,10 @@ public class PrincipalUser extends User {
 
         Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
 
-        authorities.add(new SimpleGrantedAuthority(person.getPersonRole().name()));
+        authorities.add(new SimpleGrantedAuthority(person.getRole()));
 
-        person.getPersonStatus().ifPresent(status -> {
-            authorities.add(new SimpleGrantedAuthority(status.name()));
+        person.getStatus().ifPresent(status -> {
+            authorities.add(new SimpleGrantedAuthority(status));
         });
 
         return authorities;

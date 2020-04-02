@@ -2,24 +2,24 @@ package com.foodforcharity.app.domain.entity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToOne;
 
+import com.foodforcharity.app.domain.constant.Allergen;
+import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
-import com.foodforcharity.app.domain.convertor.DoneeStatusConverter;
-import com.foodforcharity.app.domain.convertor.DoneeTypeConverter;
-import com.foodforcharity.app.domain.security.PersonStatus;
+import com.foodforcharity.app.domain.constant.MealType;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -29,13 +29,9 @@ import org.hibernate.annotations.FetchMode;
  * 
  */
 @Entity
-@PrimaryKeyJoinColumn
+@DiscriminatorValue("Donee")
 public class Donee extends Person {
 	private static final long serialVersionUID = 1L;
-
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	// private long id;
 
 	@Column(name = "ADDRESS_DESCRIPTION")
 	private String addressDescription;
@@ -58,51 +54,34 @@ public class Donee extends Person {
 	@Column(name = "QUANTITY_REQUESTED")
 	private Integer quantityRequested;
 
-	// bi-directional many-to-one association to DoneeStatus
 	@JoinColumn(name = "DONEE_STATUS")
-	// @Convert(converter = DoneeStatusConverter.class)
 	@Enumerated(EnumType.STRING)
 	private DoneeStatus doneeStatus;
 
-	// bi-directional many-to-one association to DoneeType
 	@JoinColumn(name = "DONEE_TYPE")
-	// @Convert(converter = DoneeTypeConverter.class)
 	@Enumerated(EnumType.STRING)
 	private DoneeType doneeType;
 
 	// bi-directional many-to-one association to DoneePriceRange
-	@OneToMany(mappedBy = "donee", fetch = FetchType.LAZY)
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<DoneePriceRange> doneePriceRanges;
+	@OneToOne(mappedBy = "donee", fetch = FetchType.LAZY)
+	private DoneePriceRange priceRange;
 
 	// bi-directional many-to-one association to DoneeSpiceRange
-	@OneToMany(mappedBy = "donee", fetch = FetchType.LAZY)
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<DoneeSpiceRange> doneeSpiceRanges;
+	@OneToOne(mappedBy = "donee", fetch = FetchType.LAZY)
+	private DoneeSpiceRange spiceRange;
 
-	// bi-directional many-to-one association to MapDoneeAllergen
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MapDoneeAllergen", joinColumns = {
-			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "AllergenId", referencedColumnName = "Name") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Allergen> allergens;
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = Allergen.class)
+	private Set<Allergen> allergens;
 
-	// bi-directional many-to-one association to MapDoneeCuisine
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MapDoneeCuisine", joinColumns = {
-			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "CuisineId", referencedColumnName = "Name") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Cuisine> cuisines;
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = Cuisine.class)
+	private Set<Cuisine> cuisines;
 
 	// bi-directional many-to-one association to MapDoneeMealType
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MapDoneeMealType", joinColumns = {
-			@JoinColumn(name = "DoneeId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "MealTypeId", referencedColumnName = "Name") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<MealType> mealTypes;
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = MealType.class)
+	private Set<MealType> mealTypes;
 
 	// bi-directional many-to-one association to Request
 	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)
@@ -110,7 +89,6 @@ public class Donee extends Person {
 	private List<Request> requests;
 
 	public Donee() {
-		super(com.foodforcharity.app.domain.constant.PersonRole.Donee);
 	}
 
 	public String getAddressDescription() {
@@ -193,116 +171,6 @@ public class Donee extends Person {
 		this.doneeType = doneeType;
 	}
 
-	public List<DoneePriceRange> getDoneePriceRanges() {
-		return this.doneePriceRanges;
-	}
-
-	public void setDoneePriceRanges(List<DoneePriceRange> doneePriceRanges) {
-		this.doneePriceRanges = doneePriceRanges;
-	}
-
-	public DoneePriceRange addDoneePriceRange(DoneePriceRange doneePriceRange) {
-		getDoneePriceRanges().add(doneePriceRange);
-		doneePriceRange.setDonee(this);
-
-		return doneePriceRange;
-	}
-
-	public DoneePriceRange removeDoneePriceRange(DoneePriceRange doneePriceRange) {
-		getDoneePriceRanges().remove(doneePriceRange);
-		doneePriceRange.setDonee(null);
-
-		return doneePriceRange;
-	}
-
-	public List<DoneeSpiceRange> getDoneeSpiceRanges() {
-		return this.doneeSpiceRanges;
-	}
-
-	public void setDoneeSpiceRanges(List<DoneeSpiceRange> doneeSpiceRanges) {
-		this.doneeSpiceRanges = doneeSpiceRanges;
-	}
-
-	public DoneeSpiceRange addDoneeSpiceRange(DoneeSpiceRange doneeSpiceRange) {
-		getDoneeSpiceRanges().add(doneeSpiceRange);
-		doneeSpiceRange.setDonee(this);
-
-		return doneeSpiceRange;
-	}
-
-	public DoneeSpiceRange removeDoneeSpiceRange(DoneeSpiceRange doneeSpiceRange) {
-		getDoneeSpiceRanges().remove(doneeSpiceRange);
-		doneeSpiceRange.setDonee(null);
-
-		return doneeSpiceRange;
-	}
-
-	// public List<MapDoneeAllergen> getMapDoneeAllergens() {
-	// 	return this.mapDoneeAllergens;
-	// }
-
-	// public void setMapDoneeAllergens(List<MapDoneeAllergen> mapDoneeAllergens) {
-	// 	this.mapDoneeAllergens = mapDoneeAllergens;
-	// }
-
-	// public MapDoneeAllergen addMapDoneeAllergen(MapDoneeAllergen mapDoneeAllergen) {
-	// 	getMapDoneeAllergens().add(mapDoneeAllergen);
-	// 	mapDoneeAllergen.setDonee(this);
-
-	// 	return mapDoneeAllergen;
-	// }
-
-	// public MapDoneeAllergen removeMapDoneeAllergen(MapDoneeAllergen mapDoneeAllergen) {
-	// 	getMapDoneeAllergens().remove(mapDoneeAllergen);
-	// 	mapDoneeAllergen.setDonee(null);
-
-	// 	return mapDoneeAllergen;
-	// }
-
-	// public List<MapDoneeCuisine> getMapDoneeCuisines() {
-	// 	return this.mapDoneeCuisines;
-	// }
-
-	// public void setMapDoneeCuisines(List<MapDoneeCuisine> mapDoneeCuisines) {
-	// 	this.mapDoneeCuisines = mapDoneeCuisines;
-	// }
-
-	// public MapDoneeCuisine addMapDoneeCuisine(MapDoneeCuisine mapDoneeCuisine) {
-	// 	getMapDoneeCuisines().add(mapDoneeCuisine);
-	// 	mapDoneeCuisine.setDonee(this);
-
-	// 	return mapDoneeCuisine;
-	// }
-
-	// public MapDoneeCuisine removeMapDoneeCuisine(MapDoneeCuisine mapDoneeCuisine) {
-	// 	getMapDoneeCuisines().remove(mapDoneeCuisine);
-	// 	mapDoneeCuisine.setDonee(null);
-
-	// 	return mapDoneeCuisine;
-	// }
-
-	// public List<MapDoneeMealType> getMapDoneeMealTypes() {
-	// 	return this.mapDoneeMealTypes;
-	// }
-
-	// public void setMapDoneeMealTypes(List<MapDoneeMealType> mapDoneeMealTypes) {
-	// 	this.mapDoneeMealTypes = mapDoneeMealTypes;
-	// }
-
-	// public MapDoneeMealType addMapDoneeMealType(MapDoneeMealType mapDoneeMealType) {
-	// 	getMapDoneeMealTypes().add(mapDoneeMealType);
-	// 	mapDoneeMealType.setDonee(this);
-
-	// 	return mapDoneeMealType;
-	// }
-
-	// public MapDoneeMealType removeMapDoneeMealType(MapDoneeMealType mapDoneeMealType) {
-	// 	getMapDoneeMealTypes().remove(mapDoneeMealType);
-	// 	mapDoneeMealType.setDonee(null);
-
-	// 	return mapDoneeMealType;
-	// }
-
 	public List<Request> getRequests() {
 		return this.requests;
 	}
@@ -325,53 +193,9 @@ public class Donee extends Person {
 		return request;
 	}
 
-	@Override
-	public Optional<PersonStatus> getPersonStatus() {
-		return Optional.of(doneeStatus);
-	}
 
-	/**
-	 * @return the allergens
-	 */
-	public List<com.foodforcharity.app.domain.constant.Allergen> getAllergens() {
-		return Allergen.getConstants(allergens);
+	public Optional<String> getStatus(){
+		return Optional.of(doneeStatus.name());
 	}
-
-	/**
-	 * @param allergens the allergens to set
-	 */
-	public void setAllergens(List<com.foodforcharity.app.domain.constant.Allergen> allergens) {
-		this.allergens = allergens.stream().map(attribute -> new Allergen(attribute)).collect(Collectors.toList());
-	}
-
-	/**
-	 * @return the cuisines
-	 */
-	public List<com.foodforcharity.app.domain.constant.Cuisine> getCuisines() {
-		return Cuisine.getConstants(cuisines);
-	}
-
-	/**
-	 * @param cuisines the cuisines to set
-	 */
-	public void setCuisines(List<com.foodforcharity.app.domain.constant.Cuisine> cuisines) {
-		this.cuisines = cuisines.stream().map(attribute -> new Cuisine(attribute)).collect(Collectors.toList());
-	}
-
-	/**
-	 * @return the mealTypes
-	 */
-	public List<com.foodforcharity.app.domain.constant.MealType> getMealTypes() {
-		return MealType.getConstants(mealTypes);
-	}
-
-	/**
-	 * @param mealTypes the mealTypes to set
-	 */
-	public void setMealTypes(List<com.foodforcharity.app.domain.constant.MealType> mealTypes) {
-		this.mealTypes = mealTypes.stream().map(attribute -> new MealType(attribute)).collect(Collectors.toList());
-	}
-
-	
 
 }

@@ -2,17 +2,16 @@ package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.foodforcharity.app.domain.constant.SpiceLevel;
-import com.foodforcharity.app.domain.convertor.SpiceLevelStringConverter;
 
 /**
  * The persistent class for the DONEE_SPICE_RANGE database table.
@@ -28,19 +27,15 @@ public class DoneeSpiceRange implements Serializable {
 	private long id;
 
 	// bi-directional many-to-one association to Donee
-	@ManyToOne
+	@OneToOne
 	private Donee donee;
 
 	// bi-directional many-to-one association to SpiceLevel
-	// @ManyToOne
-	@JoinColumn(name = "START_LEVEL")
-	@Convert(converter = SpiceLevelStringConverter.class)
+	@Enumerated(EnumType.STRING)
 	private SpiceLevel startLevel;
 	
 	// bi-directional many-to-one association to SpiceLevel
-	// @ManyToOne
-	@JoinColumn(name = "END_LEVEL")
-	@Convert(converter = SpiceLevelStringConverter.class)
+	@Enumerated(EnumType.STRING)
 	private SpiceLevel endLevel;
 
 	public DoneeSpiceRange() {

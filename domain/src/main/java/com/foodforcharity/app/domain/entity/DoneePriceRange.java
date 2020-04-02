@@ -2,8 +2,6 @@ package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
-
 
 /**
  * The persistent class for the DONEE_PRICE_RANGE database table.
@@ -19,13 +17,13 @@ public class DoneePriceRange implements Serializable {
 	private long id;
 
 	@Column(name="END_PRICE")
-	private BigDecimal endPrice;
+	private Integer endPrice;
 
 	@Column(name="START_PRICE")
-	private BigDecimal startPrice;
+	private Integer startPrice;
 
 	//bi-directional many-to-one association to Donee
-	@ManyToOne
+	@OneToOne
 	private Donee donee;
 
 	public DoneePriceRange() {
@@ -39,19 +37,19 @@ public class DoneePriceRange implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getEndPrice() {
+	public Integer getEndPrice() {
 		return this.endPrice;
 	}
 
-	public void setEndPrice(BigDecimal endPrice) {
+	public void setEndPrice(Integer endPrice) {
 		this.endPrice = endPrice;
 	}
 
-	public BigDecimal getStartPrice() {
+	public Integer getStartPrice() {
 		return this.startPrice;
 	}
 
-	public void setStartPrice(BigDecimal startPrice) {
+	public void setStartPrice(Integer startPrice) {
 		this.startPrice = startPrice;
 	}
 

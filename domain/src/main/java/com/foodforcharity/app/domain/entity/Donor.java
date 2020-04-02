@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,11 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.foodforcharity.app.domain.constant.DonorStatus;
-import com.foodforcharity.app.domain.convertor.DonorStatusConverter;
-import com.foodforcharity.app.domain.security.PersonStatus;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,7 +24,7 @@ import org.hibernate.annotations.FetchMode;
  * 
  */
 @Entity
-@PrimaryKeyJoinColumn
+@DiscriminatorValue("Donor")
 public class Donor extends Person {
 	private static final long serialVersionUID = 1L;
 
@@ -56,15 +53,9 @@ public class Donor extends Person {
 	private Integer rating;
 
 	// bi-directional many-to-one association to DonorStatus
-	// @ManyToOne
 	@Column(name="DONOR_STATUS")
-	// @Convert(converter = DonorStatusConverter.class)
 	@Enumerated(EnumType.STRING)
 	private DonorStatus donorStatus;
-
-	// // bi-directional many-to-one association to Person
-	// @OneToOne
-	// private Person person;
 
 	// bi-directional many-to-one association to Food
 	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER)
@@ -77,7 +68,6 @@ public class Donor extends Person {
 	private List<Request> requests;
 
 	public Donor() {
-		super(com.foodforcharity.app.domain.constant.PersonRole.Donor);
 	}
 
 	public long getId() {
@@ -160,14 +150,6 @@ public class Donor extends Person {
 		this.donorStatus = donorStatus;
 	}
 
-	// public Person getPerson() {
-	// return this.person;
-	// }
-
-	// public void setPerson(Person person) {
-	// this.person = person;
-	// }
-
 	public List<Food> getFoods() {
 		return this.foods;
 	}
@@ -212,9 +194,5 @@ public class Donor extends Person {
 		return request;
 	}
 
-	@Override
-	public Optional<PersonStatus> getPersonStatus() {
-		return Optional.of(donorStatus);
-	}
 
 }

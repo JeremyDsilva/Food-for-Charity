@@ -1,16 +1,29 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.foodforcharity.app.domain.constant.Allergen;
+import com.foodforcharity.app.domain.constant.Cuisine;
+import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
-import com.foodforcharity.app.domain.convertor.SpiceLevelStringConverter;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The persistent class for the FOOD database table.
@@ -50,28 +63,22 @@ public class Food implements Serializable {
 	private SpiceLevel spiceLevel;
 
 	// bi-directional many-to-one association to MapFoodAllergen
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MapFoodAllergen", joinColumns = {
-			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "AllergenId", referencedColumnName = "Name") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Allergen> allergens;
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = Allergen.class)
+	private Set<Allergen> allergens;
 
-	// bi-directional many-to-one association to MapFoodCuisine
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MapFoodCuisine", joinColumns = {
-			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "CuisineId", referencedColumnName = "Name") })
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Cuisine> cuisines;
+	@Enumerated(EnumType.STRING)
+	private Cuisine cuisines;
 
-	// bi-directional many-to-one association to MapFoodMealType
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "MapFoodMealType", joinColumns = {
-			@JoinColumn(name = "FoodId", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "MealTypeId", referencedColumnName = "Name") })
+	// bi-directional many-to-one association to MapDoneeMealType
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(targetClass = MealType.class)
+	private Set<MealType> mealTypes;
+
+	// bi-directional many-to-one association to Request
+	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<MealType> mealTypes;
+	private List<Request> requests;
 
 	// bi-directional many-to-one association to SubRequest
 	@OneToMany(mappedBy = "food", fetch = FetchType.EAGER)
@@ -137,82 +144,6 @@ public class Food implements Serializable {
 		this.donor = donor;
 	}
 
-	// public SpiceLevel getSpiceLevelBean() {
-	// return this.spiceLevelBean;
-	// }
-
-	// public void setSpiceLevelBean(SpiceLevel spiceLevelBean) {
-	// this.spiceLevelBean = spiceLevelBean;
-	// }
-
-	// public List<MapFoodAllergen> getMapFoodAllergens() {
-	// return this.mapFoodAllergens;
-	// }
-
-	// public void setMapFoodAllergens(List<MapFoodAllergen> mapFoodAllergens) {
-	// this.mapFoodAllergens = mapFoodAllergens;
-	// }
-
-	// public MapFoodAllergen addMapFoodAllergen(MapFoodAllergen mapFoodAllergen) {
-	// getMapFoodAllergens().add(mapFoodAllergen);
-	// mapFoodAllergen.setFood(this);
-
-	// return mapFoodAllergen;
-	// }
-
-	// public MapFoodAllergen removeMapFoodAllergen(MapFoodAllergen mapFoodAllergen)
-	// {
-	// getMapFoodAllergens().remove(mapFoodAllergen);
-	// mapFoodAllergen.setFood(null);
-
-	// return mapFoodAllergen;
-	// }
-
-	// public List<MapFoodCuisine> getMapFoodCuisines() {
-	// return this.mapFoodCuisines;
-	// }
-
-	// public void setMapFoodCuisines(List<MapFoodCuisine> mapFoodCuisines) {
-	// this.mapFoodCuisines = mapFoodCuisines;
-	// }
-
-	// public MapFoodCuisine addMapFoodCuisine(MapFoodCuisine mapFoodCuisine) {
-	// getMapFoodCuisines().add(mapFoodCuisine);
-	// mapFoodCuisine.setFood(this);
-
-	// return mapFoodCuisine;
-	// }
-
-	// public MapFoodCuisine removeMapFoodCuisine(MapFoodCuisine mapFoodCuisine) {
-	// getMapFoodCuisines().remove(mapFoodCuisine);
-	// mapFoodCuisine.setFood(null);
-
-	// return mapFoodCuisine;
-	// }
-
-	// public List<MapFoodMealType> getMapFoodMealTypes() {
-	// return this.mapFoodMealTypes;
-	// }
-
-	// public void setMapFoodMealTypes(List<MapFoodMealType> mapFoodMealTypes) {
-	// this.mapFoodMealTypes = mapFoodMealTypes;
-	// }
-
-	// public MapFoodMealType addMapFoodMealType(MapFoodMealType mapFoodMealType) {
-	// getMapFoodMealTypes().add(mapFoodMealType);
-	// mapFoodMealType.setFood(this);
-
-	// return mapFoodMealType;
-	// }
-
-	// public MapFoodMealType removeMapFoodMealType(MapFoodMealType mapFoodMealType)
-	// {
-	// getMapFoodMealTypes().remove(mapFoodMealType);
-	// mapFoodMealType.setFood(null);
-
-	// return mapFoodMealType;
-	// }
-
 	public List<SubRequest> getSubRequests() {
 		return this.subRequests;
 	}
@@ -233,48 +164,6 @@ public class Food implements Serializable {
 		subRequest.setFood(null);
 
 		return subRequest;
-	}
-
-	/**
-	 * @return the allergens
-	 */
-	public List<com.foodforcharity.app.domain.constant.Allergen> getAllergens() {
-		return Allergen.getConstants(allergens);
-	}
-
-	/**
-	 * @param allergens the allergens to set
-	 */
-	public void setAllergens(List<com.foodforcharity.app.domain.constant.Allergen> allergens) {
-		this.allergens = allergens.stream().map(attribute -> new Allergen(attribute)).collect(Collectors.toList());
-	}
-
-	/**
-	 * @return the cuisines
-	 */
-	public List<com.foodforcharity.app.domain.constant.Cuisine> getCuisines() {
-		return Cuisine.getConstants(cuisines);
-	}
-
-	/**
-	 * @param cuisines the cuisines to set
-	 */
-	public void setCuisines(List<com.foodforcharity.app.domain.constant.Cuisine> cuisines) {
-		this.cuisines = cuisines.stream().map(attribute -> new Cuisine(attribute)).collect(Collectors.toList());
-	}
-
-	/**
-	 * @return the mealTypes
-	 */
-	public List<com.foodforcharity.app.domain.constant.MealType> getMealTypes() {
-		return MealType.getConstants(mealTypes);
-	}
-
-	/**
-	 * @param mealTypes the mealTypes to set
-	 */
-	public void setMealTypes(List<com.foodforcharity.app.domain.constant.MealType> mealTypes) {
-		this.mealTypes = mealTypes.stream().map(attribute -> new MealType(attribute)).collect(Collectors.toList());
 	}
 
 }

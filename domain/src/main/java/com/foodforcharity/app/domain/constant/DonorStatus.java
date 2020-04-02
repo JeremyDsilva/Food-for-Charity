@@ -1,7 +1,5 @@
 package com.foodforcharity.app.domain.constant;
 
-import com.foodforcharity.app.domain.security.PersonStatus;
-
-public enum DonorStatus implements PersonStatus {
+public enum DonorStatus {
     Initial, Active, Inactive, Suspended;
 }

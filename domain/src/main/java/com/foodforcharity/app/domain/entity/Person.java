@@ -3,19 +3,14 @@ package com.foodforcharity.app.domain.entity;
 import java.io.Serializable;
 import java.util.Optional;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-
-import com.foodforcharity.app.domain.security.PersonStatus;
 
 /**
  * The persistent class for the PERSON database table.
@@ -23,6 +18,7 @@ import com.foodforcharity.app.domain.security.PersonStatus;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "PersonRole")
 public abstract class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -35,25 +31,10 @@ public abstract class Person implements Serializable {
 	@Column(name = "USERNAME")
 	private String username;
 
-	@Column(name = "PASSWORD_HASH")
-	private String passwordHash;
-
-	@Column(name = "PASSWORD_SALT")
-	private String passwordSalt;
-
-	// bi-directional many-to-one association to MapPersonRole
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "MapPersonRole", joinColumns = {
-			@JoinColumn(name = "id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "RoleId", referencedColumnName = "Name") })
-	// @Convert(converter = PersonRoleConverter.class)
-	private PersonRole personRole;
+	@Column(name = "PASSWORD")
+	private String password;
 
 	public Person() {
-	}
-
-	public Person(com.foodforcharity.app.domain.constant.PersonRole personRole){
-		this.personRole = new PersonRole(personRole); 
 	}
 
 	/**
@@ -78,31 +59,19 @@ public abstract class Person implements Serializable {
 		this.username = username;
 	}
 
-	public String getPasswordHash() {
-		return this.passwordHash;
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getPasswordSalt() {
-		return this.passwordSalt;
+	public String getRole(){
+		return getClass().getSimpleName();
 	}
 
-	public void setPasswordSalt(String passwordSalt) {
-		this.passwordSalt = passwordSalt;
-	}
-
-	public com.foodforcharity.app.domain.constant.PersonRole getPersonRole() {
-		return personRole.getConstant();
-	}
-
-	protected void setPersonRole(com.foodforcharity.app.domain.constant.PersonRole personRole) {
-		this.personRole.setConstant(personRole);
-	}
-
-	public Optional<PersonStatus> getPersonStatus() {
+	public Optional<String> getStatus(){
 		return Optional.empty();
 	}
 

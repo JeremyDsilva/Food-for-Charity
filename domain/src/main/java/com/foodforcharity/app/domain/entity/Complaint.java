@@ -70,22 +70,6 @@ public class Complaint implements Serializable {
 		this.descriptionText = descriptionText;
 	}
 
-	// public String getFromDonee() {
-	// return this.fromDonee;
-	// }
-
-	// public void setFromDonee(String fromDonee) {
-	// this.fromDonee = fromDonee;
-	// }
-
-	// public String getIsActive() {
-	// return this.isActive;
-	// }
-
-	// public void setIsActive(String isActive) {
-	// this.isActive = isActive;
-	// }
-
 	public Request getRequest() {
 		return this.request;
 	}
