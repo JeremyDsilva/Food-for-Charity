@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="../../static/js/countries.js"></script>
     <title>Register - Food For All</title>
 </head>
 
@@ -41,8 +42,15 @@
                                 <label for="inputAddress">Address</label>
                                 <input type="text" th:field="*{Address}" class="form-control" id="inputAddress" placeholder="Apartment, Building, Area">
                             </div>
+                            <div>
+                                <label for="inputCountry">Country</label>
+                                <select th:field="*{Country}" id="country" name="country"></select>
+                            </div>
+                            <script language="javascript">
+                                populateCountries("country");
+                            </script>
                             <div class="form-group col-md-6">
-                                <label for="inputState">City</label>
+                                <label for="inputCity">City</label>
                                 <select th:field="*{City}" id="inputState" class="form-control">
                     <option selected>Choose...</option>
                     <option>Abu Dhabi</option>

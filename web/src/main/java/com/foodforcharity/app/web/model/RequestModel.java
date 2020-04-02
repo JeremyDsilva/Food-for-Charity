@@ -14,8 +14,6 @@ public class RequestModel implements Serializable {
     private String personRole;
     private String phoneNumber;
     private String country;
-
-
     private String city;
     private String address;
 
