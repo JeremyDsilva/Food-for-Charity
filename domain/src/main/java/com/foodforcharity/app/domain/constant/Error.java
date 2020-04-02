@@ -10,6 +10,7 @@ public enum Error {
     DoneeDoesNotExist("Donee Does Not Exist"),
     RequestDoesNotExist("Request Does Not Exist"),
     ComplaintDoesNotExist(" Complaint Does Not Exist"),
+    PersonDoesNotExist("Person Does Not Exist"),
     DonorDoesNotExist("Donor Does Not Exist"),
     FoodDoesNotExist("Food Does Not Exist"),
     IneligibleDoneeStatus("Donee Must Be  Active"), // it is either suspendid or invitial
