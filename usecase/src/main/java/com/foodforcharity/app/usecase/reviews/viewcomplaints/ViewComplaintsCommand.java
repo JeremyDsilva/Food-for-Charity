@@ -1,6 +1,5 @@
 package com.foodforcharity.app.usecase.reviews.viewcomplaints;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.foodforcharity.app.domain.constant.PersonRole;
