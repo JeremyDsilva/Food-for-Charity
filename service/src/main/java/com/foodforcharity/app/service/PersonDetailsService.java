@@ -1,16 +1,16 @@
 package com.foodforcharity.app.service;
 
+import java.util.Optional;
+import java.util.Set;
+
+import com.foodforcharity.app.domain.entity.Person;
+import com.foodforcharity.app.domain.security.JwtProvider;
+import com.foodforcharity.app.domain.security.PersonDetail;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
-
-import com.foodforcharity.app.domain.entity.Person;
-
-import static org.springframework.security.core.userdetails.User.withUsername;
 
 /**
  * Service to associate user with password and roles setup in the database.
@@ -18,7 +18,7 @@ import static org.springframework.security.core.userdetails.User.withUsername;
  */
 @Component
 public class PersonDetailsService implements UserDetailsService {
-    
+
     private final PersonRepository personRepository;
 
     private final JwtProvider jwtProvider;
@@ -30,13 +30,11 @@ public class PersonDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public PersonDetail loadUserByUsername(String s) throws UsernameNotFoundException {
         Person person = personRepository.findByUsername(s)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with name %s does not exist", s)));
 
-        return withUsername(person.getUsername()).password(person.getPassword())
-                // .authorities(user.getRoles())
-                .accountExpired(false).accountLocked(false).credentialsExpired(false).disabled(false).build();
+        return new PersonDetail(person);
     }
 
     /**
@@ -45,7 +43,7 @@ public class PersonDetailsService implements UserDetailsService {
      * @param jwtToken
      * @return
      */
-    public Optional<UserDetails> loadUserByJwtTokenAndDatabase(String jwtToken) {
+    public Optional<PersonDetail> loadUserByJwtTokenAndDatabase(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {
             return Optional.of(loadUserByUsername(jwtProvider.getUsername(jwtToken)));
         } else {
@@ -59,12 +57,10 @@ public class PersonDetailsService implements UserDetailsService {
      * @param jwtToken jwt string
      * @return UserDetails if valid, Empty otherwise
      */
-    public Optional<UserDetails> loadUserByJwtToken(String jwtToken) {
+    public Optional<PersonDetail> loadUserByJwtToken(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {
-            return Optional.of(withUsername(jwtProvider.getUsername(jwtToken))
-                    .authorities(jwtProvider.getRoles(jwtToken)).password("") // token does not have password but field
-                                                                              // may not be empty
-                    .accountExpired(false).accountLocked(false).credentialsExpired(false).disabled(false).build());
+            return Optional.of(new PersonDetail(jwtProvider.getPersonId(jwtToken), jwtProvider.getUsername(jwtToken),
+                    Set.copyOf(jwtProvider.getAuthorities(jwtToken))));
         }
         return Optional.empty();
     }
