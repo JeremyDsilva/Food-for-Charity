@@ -19,11 +19,9 @@ public enum Error {
     FoodShortage("Amount Of Food Requested Is More Than Amount Of Food Available"), 
     FoodsDonorMismatch("The Foods Donot Belong To The Donor"),
     InvalidQuantityRequested("Quantity Requested Must Be Greater Than Zero"),
-    QuanityAllowanceExceeded("Individual Donee  Requests Cannot  Exceed The Allocated Quantity")
+    QuanityAllowanceExceeded("Individual Donee  Requests Cannot  Exceed The Allocated Quantity"),
     DonorRequestDontMatch("Donor Id Does Not Match Requester's Donor Id"),
-    InactiveRequest("Request Has Already Been Completed")
-   
-    ;
+    InactiveRequest("Request Has Already Been Completed");
 
     String message;
 
