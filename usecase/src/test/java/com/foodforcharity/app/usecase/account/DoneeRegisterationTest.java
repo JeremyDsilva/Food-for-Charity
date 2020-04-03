@@ -36,6 +36,8 @@ public class DoneeRegisterationTest {
 
     @Test
     public void emailErrorTest() {
+        repos.findByUsername("doneeEmail@gmail.com").ifPresent(person -> repos.delete(person));
+
         DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword", "doneeEmail",
                 "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual, 1);
         assert (handler.handle(command).getError() == Error.InvalidEmail);
@@ -43,9 +45,23 @@ public class DoneeRegisterationTest {
 
     @Test
     public void invalidMemberCountErrorTest() {
+        repos.findByUsername("doneeEmail@gmail.com").ifPresent(person -> repos.delete(person));
+
         DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword", "doneeEmail@gmail.com",
                 "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual, -1);
         assert (handler.handle(command).getError() == Error.InvalidMemberCount);
+    }
+
+    
+    @Test
+    public void emailAlreadyExistErrorTest() {
+        if(repos.findByUsername("doneeEmail@gmail.com").isEmpty()){
+            successTest();
+        }
+        
+        DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword", "doneeEmail@gmail.com",
+                "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual, -1);
+        assert (handler.handle(command).getError() == Error.EmailAlreadyExist);
     }
 
 }
