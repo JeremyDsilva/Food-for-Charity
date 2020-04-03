@@ -37,17 +37,17 @@ public class DoneeRegisterationCommandHandler implements CommandHandler<DoneeReg
 	public Response<Void> handle(DoneeRegisterationCommand command) {
 
 		if (!isValid(command.email)) {
-			return new Response<Void>(Error.InvalidEmail);
+			return Response.of(Error.InvalidEmail);
 		}
 
 		if (personRepository.findByUsername(command.email).isPresent()) {
-			return new Response<Void>(Error.EmailAlreadyExist);
+			return Response.of(Error.EmailAlreadyExist);
 		}
 
 		try {
 				int minimumMemberCount = 1;
 				if (command.memberCount < minimumMemberCount) {
-					return new Response<Void>(Error.InvalidMemberCount);
+					return Response.of(Error.InvalidMemberCount);
 				}
 
 				Donee donee = new Donee();
@@ -69,7 +69,7 @@ public class DoneeRegisterationCommandHandler implements CommandHandler<DoneeReg
 				doneeRepository.save(donee);
 
 		} catch (Exception e) {
-			return new Response<Void>(Error.UnknownError);
+			return Response.of(Error.UnknownError);
 		}
 
 		return Response.EmptyResponse();

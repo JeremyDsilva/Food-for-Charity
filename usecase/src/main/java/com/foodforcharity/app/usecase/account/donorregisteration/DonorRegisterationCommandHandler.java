@@ -38,11 +38,11 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 	public Response<Void> handle(DonorRegisterationCommand command) {
 
 		if (!isValid(command.email)) {
-			return new Response<Void>(Error.InvalidEmail);
+			return Response.of(Error.InvalidEmail);
 		}
 
 		if (personRepository.findByUsername(command.email).isPresent()) {
-			return new Response<Void>(Error.EmailAlreadyExist);
+			return Response.of(Error.EmailAlreadyExist);
 		}
 
 		try {
@@ -63,7 +63,7 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 
 			donorRepository.save(donor);
 		} catch (Exception e) {
-			return new Response<Void>(Error.UnknownError);
+			return Response.of(Error.UnknownError);
 		}
 
 		return Response.EmptyResponse();

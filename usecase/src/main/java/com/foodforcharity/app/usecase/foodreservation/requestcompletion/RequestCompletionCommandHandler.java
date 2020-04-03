@@ -54,31 +54,31 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 		request.setIsActive(false);
 		requestRepository.save(request);
 
-		return new Response<Void>();
+		return Response.EmptyResponse();
 
 	}
 
 	private Response<Void> checkDonorAuthenticEligibility(Donor donor, long donorId) {
 
 		if (donor.getId() != donorId) {
-			return new Response<Void>(Error.DonorRequestDontMatch);
+			return Response.of(Error.DonorRequestDontMatch);
 		}
 		if (donor.getDonorStatus() != DonorStatus.Active || donor.getDonorStatus() != DonorStatus.Inactive) {
-			return new Response<Void>(Error.IneligibleDonorStatus);
+			return Response.of(Error.IneligibleDonorStatus);
 		}
-		return new Response<Void>();
+		return Response.EmptyResponse();
 	}
 
 	private Response<Void> checkRequestExistsActive(long requestId) {
 		Optional<Request> dbRequest = requestRepository.findById(requestId);
 		if (dbRequest.isEmpty()) {
-			return new Response<Void>(Error.RequestDoesNotExist);
+			return Response.of(Error.RequestDoesNotExist);
 		}
 		Request request = dbRequest.get();
 		if (!request.getIsActive()) {
-			return new Response<Void>(Error.InactiveRequest);
+			return Response.of(Error.InactiveRequest);
 		}
-		return new Response<Void>();
+		return Response.EmptyResponse();
 	}
 
 }

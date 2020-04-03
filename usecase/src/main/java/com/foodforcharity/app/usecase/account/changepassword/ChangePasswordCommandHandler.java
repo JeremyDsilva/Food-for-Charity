@@ -35,14 +35,14 @@ public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswo
                     personRepository.save(person);
                     return Response.EmptyResponse();
                 } else {
-                    return new Response<Void>(Error.IncorrectPassword);
+                    return Response.of(Error.IncorrectPassword);
                 }
             } else {
-                return new Response<Void>(Error.PersonDoesNotExist);
+                return Response.of(Error.PersonDoesNotExist);
             }
 
         } catch (Exception e) {
-            return new Response<Void>(Error.UnknownError);
+            return Response.of(Error.UnknownError);
         }
 
     }
