@@ -21,8 +21,16 @@ public enum Error {
     InvalidQuantityRequested("Quantity Requested Must Be Greater Than Zero"),
     QuanityAllowanceExceeded("Individual Donee  Requests Cannot  Exceed The Allocated Quantity"),
     DonorRequestDontMatch("Donor Id Does Not Match Requester's Donor Id"),
-    InactiveRequest("Request Has Already Been Completed");
+    InactiveRequest("Request Has Already Been Completed"),
+    InvalidOriginalPrice("Price Cannot Be Negative"),
+    InvalidMealSize("Meal For N People must be greater than 0"),
+    InvalidQuantityAvailable("Quantity Of Food Available Must Not Be Negative"),
+    InvalidFoodDescriptionText("Food Description Text Cannot Be Empty"),
+    InvalidFoodName("Food Name Cannot Be Empty");
 
+
+
+    ;
     String message;
 
     Error(String message) {

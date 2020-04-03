@@ -2,14 +2,16 @@ package com.foodforcharity.app.usecase.profile.addmenu;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class AddMenuCommand implements Command<Void> {
+public class AddMenuCommand implements Command<Response<Void>> {
 	long donorId;
 	String foodName;
 	String descriptionText;
@@ -20,9 +22,9 @@ public class AddMenuCommand implements Command<Void> {
 	MealType mealType;
 	Cuisine cuisine;
 	/*
-	 * optional becasue not every food item necessarily has an allergen
+	 * optional becasue not every food item  doesnt necessarily has an allergen
 	 */
-	Optional<List<Allergen>> allergens;
+	Optional<Set<Allergen>> allergens;
 
 	public AddMenuCommand() {
 

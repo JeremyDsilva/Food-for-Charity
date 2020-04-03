@@ -16,18 +16,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ViewComplaintCommandHandler implements CommandHandler<ViewComplaintCommand, Response<Complaint>> {
 	ComplaintRepository complaintRepository;
-	PersonRepository personRepository;
+	
 
 	/**
 	 * Public Constructor
 	 * 
 	 * @param complaintRepository
-	 * @param personRepository
 	 */
 	@Autowired
-	public ViewComplaintCommandHandler(ComplaintRepository complaintRepository, PersonRepository personRepository) {
+	public ViewComplaintCommandHandler(ComplaintRepository complaintRepository) {
 		this.complaintRepository = complaintRepository;
-		this.personRepository = personRepository;
+
 	}
 
 	@Override
