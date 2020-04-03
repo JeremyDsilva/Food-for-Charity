@@ -1,6 +1,6 @@
 # Java
-*.class
-*.jar
+**/*.class
+**/*.jar
 
 # Maven
 **/target/
@@ -16,4 +16,4 @@ workspace.code-workspace
 **/.vscode/*
 
 # OS X
-.DS_Store
+**/.DS_Store
