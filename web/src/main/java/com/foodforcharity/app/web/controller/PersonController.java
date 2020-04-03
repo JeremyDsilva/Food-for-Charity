@@ -2,13 +2,17 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import com.foodforcharity.app.domain.constant.DoneeType;
+import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
+import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
+import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;
 import com.foodforcharity.app.usecase.account.login.LoginCommand;
-import com.foodforcharity.app.usecase.account.register.RegisterCommand;
 import com.foodforcharity.app.web.model.AuthenticationRequest;
 import com.foodforcharity.app.web.model.AuthenticationResponse;
+import com.foodforcharity.app.web.model.RequestModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -70,26 +74,45 @@ public class PersonController {
 
         ChangePasswordCommand command = new ChangePasswordCommand(personId, password, newPassword);
 
-        Boolean isSuccessful =  mediator.publishAsync(command).get();
+        Response<Void> response = mediator.publishAsync(command).get();
 
-        return isSuccessful;
+        return response.success();
     }
 
     @GetMapping("/register")
-    public String getRegisterView(Model model){
+    public String getRegisterView(Model model) {
         return "register";
     }
-    
+
     @PostMapping("/register")
-    public String register() throws ExecutionException{
-        RegisterCommand command = new RegisterCommand();
+    public String registerDonor(@RequestBody RequestModel requestModel, Model model) throws ExecutionException {
 
-       Response<Void> response = mediator.publishAsync(command).get();
+        Response<Void> response;
 
-        if(response.success()){
-            return "home";
+        if (requestModel.getPersonRole() == PersonRole.Donor) {
+
+            DonorRegisterationCommand command = new DonorRegisterationCommand(requestModel.getName(),
+                    requestModel.getPassword(), requestModel.getEmail(), requestModel.getPhoneNumber(),
+                    requestModel.getCity(), requestModel.getCountry(), requestModel.getAddress());
+
+            response = mediator.publishAsync(command).get();
+        } else {
+            DoneeRegisterationCommand command = new DoneeRegisterationCommand(requestModel.getName(),
+                    requestModel.getPassword(), requestModel.getEmail(), requestModel.getPhoneNumber(),
+                    requestModel.getCity(), requestModel.getCountry(), requestModel.getAddress(), DoneeType.Individual,
+                    1);
+
+            response = mediator.publishAsync(command).get();
         }
-        else return "login";
+
+        if (response.success()) {
+            return "login";
+        }
+
+        model.addAttribute("IsError", true);
+        model.addAttribute("ErrorMessage", response.getError().getMessage());
+
+        return "register";
     }
 
 }
