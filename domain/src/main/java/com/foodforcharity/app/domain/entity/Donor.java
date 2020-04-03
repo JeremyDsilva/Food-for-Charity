@@ -1,6 +1,7 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -191,11 +192,9 @@ public class Donor extends Person {
 		return request;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	@Override
+	public Optional<String> getStatus(){
+		return Optional.of(donorStatus.name());
 	}
 
 }

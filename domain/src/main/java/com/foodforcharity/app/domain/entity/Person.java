@@ -11,9 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.websocket.ClientEndpoint;
 
 /**
  * The persistent class for the PERSON database table.
