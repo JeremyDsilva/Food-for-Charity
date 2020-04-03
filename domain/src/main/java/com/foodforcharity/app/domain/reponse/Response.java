@@ -4,8 +4,8 @@ import com.foodforcharity.app.domain.constant.Error;
 
 public class Response<R> {
 
-    public R response;
-    public Error error;
+    R response;
+    Error error;
 
     public static Response<Void> EmptyResponse() {
         return new Response<Void>();
