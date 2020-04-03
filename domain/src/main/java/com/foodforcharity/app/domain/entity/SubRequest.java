@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the SUB_REQUEST database table.
@@ -24,16 +25,20 @@ public class SubRequest implements Serializable {
 	private long id;
 
 	@Column(name = "PRICE_AT_PURCHASE")
+	@NotNull
 	private Integer priceAtPurchase;
 
+	@NotNull
 	private Integer quantity;
 
 	// bi-directional many-to-one association to Request
 	@ManyToOne
+	@NotNull
 	private Request request;
 
 	// bi-directional many-to-one association to Food
 	@ManyToOne
+	@NotNull
 	private Food food;
 
 	public SubRequest() {
@@ -77,6 +82,13 @@ public class SubRequest implements Serializable {
 
 	public void setFood(Food food) {
 		this.food = food;
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

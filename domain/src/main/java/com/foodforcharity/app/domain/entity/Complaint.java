@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.convertor.BooleanCharacterConverter;
 
@@ -26,21 +27,26 @@ public class Complaint implements Serializable {
 	private long id;
 
 	@Column(name = "COMPLAINT_TIME")
+	@NotNull
 	private Date complaintTime;
 
 	@Column(name = "DESCRIPTION_TEXT")
+	@NotNull
 	private String descriptionText;
 
 	@Column(name = "FROM_DONEE")
+	@NotNull
 	@Convert(converter = BooleanCharacterConverter.class)
 	private Boolean fromDonee;
 
 	@Column(name = "IS_ACTIVE")
 	@Convert(converter = BooleanCharacterConverter.class)
+	@NotNull
 	private Boolean isActive;
 
 	// bi-directional many-to-one association to Request
 	@ManyToOne
+	@NotNull
 	private Request request;
 
 	public Complaint() {
@@ -76,6 +82,34 @@ public class Complaint implements Serializable {
 
 	public void setRequest(Request request) {
 		this.request = request;
+	}
+
+	/**
+	 * @return the fromDonee
+	 */
+	public Boolean getFromDonee() {
+		return fromDonee;
+	}
+
+	/**
+	 * @param fromDonee the fromDonee to set
+	 */
+	public void setFromDonee(Boolean fromDonee) {
+		this.fromDonee = fromDonee;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

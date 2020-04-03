@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
@@ -34,32 +36,44 @@ public class Donee extends Person {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "ADDRESS_DESCRIPTION")
+	@NotNull
 	private String addressDescription;
 
+	@NotNull
 	private String city;
 
+	@NotNull
 	private String country;
 
 	@Column(name = "DONEE_NAME")
+	@NotNull
 	private String doneeName;
 
+	@NotNull
+	@Email
+	@Column(unique = true)
 	private String email;
 
 	@Column(name = "MEMBER_COUNT")
+	@NotNull
 	private Integer memberCount;
 
 	@Column(name = "PHONE_NUMBER")
+	@NotNull
 	private String phoneNumber;
 
 	@Column(name = "QUANTITY_REQUESTED")
+	@NotNull
 	private Integer quantityRequested;
 
 	@JoinColumn(name = "DONEE_STATUS")
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private DoneeStatus doneeStatus;
 
 	@JoinColumn(name = "DONEE_TYPE")
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private DoneeType doneeType;
 
 	// bi-directional many-to-one association to DoneePriceRange
@@ -196,6 +210,76 @@ public class Donee extends Person {
 
 	public Optional<String> getStatus(){
 		return Optional.of(doneeStatus.name());
+	}
+
+	/**
+	 * @return the priceRange
+	 */
+	public DoneePriceRange getPriceRange() {
+		return priceRange;
+	}
+
+	/**
+	 * @param priceRange the priceRange to set
+	 */
+	public void setPriceRange(DoneePriceRange priceRange) {
+		this.priceRange = priceRange;
+	}
+
+	/**
+	 * @return the spiceRange
+	 */
+	public DoneeSpiceRange getSpiceRange() {
+		return spiceRange;
+	}
+
+	/**
+	 * @param spiceRange the spiceRange to set
+	 */
+	public void setSpiceRange(DoneeSpiceRange spiceRange) {
+		this.spiceRange = spiceRange;
+	}
+
+	/**
+	 * @return the allergens
+	 */
+	public Set<Allergen> getAllergens() {
+		return allergens;
+	}
+
+	/**
+	 * @param allergens the allergens to set
+	 */
+	public void setAllergens(Set<Allergen> allergens) {
+		this.allergens = allergens;
+	}
+
+	/**
+	 * @return the cuisines
+	 */
+	public Set<Cuisine> getCuisines() {
+		return cuisines;
+	}
+
+	/**
+	 * @param cuisines the cuisines to set
+	 */
+	public void setCuisines(Set<Cuisine> cuisines) {
+		this.cuisines = cuisines;
+	}
+
+	/**
+	 * @return the mealTypes
+	 */
+	public Set<MealType> getMealTypes() {
+		return mealTypes;
+	}
+
+	/**
+	 * @param mealTypes the mealTypes to set
+	 */
+	public void setMealTypes(Set<MealType> mealTypes) {
+		this.mealTypes = mealTypes;
 	}
 
 }

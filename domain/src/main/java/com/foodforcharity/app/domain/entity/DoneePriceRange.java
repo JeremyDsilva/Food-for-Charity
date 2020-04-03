@@ -2,6 +2,7 @@ package com.foodforcharity.app.domain.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the DONEE_PRICE_RANGE database table.
@@ -13,29 +14,33 @@ public class DoneePriceRange implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	// @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@OneToOne
+	private Donee donee;
+	// private long id;
 
 	@Column(name="END_PRICE")
+	@NotNull
 	private Integer endPrice;
 
 	@Column(name="START_PRICE")
+	@NotNull
 	private Integer startPrice;
 
 	//bi-directional many-to-one association to Donee
-	@OneToOne
-	private Donee donee;
+	// @OneToOne
+	// private Donee donee;
 
 	public DoneePriceRange() {
 	}
 
-	public long getId() {
-		return this.id;
-	}
+	// public long getId() {
+	// 	return this.id;
+	// }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	// public void setId(long id) {
+	// 	this.id = id;
+	// }
 
 	public Integer getEndPrice() {
 		return this.endPrice;

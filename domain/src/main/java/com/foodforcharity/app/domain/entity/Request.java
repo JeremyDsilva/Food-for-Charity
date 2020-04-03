@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.convertor.BooleanCharacterConverter;
 
@@ -33,33 +34,41 @@ public class Request implements Serializable {
 	private long id;
 
 	@Column(name="DISCOUNT_APPLIED")
+	@NotNull
 	private Integer discountApplied;
 
 	@Column(name="FINAL_PRICE")
+	@NotNull
 	private Integer finalPrice;
 
 	@Column(name="IS_ACTIVE")
 	@Convert(converter = BooleanCharacterConverter.class)
+	@NotNull
 	private Boolean isActive;
 
 	@Column(name="IS_RATED")
 	@Convert(converter = BooleanCharacterConverter.class)
+	@NotNull
 	private Boolean isRated;
 
 	@Column(name="REQUEST_TIME")
+	@NotNull
 	private Date requestTime;
 
 	//bi-directional many-to-one association to Complaint
 	@OneToMany(mappedBy="request", fetch=FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
+	@NotNull
 	private List<Complaint> complaints;
 
 	//bi-directional many-to-one association to Donor
 	@ManyToOne
+	@NotNull
 	private Donor donor;
 
 	//bi-directional many-to-one association to Donee
 	@ManyToOne
+	@NotNull
 	private Donee donee;
 
 	//bi-directional many-to-one association to SubRequest
@@ -93,22 +102,6 @@ public class Request implements Serializable {
 	public void setFinalPrice(Integer finalPrice) {
 		this.finalPrice = finalPrice;
 	}
-
-	// public Boolean getIsActive() {
-	// 	return this.isActive;
-	// }
-
-	// public Boolean setIsActive(Boolean isActive) {
-	// 	this.isActive = isActive;
-	// }
-
-	// public Boolean getIsRated() {
-	// 	return this.isRated;
-	// }
-
-	// public void setIsRated(Boolean isRated) {
-	// 	this.isRated = isRated;
-	// }
 
 	public Date getRequestTime() {
 		return this.requestTime;
@@ -176,6 +169,34 @@ public class Request implements Serializable {
 		subRequest.setRequest(null);
 
 		return subRequest;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	/**
+	 * @return the isRated
+	 */
+	public Boolean getIsRated() {
+		return isRated;
+	}
+
+	/**
+	 * @param isRated the isRated to set
+	 */
+	public void setIsRated(Boolean isRated) {
+		this.isRated = isRated;
 	}
 
 }

@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
@@ -38,21 +39,27 @@ public class Food implements Serializable {
 	private long id;
 
 	@Column(name = "DESCRIPTION_TEXT")
+	@NotNull
 	private String descriptionText;
 
 	@Column(name = "FOOD_NAME")
+	@NotNull
 	private String foodName;
 
 	@Column(name = "MEAL_FOR_N_PEOPLE")
+	@NotNull
 	private Integer mealForNPeople;
 
+	@NotNull
 	private Integer price;
 
 	@Column(name = "QUANTITY_AVAILABLE")
+	@NotNull
 	private Integer quantityAvailable;
 
 	// bi-directional many-to-one association to Donor
 	@ManyToOne
+	@NotNull
 	private Donor donor;
 
 	// bi-directional many-to-one association to SpiceLevel
@@ -68,17 +75,12 @@ public class Food implements Serializable {
 	private Set<Allergen> allergens;
 
 	@Enumerated(EnumType.STRING)
-	private Cuisine cuisines;
+	private Cuisine cuisine;
 
 	// bi-directional many-to-one association to MapDoneeMealType
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = MealType.class)
 	private Set<MealType> mealTypes;
-
-	// bi-directional many-to-one association to Request
-	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Request> requests;
 
 	// bi-directional many-to-one association to SubRequest
 	@OneToMany(mappedBy = "food", fetch = FetchType.EAGER)
@@ -164,6 +166,62 @@ public class Food implements Serializable {
 		subRequest.setFood(null);
 
 		return subRequest;
+	}
+
+	/**
+	 * @return the spiceLevel
+	 */
+	public SpiceLevel getSpiceLevel() {
+		return spiceLevel;
+	}
+
+	/**
+	 * @param spiceLevel the spiceLevel to set
+	 */
+	public void setSpiceLevel(SpiceLevel spiceLevel) {
+		this.spiceLevel = spiceLevel;
+	}
+
+	/**
+	 * @return the allergens
+	 */
+	public Set<Allergen> getAllergens() {
+		return allergens;
+	}
+
+	/**
+	 * @param allergens the allergens to set
+	 */
+	public void setAllergens(Set<Allergen> allergens) {
+		this.allergens = allergens;
+	}
+
+	/**
+	 * @return the cuisines
+	 */
+	public Cuisine getCuisines() {
+		return cuisine;
+	}
+
+	/**
+	 * @param cuisines the cuisines to set
+	 */
+	public void setCuisines(Cuisine cuisines) {
+		this.cuisine = cuisines;
+	}
+
+	/**
+	 * @return the mealTypes
+	 */
+	public Set<MealType> getMealTypes() {
+		return mealTypes;
+	}
+
+	/**
+	 * @param mealTypes the mealTypes to set
+	 */
+	public void setMealTypes(Set<MealType> mealTypes) {
+		this.mealTypes = mealTypes;
 	}
 
 }

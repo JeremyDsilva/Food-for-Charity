@@ -1,29 +1,50 @@
-DROP TABLE "ALLERGEN" CASCADE CONSTRAINTS;
-DROP TABLE "BROKER" CASCADE CONSTRAINTS;
-DROP TABLE "CUISINE" CASCADE CONSTRAINTS;
-DROP TABLE "COMPLAINT" CASCADE CONSTRAINTS;
-DROP TABLE "DONEE" CASCADE CONSTRAINTS;
-DROP TABLE "DONEE_STATUS" CASCADE CONSTRAINTS;
-DROP TABLE "DONEE_TYPE" CASCADE CONSTRAINTS;
-DROP TABLE "DONEE_PRICE_RANGE" CASCADE CONSTRAINTS;
-DROP TABLE "DONEE_SPICE_RANGE" CASCADE CONSTRAINTS;
-DROP TABLE "DONOR" CASCADE CONSTRAINTS;
-DROP TABLE "DONOR_STATUS" CASCADE CONSTRAINTS;
-DROP TABLE "ERROR_LOG" CASCADE CONSTRAINTS;
-DROP TABLE "FOOD" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_DONEE_ALLERGEN" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_DONEE_CUISINE" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_DONEE_MEAL_TYPE" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_FOOD_ALLERGEN" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_FOOD_CUISINE" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_FOOD_MEAL_TYPE" CASCADE CONSTRAINTS;
-DROP TABLE "MAP_PERSON_ROLE" CASCADE CONSTRAINTS;
-DROP TABLE "MEAL_TYPE" CASCADE CONSTRAINTS;
-DROP TABLE "PERSON" CASCADE CONSTRAINTS;
-DROP TABLE "PERSON_ROLE" CASCADE CONSTRAINTS;
-DROP TABLE "REQUEST" CASCADE CONSTRAINTS;
-DROP TABLE "SUB_REQUEST" CASCADE CONSTRAINTS;
-DROP TABLE "SPICE_LEVEL" CASCADE CONSTRAINTS;
-
-
-
+BEGIN
+   FOR cur_rec IN (SELECT object_name, object_type
+                   FROM user_objects
+                   WHERE object_type IN
+                             ('TABLE',
+                              'VIEW',
+                              'MATERIALIZED VIEW',
+                              'PACKAGE',
+                              'PROCEDURE',
+                              'FUNCTION',
+                              'SEQUENCE',
+                              'SYNONYM',
+                              'PACKAGE BODY'
+                             ))
+   LOOP
+      BEGIN
+         IF cur_rec.object_type = 'TABLE'
+         THEN
+            EXECUTE IMMEDIATE 'DROP '
+                              || cur_rec.object_type
+                              || ' "'
+                              || cur_rec.object_name
+                              || '" CASCADE CONSTRAINTS';
+         ELSE
+            EXECUTE IMMEDIATE 'DROP '
+                              || cur_rec.object_type
+                              || ' "'
+                              || cur_rec.object_name
+                              || '"';
+         END IF;
+      EXCEPTION
+         WHEN OTHERS
+         THEN
+            DBMS_OUTPUT.put_line ('FAILED: DROP '
+                                  || cur_rec.object_type
+                                  || ' "'
+                                  || cur_rec.object_name
+                                  || '"'
+                                 );
+      END;
+   END LOOP;
+   FOR cur_rec IN (SELECT * 
+                   FROM all_synonyms 
+                   WHERE table_owner IN (SELECT USER FROM dual))
+   LOOP
+      BEGIN
+         EXECUTE IMMEDIATE 'DROP PUBLIC SYNONYM ' || cur_rec.synonym_name;
+      END;
+   END LOOP;
+END;

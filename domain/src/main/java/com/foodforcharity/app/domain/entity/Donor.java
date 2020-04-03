@@ -1,7 +1,6 @@
 package com.foodforcharity.app.domain.entity;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -9,10 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.constant.DonorStatus;
 
@@ -28,33 +26,40 @@ import org.hibernate.annotations.FetchMode;
 public class Donor extends Person {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
 	@Column(name = "ADDRESS_DESCRIPTION")
+	@NotNull
 	private String addressDescription;
 
+	@NotNull
 	private String city;
 
+	@NotNull
 	private String country;
 
 	@Column(name = "DONOR_NAME")
+	@NotNull
 	private String donorName;
 
+	@NotNull
+	@Email
+	@Column(unique = true)
 	private String email;
 
 	@Column(name = "NUMBER_OF_RATING")
+	@NotNull
 	private Integer numberOfRating;
 
 	@Column(name = "PHONE_NUMBER")
+	@NotNull
 	private String phoneNumber;
 
+	@NotNull
 	private Integer rating;
 
 	// bi-directional many-to-one association to DonorStatus
-	@Column(name="DONOR_STATUS")
+	@Column(name = "DONOR_STATUS")
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private DonorStatus donorStatus;
 
 	// bi-directional many-to-one association to Food
@@ -68,14 +73,6 @@ public class Donor extends Person {
 	private List<Request> requests;
 
 	public Donor() {
-	}
-
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getAddressDescription() {
@@ -194,5 +191,11 @@ public class Donor extends Person {
 		return request;
 	}
 
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

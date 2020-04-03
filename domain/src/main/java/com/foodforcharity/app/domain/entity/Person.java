@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.websocket.ClientEndpoint;
 
 /**
  * The persistent class for the PERSON database table.
@@ -26,12 +29,14 @@ public abstract class Person implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+	@NotNull
 	private long id;
 
-	@Column(name = "USERNAME")
+	@NotNull
+	@Column(unique = true)
 	private String username;
 
-	@Column(name = "PASSWORD")
+	@NotNull
 	private String password;
 
 	public Person() {
@@ -73,6 +78,13 @@ public abstract class Person implements Serializable {
 
 	public Optional<String> getStatus(){
 		return Optional.empty();
+	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

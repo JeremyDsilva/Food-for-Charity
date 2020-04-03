@@ -1,47 +1,38 @@
 package com.foodforcharity.app.domain.reponse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.foodforcharity.app.domain.constant.Error;
 
 public class Response<R> {
 
     public R response;
-    public List<Error> errors;
+    public Error error;
 
-    public Response(){
-        this.errors = new ArrayList<>();
+    public static Response<Void> EmptyResponse() {
+        return new Response<Void>();
+    }
+
+    private Response(){
     }
 
     public Response(R response){
         this.response = response;
-        this.errors = new ArrayList<>();
-    }
-
-    public Response(List<Error> errors){
-        this.errors = errors;
+        error = null;
     }
 
     public Response(Error error){
-        this();
-        addError(error);
+        this.error = error;
     }
 
     public R getResponse(){
         return response;
     }
 
-    public  List<Error> getError(){
-        return errors;
+    public Error getError(){
+        return error;
     }
 
     public boolean success(){
-        return errors == null || errors.size() == 0;
+        return error == null;
     }
 
-    public void addError(Error exception){
-        errors.add(exception);
-    }
-    
 }

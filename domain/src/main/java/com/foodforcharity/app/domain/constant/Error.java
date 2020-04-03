@@ -3,14 +3,17 @@ package com.foodforcharity.app.domain.constant;
 public enum Error {
 
     UnknownError("Unknown Error"),
+    PersonDoesNotExist("Unknown Error"),
+    BrokerCannotRegister("Unknown Error"),
     IncorrectUsernameOrPassword("Incorrect Username Or Password"), 
+    IncorrectPassword("Incorrect Password"), 
     InvalidEmail("Email Format Is Invalid"),
     EmailAlreadyExist("Email Already Exist"),
     InvalidMemberCount("Member Count Must Be Greater Than Zero"),
     DoneeDoesNotExist("Donee Does Not Exist"),
     DonorDoesNotExist("Donor Does Not Exist"),
     FoodDoesNotExist("Food Does Not Exist"),
-    IneligibleDoneeStatus("Donee Must Be  Active"), // it is either suspendid or invitial
+    IneligibleDoneeStatus("Donee Must Be Active"), // it is either suspendid or invitial
     IneligibleDonorStatus("Donor Must Be Active Or Inactive"),
     FoodShortage("Amount Of Food Requested Is More Than Amount Of Food Available"), 
     FoodsDonorMismatch("The Foods Donot Belong To The Donor"),
