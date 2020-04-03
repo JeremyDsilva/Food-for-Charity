@@ -58,28 +58,28 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 
 		// 1- check if donee exists and has an active status
 		response = verifyDoneeExistenceEligibility(command.doneeId);
-		if (!response.errors.isEmpty()) {
+		if (!response.success()) {
 			return response;
 		}
 		Donee donee = doneeRepository.findById(command.doneeId).get();
 
 		// 2-check if donor exists and donee statis is active/inactive
 		response = verifyDonorExistenceEligibility(command.donorId);
-		if (!response.errors.isEmpty()) {
+		if (!response.success()) {
 			return response;
 		}
 		Donor donor = donorRepository.findById(command.donorId).get();
 
 		// 3- check if food id exists & qty requested is valid, currently available
 		response = checkFoodQuantityPairs(command.foodQuantityPairs);
-		if (!response.errors.isEmpty()) {
+		if (!response.success()) {
 			return response;
 		}
 		List<Food> foods = getAllFoodsFromFoodRepository(command.foodQuantityPairs);
 
 		// 4- verify that all food belong to the donor
 		response = matchFoodsDonor(foods, command.donorId);
-		if (!response.errors.isEmpty()) {
+		if (!response.success()) {
 			return response;
 
 		}
@@ -88,7 +88,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		if (donee.getDoneeType() == DoneeType.Individual) {
 			response = isQuantityAllowed(donee, foods, command.foodQuantityPairs);
 
-			if (!response.errors.isEmpty()) {
+			if (!response.success()) {
 				return response;
 
 			}
@@ -127,7 +127,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		requestRepository.save(request);
 		// no need to save donor back becasue nothing was changed
 
-		return new Response<Void>();
+		return Response.EmptyResponse();
 
 	}
 
@@ -142,7 +142,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			return new Response<Void>(Error.QuanityAllowanceExceeded);
 		}
 
-		return new Response<Void>();
+		return Response.EmptyResponse();
 	}
 
 	// converts quantity from integer units to meal units
@@ -163,7 +163,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			}
 
 		}
-		return new Response<Void>();
+		return Response.EmptyResponse();
 	}
 
 	private Response<Void> verifyDonorExistenceEligibility(long donorId) {
@@ -175,7 +175,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		if (donor.getDonorStatus() != DonorStatus.Active || donor.getDonorStatus() != DonorStatus.Inactive) {
 			return new Response<Void>(Error.IneligibleDonorStatus);
 		}
-		return new Response<Void>();
+		return Response.EmptyResponse();
 
 	}
 
@@ -188,7 +188,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		if (donee.getDoneeStatus() != DoneeStatus.Active) {
 			return new Response<Void>(Error.IneligibleDoneeStatus);
 		}
-		return new Response<Void>();
+		return Response.EmptyResponse();
 	}
 
 	private void updateAndSaveFoods(List<Food> foods, List<FoodQuantityPair> foodQuantityPairs) {
@@ -264,7 +264,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 																// food name
 			}
 		}
-		return new Response<Void>();
+		return Response.EmptyResponse();
 	}
 
 }
