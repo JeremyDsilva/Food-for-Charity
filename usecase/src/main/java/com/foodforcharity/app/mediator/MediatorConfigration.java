@@ -13,19 +13,16 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = { "com.foodforcharity.app.usecase" })
 public class MediatorConfigration {
 
-    CommandHandler<ChangePasswordCommand, Boolean> changePasswordCommandHandler;
     
     private final MediatorImplementation mediator;
 
     @Autowired
-    MediatorConfigration(CommandHandler<ChangePasswordCommand, Boolean> changePasswordCommandHandler) {
+    MediatorConfigration() {
         mediator = new MediatorImplementation();
-        this.changePasswordCommandHandler = changePasswordCommandHandler;
     }
 
     @Bean
     public Mediator createMediator() {
-        mediator.add(ChangePasswordCommand.class, changePasswordCommandHandler);       
 
         return mediator;
     }
