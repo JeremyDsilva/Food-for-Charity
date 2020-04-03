@@ -1,14 +1,14 @@
 package com.foodforcharity.app.usecase.foodreservation.createrequest;
 
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.DoneeStatus;
-import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
+import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
@@ -21,6 +21,7 @@ import com.foodforcharity.app.service.DonorRepository;
 import com.foodforcharity.app.service.FoodRepository;
 import com.foodforcharity.app.service.RequestRepository;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand.FoodQuantityPair;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -139,7 +140,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		// if they have already completed their quota or if they are asking for more
 		// than what they can
 		if (oldQuantityRequested == memberCount || (oldQuantityRequested + newQuantityRequested) > memberCount) {
-			return new Response<Void>(Error.QuanityAllowanceExceeded);
+			return Response.of(Error.QuanityAllowanceExceeded);
 		}
 
 		return Response.EmptyResponse();
@@ -159,7 +160,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	private Response<Void> matchFoodsDonor(List<Food> foods, long donorId) {
 		for (Food food : foods) {
 			if (food.getDonor().getId() != donorId) {// i donot know how to macth objects
-				return new Response<Void>(Error.FoodsDonorMismatch);
+				return Response.of(Error.FoodsDonorMismatch);
 			}
 
 		}
@@ -169,11 +170,11 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	private Response<Void> verifyDonorExistenceEligibility(long donorId) {
 		Optional<Donor> dbDonor = donorRepository.findById(donorId);
 		if (dbDonor.isEmpty()) {
-			return new Response<Void>(Error.DonorDoesNotExist);
+			return Response.of(Error.DonorDoesNotExist);
 		}
 		Donor donor = dbDonor.get();
 		if (donor.getDonorStatus() != DonorStatus.Active || donor.getDonorStatus() != DonorStatus.Inactive) {
-			return new Response<Void>(Error.IneligibleDonorStatus);
+			return Response.of(Error.IneligibleDonorStatus);
 		}
 		return Response.EmptyResponse();
 
@@ -182,11 +183,11 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	private Response<Void> verifyDoneeExistenceEligibility(long doneeId) {
 		Optional<Donee> dbDonee = doneeRepository.findById(doneeId);
 		if (dbDonee.isEmpty()) {
-			return new Response<Void>(Error.DoneeDoesNotExist);
+			return Response.of(Error.DoneeDoesNotExist);
 		}
 		Donee donee = dbDonee.get();
 		if (donee.getDoneeStatus() != DoneeStatus.Active) {
-			return new Response<Void>(Error.IneligibleDoneeStatus);
+			return Response.of(Error.IneligibleDoneeStatus);
 		}
 		return Response.EmptyResponse();
 	}
@@ -248,7 +249,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		for (FoodQuantityPair foodQuantityPair : foodQuantityPairs) {
 			Optional<Food> dbFood = foodRepository.findById(foodQuantityPair.foodId);
 			if (dbFood.isEmpty()) {
-				return new Response<Void>(Error.FoodDoesNotExist);
+				return Response.of(Error.FoodDoesNotExist);
 			}
 
 			Food food = dbFood.get();
@@ -256,11 +257,11 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			Integer minimumQuantity = 1;
 
 			if (quantity < minimumQuantity) {
-				return new Response<Void>(Error.InvalidQuantityRequested);
+				return Response.of(Error.InvalidQuantityRequested);
 			}
 
 			if (food.getQuantityAvailable() < quantity) {
-				return new Response<Void>(Error.FoodShortage); // i want to create a more specific error whihc includes
+				return Response.of(Error.FoodShortage); // i want to create a more specific error whihc includes
 																// food name
 			}
 		}
