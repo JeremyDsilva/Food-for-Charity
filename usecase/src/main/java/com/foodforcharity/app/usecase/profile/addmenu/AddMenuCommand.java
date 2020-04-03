@@ -12,6 +12,7 @@ import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
 public class AddMenuCommand implements Command<Response<Void>> {
+
 	long donorId;
 	String foodName;
 	String descriptionText;
@@ -24,7 +25,7 @@ public class AddMenuCommand implements Command<Response<Void>> {
 	/*
 	 * optional becasue not every food item  doesnt necessarily has an allergen
 	 */
-	Optional<Set<Allergen>> allergens;
+	Set<Allergen> allergens;
 
 	public AddMenuCommand() {
 
@@ -46,7 +47,7 @@ public class AddMenuCommand implements Command<Response<Void>> {
 	 */
 	public AddMenuCommand(long donorId, String foodName, String descriptionText, int originalPrice, int mealForNPeople,
 			int quantityAvailable, SpiceLevel spiceLevel, MealType mealType, Cuisine cuisine,
-			Optional<List<Allergen>> allergens) {
+			Set<Allergen> allergens) {
 		this.donorId = donorId;
 		this.foodName = foodName;
 		this.descriptionText = descriptionText;
@@ -59,11 +60,5 @@ public class AddMenuCommand implements Command<Response<Void>> {
 		this.allergens = allergens;
 	}
 
-	/**
-	 * 
-	 * @param allergens
-	 */
-	public void setAllergens(List<Allergen> allergens) {
-		this.allergens = Optional.of(allergens);
-	}
+	
 }

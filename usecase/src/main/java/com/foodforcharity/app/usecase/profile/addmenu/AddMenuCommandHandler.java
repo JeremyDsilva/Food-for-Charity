@@ -88,9 +88,7 @@ public class AddMenuCommandHandler implements CommandHandler<AddMenuCommand, Res
 			// food.setMealTypes(command.mealType); // method takes a set but we decided to
 			// make it a single value
 			food.setSpiceLevel(command.spiceLevel);
-			if (command.allergens.isPresent()) {
-				food.setAllergens(command.allergens.get());
-			}
+			food.setAllergens(command.allergens);
 
 			// add food item to donors menu
 			donor.getFoods().add(food);
