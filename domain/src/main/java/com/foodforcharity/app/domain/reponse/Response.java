@@ -11,15 +11,23 @@ public class Response<R> {
         return new Response<Void>();
     }
 
+    public static <R> Response<R> of(R response){
+        return new Response<R>(response);
+    }
+
+    public static <R> Response<R> of(Error error){
+        return new Response<R>(error);
+    }
+
     private Response(){
     }
 
-    public Response(R response){
+    private Response(R response){
         this.response = response;
         error = null;
     }
 
-    public Response(Error error){
+    private Response(Error error){
         this.error = error;
     }
 
