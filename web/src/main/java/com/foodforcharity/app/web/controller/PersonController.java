@@ -22,12 +22,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/user")
+// @RequestMapping("/user")
 public class PersonController {
 
     Mediator mediator;
@@ -37,12 +36,12 @@ public class PersonController {
         this.mediator = mediator;
     }
 
-    @GetMapping("/login")
+    @GetMapping(value = "/login")
     public String getLoginView(Model model) {
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     @ResponseBody
     public ResponseEntity<AuthenticationResponse> getLoginView(@RequestBody AuthenticationRequest authenticationRequest)
             throws ExecutionException {
@@ -56,14 +55,13 @@ public class PersonController {
 
     }
 
-    @GetMapping("/changepassword")
+    @GetMapping(value = "/change-password")
     public String getChangePasswordView(Model model) {
         return "change-password";
     }
 
-    @PostMapping("/changepassword")
-    @ResponseBody
-    public Boolean changePassword(Authentication authentication, Model model,
+    @PostMapping(value = "/change-password")
+    public String changePassword(Authentication authentication, Model model,
             @RequestParam(defaultValue = "password") String password,
             @RequestParam(defaultValue = "newPassword") String newPassword) throws ExecutionException {
         /*
@@ -76,15 +74,21 @@ public class PersonController {
 
         Response<Void> response = mediator.publishAsync(command).get();
 
-        return response.success();
+        if(response.success()){
+            model.addAttribute("Success", "Password Successfully Changed!");
+        } else {
+            model.addAttribute("Error", response.getError().getMessage());
+        }
+
+        return "change-password";
     }
 
-    @GetMapping("/register")
+    @GetMapping(value = "/register")
     public String getRegisterView(Model model) {
         return "register";
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public String registerDonor(@RequestBody RequestModel requestModel, Model model) throws ExecutionException {
 
         Response<Void> response;
@@ -111,6 +115,7 @@ public class PersonController {
 
         model.addAttribute("IsError", true);
         model.addAttribute("ErrorMessage", response.getError().getMessage());
+        model.addAttribute("requestModel", requestModel);
 
         return "register";
     }
