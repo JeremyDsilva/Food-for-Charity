@@ -1,32 +1,24 @@
-package com.foodforcharity.app.usecase.account.register;
-
-import java.util.Optional;
+package com.foodforcharity.app.usecase.account.doneeregisteration;
 
 import com.foodforcharity.app.domain.constant.DoneeStatus;
-import com.foodforcharity.app.domain.constant.DonorStatus;
-import com.foodforcharity.app.domain.constant.PersonRole;
-import com.foodforcharity.app.domain.entity.Donee;
-import com.foodforcharity.app.domain.entity.Donor;
-import com.foodforcharity.app.domain.entity.Person;
 import com.foodforcharity.app.domain.constant.Error;
+import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.service.DoneeRepository;
-import com.foodforcharity.app.service.DonorRepository;
 import com.foodforcharity.app.service.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * CommandHandler class for RegisterCommand 
+ * CommandHandler class for RegisterCommand
  *
  **/
 @Service
-public class RegisterCommandHandler implements CommandHandler<RegisterCommand, Response<Void>> {
+public class DoneeRegisterationCommandHandler implements CommandHandler<DoneeRegisterationCommand, Response<Void>> {
 	private final PersonRepository personRepository;
 	private final DoneeRepository doneeRepository;
-	private final DonorRepository donorRepository;
 
 	/**
 	 * Public Constructor
@@ -36,32 +28,25 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, R
 	 * @param donorRepository
 	 */
 	@Autowired
-	public RegisterCommandHandler(PersonRepository personRepository, DoneeRepository doneeRepository,
-			DonorRepository donorRepository) {
+	public DoneeRegisterationCommandHandler(PersonRepository personRepository, DoneeRepository doneeRepository) {
 		this.personRepository = personRepository;
 		this.doneeRepository = doneeRepository;
-		this.donorRepository = donorRepository;
 	}
 
 	@Override
-	public Response<Void> handle(RegisterCommand command) {
+	public Response<Void> handle(DoneeRegisterationCommand command) {
 
 		if (!isValid(command.email)) {
 			return new Response<Void>(Error.InvalidEmail);
 		}
 
-		Optional<Person> dbPerson = personRepository.findByUsername(command.email);
-		if (dbPerson.isPresent()) {
+		if (personRepository.findByUsername(command.email).isPresent()) {
 			return new Response<Void>(Error.EmailAlreadyExist);
 		}
 
 		try {
-			if (command.personRole == PersonRole.Donee) {
-				// check number of memebers
-
 				int minimumMemberCount = 1;
-
-				if (command.memberCount.get() < minimumMemberCount) {
+				if (command.memberCount < minimumMemberCount) {
 					return new Response<Void>(Error.InvalidMemberCount);
 				}
 
@@ -78,44 +63,21 @@ public class RegisterCommandHandler implements CommandHandler<RegisterCommand, R
 
 				donee.setDoneeStatus(DoneeStatus.Initial);
 				donee.setQuantityRequested(0); // is this required over here??
-				donee.setDoneeType(command.doneeType.get());
-				donee.setMemberCount(command.memberCount.get());
+				donee.setDoneeType(command.doneeType);
+				donee.setMemberCount(command.memberCount);
 
 				doneeRepository.save(donee);
 
-			} else if (command.personRole == PersonRole.Donor) {
-				// for donor
-				Donor donor = new Donor();
-				donor.setUsername(command.email);
-				donor.setPassword(command.password); // for now
-
-				donor.setDonorName(command.name);
-				donor.setAddressDescription(command.address);
-				donor.setCity(command.city);
-				donor.setEmail(command.email);
-				donor.setCountry(command.country);
-				donor.setPhoneNumber(command.phoneNumber);
-				donor.setRating(0);
-				donor.setNumberOfRating(0);
-
-				donor.setDonorStatus(DonorStatus.Initial);
-
-				donorRepository.save(donor);
-			} else {
-				return new Response<Void>(Error.UnknownError);
-			}
 		} catch (Exception e) {
 			return new Response<Void>(Error.UnknownError);
 		}
 
-		return new Response<Void>();
-
+		return Response.EmptyResponse();
 	}
 
-	static boolean isValid(String email) {
+	public boolean isValid(String email) {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
-
 	}
 
 }
