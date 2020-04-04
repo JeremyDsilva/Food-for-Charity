@@ -34,12 +34,12 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 			// check that food id exists
 			Optional<Food> dbFood = foodRepository.findById(command.foodId);
 			if (dbFood.isEmpty()) {
-				return Response.of(Error.DonorDoesNotExist);
+				return Response.of(Error.FoodDoesNotExist);
 			}
 			Food food = dbFood.get();
 
 			// check that donor and food's donor match
-			if (command.donorId == food.getDonor().getId()) {
+			if (command.donorId != food.getDonor().getId()) {
 				return Response.of(Error.FoodsDonorMismatch);
 			}
 
@@ -69,37 +69,15 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 				return Response.of(Error.InvalidFoodName);
 			}
 
-			if (command.foodName.isPresent()) {
-				food.setFoodName(command.foodName.get());
-			}
-
-			if (command.descriptionText.isPresent()) {
-				food.setDescriptionText(command.descriptionText.get());
-			}
-
-			if (command.originalPrice.isPresent()) {
-				food.setPrice(command.originalPrice.get());
-			}
-
-			if (command.mealForNPeople.isPresent()) {
-				food.setMealForNPeople(command.mealForNPeople.get());
-			}
+			command.foodName.ifPresent(x ->food.setFoodName(x)) ;
+			command.descriptionText.ifPresent(x -> food.setDescriptionText(x));
+			command.originalPrice.ifPresent(x -> food.setPrice(x));
+			command.mealForNPeople.ifPresent(x -> food.setMealForNPeople(x));
+			command.quantityAvailable.ifPresent(x -> food.setQuantityAvailable(x));
+			command.cuisine.ifPresent(x -> food.setCuisines(x));
+			command.mealType.ifPresent(x -> food.setMealType(x));
+			command.spiceLevel.ifPresent(x -> food.setSpiceLevel(x));
 			
-			if (command.quantityAvailable.isPresent()) {
-				food.setQuantityAvailable(command.quantityAvailable.get());
-			}
-
-			if (command.cuisine.isPresent()) {
-				food.setCuisines(command.cuisine.get());
-			}
-
-			if (command.mealType.isPresent()) {
-				food.setMealType(command.mealType.get());
-			}
-			// method takes a set but we decided to make it a single value}
-
-			food.setSpiceLevel(command.spiceLevel.get());
-
 			food.setAllergens(command.allergens);
 
 			// save to foodRepository
