@@ -37,7 +37,7 @@ public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuIt
 			Food food=dbFood.get();
 		// check that food belongs to command.donor id
 		if(food.getDonor().getId()!= command.donorId){
-			return Response.of(Error.FoodsDonorMismatch)
+			return Response.of(Error.FoodsDonorMismatch);
 		}
 
 		// check that food doesnt belong to any active requests
