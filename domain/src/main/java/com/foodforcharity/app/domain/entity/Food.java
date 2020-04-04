@@ -79,8 +79,7 @@ public class Food implements Serializable {
 
 	// bi-directional many-to-one association to MapDoneeMealType
 	@Enumerated(EnumType.STRING)
-	@ElementCollection(targetClass = MealType.class)
-	private Set<MealType> mealTypes;
+	private MealType mealType;
 
 	// bi-directional many-to-one association to SubRequest
 	@OneToMany(mappedBy = "food", fetch = FetchType.EAGER)
@@ -213,15 +212,15 @@ public class Food implements Serializable {
 	/**
 	 * @return the mealTypes
 	 */
-	public Set<MealType> getMealTypes() {
-		return mealTypes;
+	public MealType getMealType() {
+		return mealType;
 	}
 
 	/**
 	 * @param mealTypes the mealTypes to set
 	 */
-	public void setMealTypes(Set<MealType> mealTypes) {
-		this.mealTypes = mealTypes;
+	public void setMealType(MealType mealType) {
+		this.mealType = mealType;
 	}
 
 }
