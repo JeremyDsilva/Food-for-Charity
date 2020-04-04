@@ -1,8 +1,9 @@
 package com.foodforcharity.app.usecase.profile.deletemenuitem;
 
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class DeleteMenuItemCommand implements Command<Void> {
+public class DeleteMenuItemCommand implements Command<Response<Void>> {
 	long donorId;
 	long foodId;
 
