@@ -1,8 +1,10 @@
 package com.foodforcharity.app.domain.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -64,7 +66,7 @@ public class Donor extends Person {
 	private DonorStatus donorStatus;
 
 	// bi-directional many-to-one association to Food
-	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Food> foods;
 
@@ -157,6 +159,8 @@ public class Donor extends Person {
 	}
 
 	public Food addFood(Food food) {
+		if(getFoods() == null)
+			setFoods(new ArrayList<Food>());
 		getFoods().add(food);
 		food.setDonor(this);
 
