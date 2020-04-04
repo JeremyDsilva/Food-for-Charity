@@ -282,4 +282,66 @@ public class Donee extends Person {
 		this.mealTypes = mealTypes;
 	}
 
+	/**
+	 * @param allergen
+	 * @return
+	 * @see java.util.Set#add(java.lang.Object)
+	 */
+
+	public boolean addAllergen(Allergen allergen) {
+		return allergens.add(allergen);
+	}
+
+	/**
+	 * @param allergen
+	 * @return
+	 * @see java.util.Set#remove(java.lang.Object)
+	 */
+
+	public boolean removeAllergen(Allergen allergen) {
+		return allergens.remove(allergen);
+	}
+
+	/**
+	 * @param cuisine
+	 * @return
+	 * @see java.util.Set#add(java.lang.Object)
+	 */
+
+	public boolean addCuisine(Cuisine cuisine) {
+		return cuisines.add(cuisine);
+	}
+
+
+	/**
+	 * @param cuisine
+	 * @return
+	 * @see java.util.Set#remove(java.lang.Object)
+	 */
+
+	public boolean removeCuisine(Cuisine cuisine) {
+		return cuisines.remove(cuisine);
+	}
+
+	/**
+	 * @param mealType
+	 * @return
+	 * @see java.util.Set#add(java.lang.Object)
+	 */
+
+	public boolean addMealType(MealType mealType) {
+		return mealTypes.add(mealType);
+	}
+
+
+	/**
+	 * @param mealType
+	 * @return
+	 * @see java.util.Set#remove(java.lang.Object)
+	 */
+
+	public boolean removeCuisine(MealType mealType) {
+		return mealTypes.remove(mealType);
+	}
+
 }

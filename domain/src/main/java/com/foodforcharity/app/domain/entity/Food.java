@@ -223,4 +223,22 @@ public class Food implements Serializable {
 		this.mealType = mealType;
 	}
 
+	/**
+	 * @param allergen
+	 * @return
+	 * @see java.util.Set#add(java.lang.Object)
+	 */
+	public boolean addAllergen(Allergen allergen) {
+		return allergens.add(allergen);
+	}
+
+	/**
+	 * @param allergen
+	 * @return
+	 * @see java.util.Set#remove(java.lang.Object)
+	 */
+	public boolean removeAllergen(Allergen allergen) {
+		return allergens.remove(allergen);
+	}
+
 }
