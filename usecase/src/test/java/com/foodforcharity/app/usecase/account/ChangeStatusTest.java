@@ -60,7 +60,7 @@ public class ChangeStatusTest {
              donorRepos.save(donor);
         }
 
-        Optional<Donee> dbDonee = doneeRepos.findById(Long.valueOf(1));
+        Optional<Donee> dbDonee = doneeRepos.findById(Long.valueOf(6));
 
         if (dbDonee.isPresent()) {
             donee = dbDonee.get();
