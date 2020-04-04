@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCommand, Response<Void>> {
-	private static final Donor DonorRepository = null;
 	PersonRepository personRepository;
 	DonorRepository donorRepository;
 	DoneeRepository doneeRepository;
@@ -29,8 +28,8 @@ public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCo
 	 * @param doneeRepository
 	 */
 	@Autowired
-	public ChangeStatusCommandHandler(PersonRepository personRepository,
-			com.foodforcharity.app.service.DonorRepository donorRepository, DoneeRepository doneeRepository) {
+	public ChangeStatusCommandHandler(PersonRepository personRepository, DonorRepository donorRepository,
+			DoneeRepository doneeRepository) {
 		this.personRepository = personRepository;
 		this.donorRepository = donorRepository;
 		this.doneeRepository = doneeRepository;
@@ -61,14 +60,12 @@ public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCo
 
 			// update the status of the person
 			if (person instanceof Donor) {
-				Donor donor = donorRepository.findById(command.personId).get();
+				Donor donor = (Donor) person;
 				donor.setDonorStatus(command.donorStatus.get());
-				;
 				donorRepository.save(donor);
 			} else if (person instanceof Donee) {
-				Donee donee = doneeRepository.findById(command.personId).get();
+				Donee donee = (Donee) person;
 				donee.setDoneeStatus(command.doneeStatus.get());
-				;
 				doneeRepository.save(donee);
 			}
 		} catch (Exception e) {
