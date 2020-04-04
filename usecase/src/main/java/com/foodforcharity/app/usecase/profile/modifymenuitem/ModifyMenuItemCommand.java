@@ -1,5 +1,7 @@
 package com.foodforcharity.app.usecase.profile.modifymenuitem;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -49,7 +51,7 @@ public class ModifyMenuItemCommand implements Command<Response<Void>> {
 		this.quantityAvailable = Optional.empty();
 		this.cuisine = Optional.empty();
 		this.mealType = Optional.empty();
-		this.allergens =ArrayList<Allergen>();
+		this.allergens = new HashSet<Allergen>();
 		this.spiceLevel= Optional.empty();
 	}
 
