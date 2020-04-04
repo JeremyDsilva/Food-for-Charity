@@ -8,7 +8,6 @@ import com.foodforcharity.app.domain.entity.Request;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.service.ComplaintRepository;
-import com.foodforcharity.app.service.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
