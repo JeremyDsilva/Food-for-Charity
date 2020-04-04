@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -57,14 +58,14 @@ public class ChangeStatusTest {
             donor.setRating(0);
             donor.setUsername(donor.getEmail());
 
-             donorRepos.save(donor);
+            donorRepos.save(donor);
         }
 
         Optional<Donee> dbDonee = doneeRepos.findById(Long.valueOf(6));
 
         if (dbDonee.isPresent()) {
             donee = dbDonee.get();
-           
+
         } else {
 
             donee = new Donee();
@@ -80,26 +81,38 @@ public class ChangeStatusTest {
             donee.setMemberCount(2);
             donee.setQuantityRequested(0);
             donee.setUsername(donee.getEmail());
-           donee=doneeRepos.save(donee);
+            donee = doneeRepos.save(donee);
         }
 
-
-        
     }
 
     @Test
-    public void successTest(){
-
-        ChangeStatusCommand command1 = new ChangeStatusCommand(donor.getId());
-        command1.setDonorStatus(DonorStatus.Active);
-
-      ChangeStatusCommand command2= new ChangeStatusCommand(donee.getId());
-      command2.setDoneeStatus(DoneeStatus.Active);
-
-    Response<Void> response1 = handler.handle(command1);
-    Response<Void> response2 = handler.handle(command2);
-    
-    assert (response1.success() && response2.success());
+    public void successTest() {
+        ChangeStatusCommand donorCommand = new ChangeStatusCommand(donor.getId(), DonorStatus.Active);
+        ChangeStatusCommand doneeCommand = new ChangeStatusCommand(donee.getId(), DoneeStatus.Active);
+        assert (handler.handle(donorCommand).success());
+        assert (handler.handle(doneeCommand).success());
     }
+
+    @Test
+    public void emptyDoneeStatusFieldTest() {
+        ChangeStatusCommand donorCommand = new ChangeStatusCommand(donee.getId(), DonorStatus.Active);
+        assert (handler.handle(donorCommand).getError() == Error.EmptyDoneeStatusField);
+    }
+
+    @Test
+    public void emptyDonorStatusFieldTest() {
+        ChangeStatusCommand donorCommand = new ChangeStatusCommand(donor.getId(), DoneeStatus.Active);
+        assert (handler.handle(donorCommand).getError() == Error.EmptyDonorStatusField);
+    }
+
+    @Test
+    public void personDoesNotExistTest() {
+        ChangeStatusCommand donorCommand = new ChangeStatusCommand(Long.valueOf(100), DonorStatus.Active);
+        assert (handler.handle(donorCommand).getError() == Error.PersonDoesNotExist);
+    }
+
+
+
 
 }
