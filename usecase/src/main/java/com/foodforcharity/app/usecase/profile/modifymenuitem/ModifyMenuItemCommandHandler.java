@@ -65,7 +65,6 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 			}
 
 			// check that foodname is not empty
-
 			if (command.foodName.isPresent() && command.foodName.get().isBlank()) {
 				return Response.of(Error.InvalidFoodName);
 			}
@@ -73,15 +72,19 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 			if (command.foodName.isPresent()) {
 				food.setFoodName(command.foodName.get());
 			}
+
 			if (command.descriptionText.isPresent()) {
 				food.setDescriptionText(command.descriptionText.get());
 			}
+
 			if (command.originalPrice.isPresent()) {
 				food.setPrice(command.originalPrice.get());
 			}
+
 			if (command.mealForNPeople.isPresent()) {
 				food.setMealForNPeople(command.mealForNPeople.get());
 			}
+			
 			if (command.quantityAvailable.isPresent()) {
 				food.setQuantityAvailable(command.quantityAvailable.get());
 			}
@@ -89,19 +92,19 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 			if (command.cuisine.isPresent()) {
 				food.setCuisines(command.cuisine.get());
 			}
+
 			if (command.mealType.isPresent()) {
 				food.setMealType(command.mealType.get());
-				// method takes a set but we decided to make it a single value}
-				{
-					food.setSpiceLevel(command.spiceLevel.get());
-				}
-
-				food.setAllergens(command.allergens);
-
-				// save to foodRepository
-				foodRepository.save(food);
-
 			}
+			// method takes a set but we decided to make it a single value}
+
+			food.setSpiceLevel(command.spiceLevel.get());
+
+			food.setAllergens(command.allergens);
+
+			// save to foodRepository
+			foodRepository.save(food);
+
 		} catch (Exception e) {
 			return Response.of(Error.UnknownError);
 		}
