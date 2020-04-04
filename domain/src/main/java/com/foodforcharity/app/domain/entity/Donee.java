@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
@@ -77,11 +78,11 @@ public class Donee extends Person {
 	private DoneeType doneeType;
 
 	// bi-directional many-to-one association to DoneePriceRange
-	@OneToOne(mappedBy = "donee", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private DoneePriceRange priceRange;
 
 	// bi-directional many-to-one association to DoneeSpiceRange
-	@OneToOne(mappedBy = "donee", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private DoneeSpiceRange spiceRange;
 
 	@Enumerated(EnumType.STRING)
@@ -98,7 +99,7 @@ public class Donee extends Person {
 	private Set<MealType> mealTypes;
 
 	// bi-directional many-to-one association to Request
-	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Request> requests;
 

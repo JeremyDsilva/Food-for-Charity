@@ -78,11 +78,4 @@ public abstract class Person implements Serializable {
 		return Optional.empty();
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -56,7 +57,7 @@ public class Request implements Serializable {
 	private Date requestTime;
 
 	//bi-directional many-to-one association to Complaint
-	@OneToMany(mappedBy="request", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="request", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@NotNull
 	private List<Complaint> complaints;
@@ -72,7 +73,7 @@ public class Request implements Serializable {
 	private Donee donee;
 
 	//bi-directional many-to-one association to SubRequest
-	@OneToMany(mappedBy="request", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="request", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<SubRequest> subRequests;
 

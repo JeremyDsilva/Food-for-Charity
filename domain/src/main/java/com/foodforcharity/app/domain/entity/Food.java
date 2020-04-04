@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -83,7 +84,7 @@ public class Food implements Serializable {
 	private MealType mealType;
 
 	// bi-directional many-to-one association to SubRequest
-	@OneToMany(mappedBy = "food", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "food", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<SubRequest> subRequests;
 

@@ -71,7 +71,7 @@ public class Donor extends Person {
 	private List<Food> foods;
 
 	// bi-directional many-to-one association to Request
-	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "donor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Request> requests;
 
