@@ -117,7 +117,7 @@ public class AddMenuTest {
     public void DoneeDoesNotExistTest() {
         AddMenuCommand command = new AddMenuCommand(100, "foodName ", "descriptionText", 500, 20, 50,
                 SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
-        assert (handler.handle(command).getError() == Error.DoneeDoesNotExist);
+        assert (handler.handle(command).getError() == Error.DonorDoesNotExist);
     }
 
 }

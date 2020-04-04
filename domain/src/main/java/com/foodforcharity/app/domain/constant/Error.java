@@ -26,7 +26,9 @@ public enum Error {
     InvalidMealSize("Meal For N People must be greater than 0"),
     InvalidQuantityAvailable("Quantity Of Food Available Must Not Be Negative"),
     InvalidFoodDescriptionText("Food Description Text Cannot Be Empty"),
-    InvalidFoodName("Food Name Cannot Be Empty");
+    InvalidFoodName("Food Name Cannot Be Empty"),
+    EmptyDoneeStatusField("Donee Status Cannot be empty"),
+    EmptyDonorStatusField("Donor Status Cannot be empty"),
 
 
 
