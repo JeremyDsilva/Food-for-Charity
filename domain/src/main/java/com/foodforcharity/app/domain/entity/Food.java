@@ -79,6 +79,7 @@ public class Food implements Serializable {
 
 	// bi-directional many-to-one association to MapDoneeMealType
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private MealType mealType;
 
 	// bi-directional many-to-one association to SubRequest
