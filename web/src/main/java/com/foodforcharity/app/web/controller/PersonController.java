@@ -2,6 +2,8 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.validation.Valid;
+
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -85,6 +87,7 @@ public class PersonController {
 
     @GetMapping(value = "/register")
     public String getRegisterView(Model model) {
+        model.addAttribute("requestModel", new RequestModel());
         return "register";
     }
 

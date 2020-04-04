@@ -15,8 +15,8 @@
     padding-top: 8px;
 }
 
-.jumbotron {
-    background-image: url("../../images/19931643Untitled-3-512.png");
+.index-pic {
+    background-image: url("../images/index-pic.png");
     background-color: white;
     background-repeat: no-repeat;
     background-position: right;

@@ -45,8 +45,8 @@ public class RequestModel implements Serializable {
         this.email = email;
     }
 
-    public PersonRole getPersonRole() {
-        return PersonRole.valueOf(personRole);
+    public String getPersonRole() {
+        return personRole;
     }
 
     public void setPersonRole(String personRole) {
