@@ -28,26 +28,24 @@ public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuIt
 
 	@Override
 	public Response<Void> handle(DeleteMenuItemCommand command) {
-	try{	// check that food item exists
-			Optional<Food> dbFood=foodRepository.findById(command.foodId);
-			if (dbFood.isEmpty()){
+		try { // check that food item exists
+			Optional<Food> dbFood = foodRepository.findById(command.foodId);
+			if (dbFood.isEmpty()) {
 				return Response.of(Error.FoodDoesNotExist);
 			}
 
-			Food food=dbFood.get();
-		// check that food belongs to command.donor id
-		if(food.getDonor().getId()!= command.donorId){
-			return Response.of(Error.FoodsDonorMismatch);
-		}
+			Food food = dbFood.get();
+			// check that food belongs to command.donor id
+			if (food.getDonor().getId() != command.donorId) {
+				return Response.of(Error.FoodsDonorMismatch);
+			}
 
-		// check that food doesnt belong to any active requests
+			// check that food doesnt belong to any active requests
 
-
-		// delete
-		foodRepository.delete(food);
-		return Response.EmptyResponse();
-	}
-		catch(Exception e){
+			// delete
+			foodRepository.delete(food);
+			return Response.EmptyResponse();
+		} catch (Exception e) {
 			return Response.of(Error.UnknownError);
 		}
 

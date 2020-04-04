@@ -9,6 +9,7 @@ import java.util.Set;
 import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Donor;
@@ -28,12 +29,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DeleteMenuTest{
+public class DeleteMenuTest {
 
     @Autowired
     CommandHandler<DeleteMenuItemCommand, Response<Void>> handler;
 
-    
     @Autowired
     FoodRepository foodRepos;
 
@@ -49,11 +49,10 @@ public class DeleteMenuTest{
 
         final Optional<Food> dbFood = foodRepos.findById(Long.valueOf(1));
 
-        if (dbFood.isPresent()){
+        if (dbFood.isPresent()) {
             food = dbFood.get();
             donor = food.getDonor();
-        }
-        else {
+        } else {
 
             final Optional<Donor> dbDonor = donorRepos.findById(Long.valueOf(1));
             if (dbDonor.isEmpty()) {
@@ -90,16 +89,29 @@ public class DeleteMenuTest{
             final Set<Allergen> iSet = new HashSet<Allergen>(aList);
             food.setDonor(donor);
             food.setAllergens(iSet);
-              donor.addFood(food);
+            donor.addFood(food);
             donor = donorRepos.save(donor);
         }
     }
+
     @Test
     public void successTest() {
-        DeleteMenuItemCommand command = new  DeleteMenuItemCommand(donor.getId(), food.getId());
-        
+        DeleteMenuItemCommand command = new DeleteMenuItemCommand(donor.getId(), food.getId());
+
         Response<Void> response = handler.handle(command);
         assert (response.success());
+    }
+
+    @Test
+    public void foodDoesNotExistTest() {
+        assert (handler.handle(new DeleteMenuItemCommand(donor.getId(), Long.valueOf(100)))
+                .getError() == Error.FoodDoesNotExist);
+    }
+
+    @Test
+    public void foodsDonorMismatchTest() {
+        assert (handler.handle(new DeleteMenuItemCommand(Long.valueOf(100), food.getId()))
+                .getError() == Error.FoodsDonorMismatch);
     }
 
 }
