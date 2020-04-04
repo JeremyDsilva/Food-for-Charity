@@ -4,29 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <nav th:fragment="index-header" class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" th:href="@{/}">Food for Charity</a>
-        <div class="navbar-nav mr-auto">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/guests}">Guests</a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-nav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a id="register" class="btn btn-light mr-1" th:href="@{/register}">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-success mr-1" th:href="@{/login}">Login</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div th:fragment="index-header" class="bs-example">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a th:href="@{/}" class="navbar-brand">Food for Charity</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="@{/}" class="nav-item nav-link active">Home</a>
+                    <a th:href="@{/guests}" class="nav-item nav-link">Guests</a>
+                    <!-- <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a th:href="@{/login}" class="btn nav-item nav-link">Login</a>
+                    <a th:href="@{/register}" class="btn btn-success nav-item nav-link">Register</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
     <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:fragment="homepage-header">
 
     </nav> -->

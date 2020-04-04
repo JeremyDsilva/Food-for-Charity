@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,11 +93,11 @@ public class PersonController {
     }
 
     @PostMapping(value = "/register")
-    public String registerDonor(@RequestBody RequestModel requestModel, Model model) throws ExecutionException {
+    public String registerDonor(@ModelAttribute RequestModel requestModel, Model model) throws ExecutionException {
 
         Response<Void> response;
 
-        if (requestModel.getPersonRole() == PersonRole.Donor) {
+        if (requestModel.getPersonRole() == PersonRole.Donor.name()) {
 
             DonorRegisterationCommand command = new DonorRegisterationCommand(requestModel.getName(),
                     requestModel.getPassword(), requestModel.getEmail(), requestModel.getPhoneNumber(),
