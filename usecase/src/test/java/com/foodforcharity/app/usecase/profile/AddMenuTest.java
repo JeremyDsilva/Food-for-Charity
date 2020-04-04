@@ -36,22 +36,26 @@ public class AddMenuTest {
     DonorRepository repos;
 
     Donor donor;
-    
+
     @Before
     public void init() {
 
         Optional<Donor> dbDonor = repos.findById(Long.valueOf(1));
 
-        if (dbDonor.isPresent())
+        if (dbDonor.isPresent()) {
             donor = dbDonor.get();
-        else {
+            if (donor.getDonorStatus() != DonorStatus.Active) {
+                donor.setDonorStatus(DonorStatus.Active);
+                repos.save(donor);
+            }
+        } else {
 
             donor = new Donor();
             donor.setAddressDescription("DonorAddressDescription");
             donor.setCity("DonorCity");
             donor.setCountry("DonorCountry");
             donor.setDonorName("DonorName");
-            donor.setDonorStatus(DonorStatus.Initial);
+            donor.setDonorStatus(DonorStatus.Active);
             donor.setEmail("donoremail@gmail.com");
             donor.setNumberOfRating(0);
             donor.setPassword("DonorPassword");
@@ -62,65 +66,58 @@ public class AddMenuTest {
             donor = repos.save(donor);
         }
     }
-    List<Allergen> aList= Arrays.asList(Allergen.Dairy);
+
+    List<Allergen> aList = Arrays.asList(Allergen.Dairy);
     Set<Allergen> hSet = new HashSet<Allergen>(aList);
-    
-    
-    
 
     @Test
     public void successTest() {
-       AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName", "descriptionText",500, 20,
-    50, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName", "descriptionText", 500, 20, 50,
+                SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
         Response<Void> response = handler.handle(command);
         assert (response.success());
     }
 
     @Test
     public void InvalidFoodNameTest() {
-        AddMenuCommand command = new AddMenuCommand(donor.getId(), " ", "descriptionText",500, 20,
-        50, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(donor.getId(), " ", "descriptionText", 500, 20, 50,
+                SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
         assert (handler.handle(command).getError() == Error.InvalidFoodName);
     }
 
     @Test
     public void InvalidFoodDescriptionTextTest() {
-        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName", " ",500, 20,
-        50, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName", " ", 500, 20, 50, SpiceLevel.ExtraHot,
+                MealType.Chicken, Cuisine.Chinese, hSet);
         assert (handler.handle(command).getError() == Error.InvalidFoodDescriptionText);
     }
 
-
     @Test
     public void InvalidOriginalPriceTest() {
-        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName ", "descriptionText",-2, 20,
-        50, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName ", "descriptionText", -2, 20, 50,
+                SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
         assert (handler.handle(command).getError() == Error.InvalidOriginalPrice);
     }
 
-
     @Test
     public void InvalidMealSizeTest() {
-        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName ", "descriptionText",500, 0,
-        50, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName ", "descriptionText", 500, 0, 50,
+                SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
         assert (handler.handle(command).getError() == Error.InvalidMealSize);
     }
 
     @Test
     public void InvalidQuantityAvailableTest() {
-        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName ", "descriptionText",500, 20,
-        -3, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(donor.getId(), "foodName ", "descriptionText", 500, 20, -3,
+                SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
         assert (handler.handle(command).getError() == Error.InvalidQuantityAvailable);
     }
 
     @Test
     public void DoneeDoesNotExistTest() {
-        AddMenuCommand command = new AddMenuCommand(100, "foodName ", "descriptionText",500, 20,
-        50, SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese,hSet);
+        AddMenuCommand command = new AddMenuCommand(100, "foodName ", "descriptionText", 500, 20, 50,
+                SpiceLevel.ExtraHot, MealType.Chicken, Cuisine.Chinese, hSet);
         assert (handler.handle(command).getError() == Error.DoneeDoesNotExist);
     }
-
-
-    
 
 }
