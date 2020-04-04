@@ -38,9 +38,10 @@ public class ModifyMenuTest {
     FoodRepository foodRepos;
 
     @Autowired
-    DonorRepository repos;
+    DonorRepository donorRepos;
 
     Donor donor;
+
     Food food;
 
     @Before
@@ -48,33 +49,42 @@ public class ModifyMenuTest {
 
         Optional<Food> dbFood = foodRepos.findById(Long.valueOf(1));
 
-        if (dbFood.isPresent())
+        if (dbFood.isPresent()){
             food = dbFood.get();
+            donor = food.getDonor();
+        }
         else {
 
-            donor = new Donor();
-            donor.setAddressDescription("DonorAddressDescription");
-            donor.setCity("DonorCity");
-            donor.setCountry("DonorCountry");
-            donor.setDonorName("DonorName");
-            donor.setDonorStatus(DonorStatus.Initial);
-            donor.setEmail("donoremail@gmail.com");
-            donor.setNumberOfRating(0);
-            donor.setPassword("DonorPassword");
-            donor.setPhoneNumber("DonorPhoneNumber");
-            donor.setRating(0);
-            donor.setUsername(donor.getEmail());
+            Optional<Donor> dbDonor = donorRepos.findById(Long.valueOf(1));
+            if (dbDonor.isEmpty()) {
+                donor = new Donor();
+                donor.setAddressDescription("DonorAddressDescription");
+                donor.setCity("DonorCity");
+                donor.setCountry("DonorCountry");
+                donor.setDonorName("DonorName");
+                donor.setEmail("donoremail@gmail.com");
+                donor.setNumberOfRating(0);
+                donor.setPassword("DonorPassword");
+                donor.setPhoneNumber("DonorPhoneNumber");
+                donor.setRating(0);
+                donor.setUsername(donor.getEmail());
+            } else {
+                donor = dbDonor.get();
+            }
+
+            donor.setDonorStatus(DonorStatus.Active);
 
             //
             food = new Food();
             food.setFoodName("foodName");
             food.setDescriptionText("descriptionText");
             food.setCuisines(Cuisine.Belgravian);
+            food.setMealType(MealType.Mixed);
             food.setPrice(200);
             food.setQuantityAvailable(23);
             food.setMealForNPeople(3);
             food.setSpiceLevel(SpiceLevel.MildSpice);
-            
+
             // food.setMealTypes(MealType.RedMeat);
             List<Allergen> aList = Arrays.asList(Allergen.Dairy);
             Set<Allergen> iSet = new HashSet<Allergen>(aList);
@@ -82,7 +92,7 @@ public class ModifyMenuTest {
             food.setAllergens(iSet);
 
             donor.addFood(food);
-            donor = repos.save(donor);
+            donor = donorRepos.save(donor);
         }
     }
 
@@ -96,7 +106,6 @@ public class ModifyMenuTest {
         Response<Void> response = handler.handle(command);
         assert (response.success());
     }
-
 
     @Test
     public void InvalidFoodNameTest() {
@@ -140,9 +149,10 @@ public class ModifyMenuTest {
         ModifyMenuItemCommand command = new ModifyMenuItemCommand(donor.getId(), 100);
         assert (handler.handle(command).getError() == Error.FoodDoesNotExist);
     }
+
     @Test
     public void FoodsDonorMismatchTest() {
-        ModifyMenuItemCommand command = new ModifyMenuItemCommand( 100,food.getId());
+        ModifyMenuItemCommand command = new ModifyMenuItemCommand(100, food.getId());
         assert (handler.handle(command).getError() == Error.FoodsDonorMismatch);
     }
 
