@@ -21,23 +21,6 @@ public class CreateRequestCommand implements Command<Response<Void>> {
 		}
 	}
 
-	public CreateRequestCommand() {
-
-	}
-
-	/**
-	 * Public Constructor
-	 * 
-	 * @param doneeId
-	 * @param donorId
-	 * @param foodQuantityPairs
-	 */
-	public CreateRequestCommand(long doneeId, long donorId, List<FoodQuantityPair> foodQuantityPairs) {
-		this.doneeId = doneeId;
-		this.donorId = donorId;
-		this.foodQuantityPairs = foodQuantityPairs;
-	}
-
 	/**
 	 * Public Constructor
 	 * 
