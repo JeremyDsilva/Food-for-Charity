@@ -58,6 +58,7 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 			donor.setPhoneNumber(command.phoneNumber);
 			donor.setRating(0);
 			donor.setNumberOfRating(0);
+			donor.setDiscountApplied(0);
 
 			donor.setDonorStatus(DonorStatus.Initial);
 
