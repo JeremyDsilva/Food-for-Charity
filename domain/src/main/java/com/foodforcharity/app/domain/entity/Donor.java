@@ -59,6 +59,9 @@ public class Donor extends Person {
 	@NotNull
 	private Integer rating;
 
+	@NotNull
+	private Double discountApplied; 
+
 	// bi-directional many-to-one association to DonorStatus
 	@Column(name = "DONOR_STATUS")
 	@Enumerated(EnumType.STRING)
@@ -199,6 +202,20 @@ public class Donor extends Person {
 	@Override
 	public Optional<String> getStatus(){
 		return Optional.of(donorStatus.name());
+	}
+
+	/**
+	 * @return the discountApplied
+	 */
+	public Double getDiscountApplied() {
+		return discountApplied;
+	}
+
+	/**
+	 * @param discountApplied the discountApplied to set
+	 */
+	public void setDiscountApplied(Double discountApplied) {
+		this.discountApplied = discountApplied;
 	}
 
 }
