@@ -2,31 +2,24 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
-import javax.validation.Valid;
-
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
 import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;
-import com.foodforcharity.app.usecase.account.login.LoginCommand;
-import com.foodforcharity.app.web.model.AuthenticationRequest;
-import com.foodforcharity.app.web.model.AuthenticationResponse;
 import com.foodforcharity.app.web.model.RequestModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 // @RequestMapping("/user")
@@ -37,25 +30,6 @@ public class PersonController {
     @Autowired
     PersonController(Mediator mediator) {
         this.mediator = mediator;
-    }
-
-    @GetMapping(value = "/login")
-    public String getLoginView(Model model) {
-        return "login";
-    }
-
-    @PostMapping(value = "/login")
-    @ResponseBody
-    public ResponseEntity<AuthenticationResponse> getLoginView(@RequestBody AuthenticationRequest authenticationRequest)
-            throws ExecutionException {
-
-        LoginCommand command = new LoginCommand(authenticationRequest.getUsername(),
-                authenticationRequest.getPassword());
-
-        Response<String> jwt = mediator.publishAsync(command).get();
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt.getResponse()));
-
     }
 
     @GetMapping(value = "/change-password")
@@ -71,13 +45,15 @@ public class PersonController {
          * Get person id from session
          */
 
-        long personId = 1;
+        PersonDetails o = (PersonDetails) authentication.getPrincipal();
+
+        long personId = o.getPersonId();
 
         ChangePasswordCommand command = new ChangePasswordCommand(personId, password, newPassword);
 
         Response<Void> response = mediator.publishAsync(command).get();
 
-        if(response.success()){
+        if (response.success()) {
             model.addAttribute("Success", "Password Successfully Changed!");
         } else {
             model.addAttribute("Error", response.getError().getMessage());
