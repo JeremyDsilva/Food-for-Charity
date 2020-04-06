@@ -4,7 +4,6 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -41,7 +40,7 @@ public class JwtProvider {
         this.validityInMilliseconds = validityInMilliseconds;
     }
 
-    public String createToken(PersonDetail personDetail) { // List<Role> roles
+    public String createToken(PersonDetails personDetail) { // List<Role> roles
         // Add the username to the payload
         Claims claims = Jwts.claims().setSubject(personDetail.getUsername());
 
