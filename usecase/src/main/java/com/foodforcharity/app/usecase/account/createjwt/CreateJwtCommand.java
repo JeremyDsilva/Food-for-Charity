@@ -1,9 +1,9 @@
-package com.foodforcharity.app.usecase.account.login;
+package com.foodforcharity.app.usecase.account.createjwt;
 
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class LoginCommand implements Command<Response<String>>{
+public class CreateJwtCommand implements Command<Response<String>>{
 
     String username;
     String password;
@@ -12,7 +12,7 @@ public class LoginCommand implements Command<Response<String>>{
      * @param username
      * @param password
      */
-    public LoginCommand(String username, String password) {
+    public CreateJwtCommand(String username, String password) {
         this.username = username;
         this.password = password;
     }
