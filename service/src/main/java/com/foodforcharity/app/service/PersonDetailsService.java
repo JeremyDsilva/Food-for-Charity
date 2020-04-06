@@ -5,18 +5,18 @@ import java.util.Set;
 
 import com.foodforcharity.app.domain.entity.Person;
 import com.foodforcharity.app.domain.security.JwtProvider;
-import com.foodforcharity.app.domain.security.PersonDetail;
+import com.foodforcharity.app.domain.security.PersonDetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Service to associate user with password and roles setup in the database.
  *
  */
-@Component
+@Service
 public class PersonDetailsService implements UserDetailsService {
 
     private final PersonRepository personRepository;
@@ -30,11 +30,11 @@ public class PersonDetailsService implements UserDetailsService {
     }
 
     @Override
-    public PersonDetail loadUserByUsername(String s) throws UsernameNotFoundException {
+    public PersonDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Person person = personRepository.findByUsername(s)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with name %s does not exist", s)));
 
-        return new PersonDetail(person);
+        return new PersonDetails(person);
     }
 
     /**
@@ -43,7 +43,7 @@ public class PersonDetailsService implements UserDetailsService {
      * @param jwtToken
      * @return
      */
-    public Optional<PersonDetail> loadUserByJwtTokenAndDatabase(String jwtToken) {
+    public Optional<PersonDetails> loadUserByJwtTokenAndDatabase(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {
             return Optional.of(loadUserByUsername(jwtProvider.getUsername(jwtToken)));
         } else {
@@ -57,9 +57,9 @@ public class PersonDetailsService implements UserDetailsService {
      * @param jwtToken jwt string
      * @return UserDetails if valid, Empty otherwise
      */
-    public Optional<PersonDetail> loadUserByJwtToken(String jwtToken) {
+    public Optional<PersonDetails> loadUserByJwtToken(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {
-            return Optional.of(new PersonDetail(jwtProvider.getPersonId(jwtToken), jwtProvider.getUsername(jwtToken),
+            return Optional.of(new PersonDetails(jwtProvider.getPersonId(jwtToken), jwtProvider.getUsername(jwtToken),
                     Set.copyOf(jwtProvider.getAuthorities(jwtToken))));
         }
         return Optional.empty();

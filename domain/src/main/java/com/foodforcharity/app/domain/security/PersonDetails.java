@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class PersonDetail implements UserDetails {
+public class PersonDetails implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,7 +19,7 @@ public class PersonDetail implements UserDetails {
     String password;
     final Collection<? extends GrantedAuthority> authorities;
 
-    public PersonDetail(Person person) {
+    public PersonDetails(Person person) {
         this.personId = person.getId();
         this.username = person.getUsername();
         this.password = person.getPassword();
@@ -33,7 +33,7 @@ public class PersonDetail implements UserDetails {
         this.authorities = authorities;
     }
 
-    public PersonDetail(long personId, String username, Collection<? extends GrantedAuthority> authorities){
+    public PersonDetails(long personId, String username, Collection<? extends GrantedAuthority> authorities){
         this.personId = personId;
         this.username = username;
         this.authorities = authorities;

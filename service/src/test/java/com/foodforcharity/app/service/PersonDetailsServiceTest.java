@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.security.JwtProvider;
-import com.foodforcharity.app.domain.security.PersonDetail;
+import com.foodforcharity.app.domain.security.PersonDetails;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,13 +57,13 @@ public class PersonDetailsServiceTest {
 
     @Test
     public void loadUserByUsernameSuccessTest() {
-        PersonDetail personDetail = service.loadUserByUsername(donor.getUsername());
+        PersonDetails personDetail = service.loadUserByUsername(donor.getUsername());
         assert (personDetail.getPersonId() == donor.getId());
     }
 
     @Test
     public void reterieveJWTSuccessTest() {
-        PersonDetail personDetail = service.loadUserByUsername(donor.getUsername());
+        PersonDetails personDetail = service.loadUserByUsername(donor.getUsername());
 
         String jwt = jwtProvider.createToken(personDetail);
 
