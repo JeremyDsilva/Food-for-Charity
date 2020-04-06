@@ -1,6 +1,5 @@
 package com.foodforcharity.app.usecase.foodreservation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.foodforcharity.app.domain.constant.Allergen;
-import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
@@ -24,8 +22,6 @@ import com.foodforcharity.app.service.DoneeRepository;
 import com.foodforcharity.app.service.DonorRepository;
 import com.foodforcharity.app.service.FoodRepository;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
-import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand.FoodQuantityPair;
-import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,7 +61,7 @@ public class CreateRequestTest {
             donor = food.getDonor();
         } else {
 
-            Optional<Donor> dbDonor = donorRepos.findById(Long.valueOf(1));
+            Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
             if (dbDonor.isEmpty()) {
                 donor = new Donor();
                 donor.setAddressDescription("DonorAddressDescription");
@@ -77,6 +73,7 @@ public class CreateRequestTest {
                 donor.setPassword("DonorPassword");
                 donor.setPhoneNumber("DonorPhoneNumber");
                 donor.setRating(0);
+                donor.setDiscountApplied(10);
                 donor.setUsername(donor.getEmail());
             } else {
                 donor = dbDonor.get();
@@ -105,7 +102,7 @@ public class CreateRequestTest {
             donor = donorRepos.save(donor);
         }
 
-        Optional<Donee> dbDonee = doneeRepos.findById(Long.valueOf(6));
+        Optional<Donee> dbDonee = doneeRepos.findByUsername("doneeemail@gmail.com");
 
         Donee donee;
         if (dbDonee.isPresent()) {
@@ -129,6 +126,10 @@ public class CreateRequestTest {
             donee = doneeRepos.save(donee);
         }
 
+    }
+
+    @Test
+    public void test() {
     }
 
     // @Test

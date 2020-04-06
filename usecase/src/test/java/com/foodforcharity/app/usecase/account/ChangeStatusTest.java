@@ -25,12 +25,16 @@ import org.junit.Test;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class ChangeStatusTest {
+   
     @Autowired
     CommandHandler<ChangeStatusCommand, Response<Void>> handler;
+    
     @Autowired
     PersonRepository personRepos;
+   
     @Autowired
     DonorRepository donorRepos;
+   
     @Autowired
     DoneeRepository doneeRepos;
 
@@ -39,7 +43,7 @@ public class ChangeStatusTest {
 
     @Before
     public void init() {
-        Optional<Donor> dbDonor = donorRepos.findById(Long.valueOf(1));
+        Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
 
         if (dbDonor.isPresent()) {
             donor = dbDonor.get();
@@ -57,15 +61,15 @@ public class ChangeStatusTest {
             donor.setPhoneNumber("DonorPhoneNumber");
             donor.setRating(0);
             donor.setUsername(donor.getEmail());
+            donor.setDiscountApplied(0);
 
             donorRepos.save(donor);
         }
 
-        Optional<Donee> dbDonee = doneeRepos.findById(Long.valueOf(6));
+        Optional<Donee> dbDonee = doneeRepos.findByUsername("doneeemail@gmail.com");
 
         if (dbDonee.isPresent()) {
             donee = dbDonee.get();
-
         } else {
 
             donee = new Donee();

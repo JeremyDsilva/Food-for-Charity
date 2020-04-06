@@ -32,7 +32,7 @@ public class ChangePasswordTest {
     @Before
     public void init() {
 
-        Optional<Donor> dbDonor = repos.findById(Long.valueOf(1));
+        Optional<Donor> dbDonor = repos.findByUsername("donoremail@gmail.com");
 
         if (dbDonor.isPresent())
             donor = dbDonor.get();
@@ -50,6 +50,7 @@ public class ChangePasswordTest {
             donor.setPhoneNumber("DonorPhoneNumber");
             donor.setRating(0);
             donor.setUsername(donor.getEmail());
+            donor.setDiscountApplied(0);
 
             donor = repos.save(donor);
         }

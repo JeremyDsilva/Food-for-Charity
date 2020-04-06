@@ -55,7 +55,7 @@ public class ModifyMenuTest {
         }
         else {
 
-            Optional<Donor> dbDonor = donorRepos.findById(Long.valueOf(1));
+            Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
             if (dbDonor.isEmpty()) {
                 donor = new Donor();
                 donor.setAddressDescription("DonorAddressDescription");
@@ -67,6 +67,7 @@ public class ModifyMenuTest {
                 donor.setPassword("DonorPassword");
                 donor.setPhoneNumber("DonorPhoneNumber");
                 donor.setRating(0);
+                donor.setDiscountApplied(0);
                 donor.setUsername(donor.getEmail());
             } else {
                 donor = dbDonor.get();
