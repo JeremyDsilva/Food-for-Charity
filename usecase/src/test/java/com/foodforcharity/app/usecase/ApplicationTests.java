@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @EnableAutoConfiguration
 @EntityScan(basePackages = {"com.foodforcharity.app.domain"})
 @EnableJpaRepositories(basePackages = "com.foodforcharity.app.service")
+@ComponentScan(basePackages = {"com.foodforcharity.app.domain"})
+@ComponentScan(basePackages = {"com.foodforcharity.app.service"})
 @ComponentScan(basePackages = {"com.foodforcharity.app.mediator"})
 @ComponentScan(basePackages = {"com.foodforcharity.app.usecase"})
 public class ApplicationTests {
