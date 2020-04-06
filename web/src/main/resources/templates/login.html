@@ -15,7 +15,7 @@
                 <hr/>
                 <div class="row justify-content-center align-items-center h-100">
                     <div class="col col-sm-9 col-md-9 col-lg-4 col-xl-3">
-                        <form class="form-group" th:action="@{user/login}" method="post">
+                        <form class="form-group" th:action="@{/login}" method="post">
                             <div th:if="${param.error}">
                                 <div class="alert alert-danger">
                                     Invalid username or password.
