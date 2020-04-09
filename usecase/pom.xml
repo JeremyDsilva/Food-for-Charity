@@ -2,8 +2,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-        <groupId>com.foodforcharity</groupId>
-        <artifactId>app</artifactId>
+		<groupId>com.foodforcharity</groupId>
+		<artifactId>app</artifactId>
 		<version>0.1</version>
 	</parent>
 
@@ -11,17 +11,22 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.foodforcharity</groupId>
 			<artifactId>domain</artifactId>
 			<version>0.1</version>
 		</dependency>
+
+		<!-- Test Scope -->
 		<dependency>
 			<groupId>com.foodforcharity</groupId>
-			<artifactId>service</artifactId>
+			<artifactId>infrastructure</artifactId>
 			<version>0.1</version>
+			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
-	
+
 
 </project>
