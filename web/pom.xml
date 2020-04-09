@@ -11,6 +11,7 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>com.foodforcharity</groupId>
 			<artifactId>domain</artifactId>
@@ -21,20 +22,27 @@
 			<artifactId>usecase</artifactId>
 			<version>0.1</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.foodforcharity</groupId>
+			<artifactId>infrastructure</artifactId>
+			<version>0.1</version>
+		</dependency>
+
+		<!-- Thymeleaf -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
-        	<groupId>org.thymeleaf.extras</groupId>
+			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-    		<version>3.0.4.RELEASE</version>
-    	</dependency>
+			<version>3.0.4.RELEASE</version>
+		</dependency>
 		<dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-        </dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
