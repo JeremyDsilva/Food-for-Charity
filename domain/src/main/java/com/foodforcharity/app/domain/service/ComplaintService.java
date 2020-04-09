@@ -1,13 +1,14 @@
-package com.foodforcharity.app.service;
+package com.foodforcharity.app.domain.service;
 
 import java.util.List;
 
 import com.foodforcharity.app.domain.entity.Complaint;
 import com.foodforcharity.app.domain.entity.Request;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
 
-public interface ComplaintRepository extends CrudRepository<Complaint, Long> {
+@Component
+public interface ComplaintService extends Service<Complaint> {
     List<Complaint> findAllByRequest(Request request);
     List<Complaint> findAllByFromDoneeAndIsActive(Boolean fromDonee, Boolean isActive);
 }
