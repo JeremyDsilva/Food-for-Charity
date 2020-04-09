@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.entity.Person;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ public class PersonDetails implements UserDetails {
 
     final long personId;
     final String username;
+    final PersonRole role;
     String password;
     final Collection<? extends GrantedAuthority> authorities;
 
@@ -23,9 +25,10 @@ public class PersonDetails implements UserDetails {
         this.personId = person.getId();
         this.username = person.getUsername();
         this.password = person.getPassword();
+        this.role = PersonRole.valueOf(person.getRole());
 
         Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(person.getRole()));
+        authorities.add(new SimpleGrantedAuthority(role.name()));
         person.getStatus().ifPresent(status -> {
             authorities.add(new SimpleGrantedAuthority(status));
         });
@@ -33,10 +36,11 @@ public class PersonDetails implements UserDetails {
         this.authorities = authorities;
     }
 
-    public PersonDetails(long personId, String username, Collection<? extends GrantedAuthority> authorities){
+    public PersonDetails(long personId, String username, String role, Collection<GrantedAuthority> authorities) {
         this.personId = personId;
         this.username = username;
         this.authorities = authorities;
+        this.role = PersonRole.valueOf(role);
     }
 
     @Override
@@ -79,6 +83,11 @@ public class PersonDetails implements UserDetails {
      */
     public long getPersonId() {
         return personId;
-    }    
+    }
+
+
+    public PersonRole getRole() {
+        return role;
+    }
 
 }
