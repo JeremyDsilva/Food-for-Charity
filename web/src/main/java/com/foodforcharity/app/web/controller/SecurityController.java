@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class HomeController {
+public class SecurityController {
 
     Mediator mediator;
 
     @Autowired
-    HomeController(Mediator mediator) {
+    SecurityController(Mediator mediator) {
         this.mediator = mediator;
     }
 
@@ -35,7 +35,7 @@ public class HomeController {
     }
 
     @PostMapping(value = "/login")
-    public String getLoginView(HttpServletResponse response,
+    public String login(HttpServletResponse response,
             @ModelAttribute AuthenticationRequest authenticationRequest) throws ExecutionException {
 
         CreateJwtCommand command = new CreateJwtCommand(authenticationRequest.getUsername(),
