@@ -9,13 +9,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableAutoConfiguration
-@EntityScan(basePackages = {"com.foodforcharity.app.domain"})
-@EnableJpaRepositories(basePackages = "com.foodforcharity.app.service")
-@ComponentScan(basePackages = {"com.foodforcharity.app.domain"})
-@ComponentScan(basePackages = {"com.foodforcharity.app.service"})
-@ComponentScan(basePackages = {"com.foodforcharity.app.mediator"})
-@ComponentScan(basePackages = {"com.foodforcharity.app.usecase"})
-@ComponentScan(basePackages = {"com.foodforcharity.app.web"})
+@EntityScan(basePackages = { "com.foodforcharity.app.domain.entity" })
+@EnableJpaRepositories(basePackages = "com.foodforcharity.app.infrastructure.repository")
+@ComponentScan(basePackages = { "com.foodforcharity.app.domain" })
+@ComponentScan(basePackages = { "com.foodforcharity.app.infrastructure" })
+@ComponentScan(basePackages = { "com.foodforcharity.app.mediator" })
+@ComponentScan(basePackages = { "com.foodforcharity.app.usecase" })
 @SpringBootApplication
 public class Application {
 	
