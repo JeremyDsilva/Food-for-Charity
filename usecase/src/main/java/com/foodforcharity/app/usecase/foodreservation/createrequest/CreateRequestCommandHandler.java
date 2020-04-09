@@ -15,11 +15,11 @@ import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.entity.Request;
 import com.foodforcharity.app.domain.entity.SubRequest;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DoneeService;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.FoodService;
+import com.foodforcharity.app.domain.service.RequestService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DoneeRepository;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.FoodRepository;
-import com.foodforcharity.app.service.RequestRepository;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand.FoodQuantityPair;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateRequestCommandHandler implements CommandHandler<CreateRequestCommand, Response<Void>> {
-	private final FoodRepository foodRepository;
-	private final DonorRepository donorRepository;
-	private final DoneeRepository doneeRepository;
-	private final RequestRepository requestRepository;
+	private final FoodService foodService;
+	private final DonorService donorService;
+	private final DoneeService doneeService;
+	private final RequestService requestService;
 
 	// public CreateRequestCommandHandler(){
 
@@ -39,18 +39,18 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	/**
 	 * Public Constructor
 	 * 
-	 * @param foodRepository
-	 * @param donorRepository
-	 * @param doneeRepository
-	 * @param requestRepository
+	 * @param foodService
+	 * @param donorService
+	 * @param doneeService
+	 * @param requestService
 	 */
 	@Autowired
-	public CreateRequestCommandHandler(FoodRepository foodRepository, DonorRepository donorRepository,
-			DoneeRepository doneeRepository, RequestRepository requestRepository) {
-		this.foodRepository = foodRepository;
-		this.donorRepository = donorRepository;
-		this.doneeRepository = doneeRepository;
-		this.requestRepository = requestRepository;
+	public CreateRequestCommandHandler(FoodService foodService, DonorService donorService,
+			DoneeService doneeService, RequestService requestService) {
+		this.foodService = foodService;
+		this.donorService = donorService;
+		this.doneeService = doneeService;
+		this.requestService = requestService;
 	}
 
 	@Override
@@ -62,21 +62,21 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		if (!response.success()) {
 			return response;
 		}
-		Donee donee = doneeRepository.findById(command.doneeId).get();
+		Donee donee = doneeService.findById(command.doneeId).get();
 
 		// 2-check if donor exists and donee statis is active/inactive
 		response = verifyDonorExistenceEligibility(command.donorId);
 		if (!response.success()) {
 			return response;
 		}
-		Donor donor = donorRepository.findById(command.donorId).get();
+		Donor donor = donorService.findById(command.donorId).get();
 
 		// 3- check if food id exists & qty requested is valid, currently available
 		response = checkFoodQuantityPairs(command.foodQuantityPairs);
 		if (!response.success()) {
 			return response;
 		}
-		List<Food> foods = getAllFoodsFromFoodRepository(command.foodQuantityPairs);
+		List<Food> foods = getAllFoodsFromFoodService(command.foodQuantityPairs);
 
 		// 4- verify that all food belong to the donor
 		response = matchFoodsDonor(foods, command.donorId);
@@ -124,8 +124,8 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		donee.setQuantityRequested(oldQuantityRequested + newQuantityRequested);
 
 		// 11- save all repositories
-		doneeRepository.save(donee);
-		requestRepository.save(request);
+		doneeService.save(donee);
+		requestService.save(request);
 		// no need to save donor back becasue nothing was changed
 
 		return Response.EmptyResponse();
@@ -168,7 +168,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	}
 
 	private Response<Void> verifyDonorExistenceEligibility(long donorId) {
-		Optional<Donor> dbDonor = donorRepository.findById(donorId);
+		Optional<Donor> dbDonor = donorService.findById(donorId);
 		if (dbDonor.isEmpty()) {
 			return Response.of(Error.DonorDoesNotExist);
 		}
@@ -181,7 +181,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	}
 
 	private Response<Void> verifyDoneeExistenceEligibility(long doneeId) {
-		Optional<Donee> dbDonee = doneeRepository.findById(doneeId);
+		Optional<Donee> dbDonee = doneeService.findById(doneeId);
 		if (dbDonee.isEmpty()) {
 			return Response.of(Error.DoneeDoesNotExist);
 		}
@@ -199,7 +199,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			Integer quantityRequested = foodQuantityPairs.get(i).quantity;
 			foods.get(i).setQuantityAvailable(quantityAvailaible - quantityRequested);
 			// save food
-			foodRepository.save(foods.get(i));
+			foodService.save(foods.get(i));
 		}
 
 	}
@@ -235,10 +235,10 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 		return totalOriginalPrice;
 	}
 
-	private List<Food> getAllFoodsFromFoodRepository(List<FoodQuantityPair> foodQuantityPairs) {
+	private List<Food> getAllFoodsFromFoodService(List<FoodQuantityPair> foodQuantityPairs) {
 		ArrayList<Food> foods = new ArrayList<Food>();
 		for (FoodQuantityPair foodQuantityPair : foodQuantityPairs) {
-			Food food = foodRepository.findById(foodQuantityPair.foodId).get();
+			Food food = foodService.findById(foodQuantityPair.foodId).get();
 			foods.add(food);
 		}
 		return foods;
@@ -247,7 +247,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	// check if food exists and quantiy is valid and available
 	private Response<Void> checkFoodQuantityPairs(List<FoodQuantityPair> foodQuantityPairs) {
 		for (FoodQuantityPair foodQuantityPair : foodQuantityPairs) {
-			Optional<Food> dbFood = foodRepository.findById(foodQuantityPair.foodId);
+			Optional<Food> dbFood = foodService.findById(foodQuantityPair.foodId);
 			if (dbFood.isEmpty()) {
 				return Response.of(Error.FoodDoesNotExist);
 			}

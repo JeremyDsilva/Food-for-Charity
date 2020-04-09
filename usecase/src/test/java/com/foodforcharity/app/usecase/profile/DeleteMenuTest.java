@@ -15,9 +15,9 @@ import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.FoodRepository;
 import com.foodforcharity.app.usecase.profile.deletemenuitem.DeleteMenuItemCommand;
 
 import org.junit.Before;
@@ -35,10 +35,10 @@ public class DeleteMenuTest {
     CommandHandler<DeleteMenuItemCommand, Response<Void>> handler;
 
     @Autowired
-    FoodRepository foodRepos;
+    FoodService foodRepos;
 
     @Autowired
-    DonorRepository donorRepos;
+    DonorService donorRepos;
 
     Donor donor;
 

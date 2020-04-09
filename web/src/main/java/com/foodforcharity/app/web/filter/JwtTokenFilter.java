@@ -10,7 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import com.foodforcharity.app.service.PersonDetailsService;
+import com.foodforcharity.app.domain.security.PersonDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -7,18 +7,18 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.foodforcharity.app.domain.constant.Allergen;
-import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.FoodRepository;
-import com.foodforcharity.app.usecase.profile.modifymenuitem.*;
+import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemCommand;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,10 +35,10 @@ public class ModifyMenuTest {
     CommandHandler<ModifyMenuItemCommand, Response<Void>> handler;
 
     @Autowired
-    FoodRepository foodRepos;
+    FoodService foodRepos;
 
     @Autowired
-    DonorRepository donorRepos;
+    DonorService donorRepos;
 
     Donor donor;
 
@@ -49,11 +49,10 @@ public class ModifyMenuTest {
 
         Optional<Food> dbFood = foodRepos.findById(Long.valueOf(1));
 
-        if (dbFood.isPresent()){
+        if (dbFood.isPresent()) {
             food = dbFood.get();
             donor = food.getDonor();
-        }
-        else {
+        } else {
 
             Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
             if (dbDonor.isEmpty()) {

@@ -6,33 +6,34 @@ import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Person;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DoneeService;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.PersonService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DoneeRepository;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.PersonRepository;
+
 import com.foodforcharity.app.domain.constant.Error;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCommand, Response<Void>> {
-	PersonRepository personRepository;
-	DonorRepository donorRepository;
-	DoneeRepository doneeRepository;
+	PersonService personService;
+	DonorService donorService;
+	DoneeService doneeService;
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param personRepository
-	 * @param donorRepository
-	 * @param doneeRepository
+	 * @param personService
+	 * @param donorService
+	 * @param doneeService
 	 */
 	@Autowired
-	public ChangeStatusCommandHandler(PersonRepository personRepository, DonorRepository donorRepository,
-			DoneeRepository doneeRepository) {
-		this.personRepository = personRepository;
-		this.donorRepository = donorRepository;
-		this.doneeRepository = doneeRepository;
+	public ChangeStatusCommandHandler(PersonService personService, DonorService donorService,
+			DoneeService doneeService) {
+		this.personService = personService;
+		this.donorService = donorService;
+		this.doneeService = doneeService;
 	}
 
 	/**
@@ -43,7 +44,7 @@ public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCo
 	public Response<Void> handle(ChangeStatusCommand command) {
 		try {
 			// check if person exists
-			Optional<Person> dbPerson = personRepository.findById(command.personId);
+			Optional<Person> dbPerson = personService.findById(command.personId);
 			if (dbPerson.isEmpty()) {
 				return Response.of(Error.PersonDoesNotExist);
 			}
@@ -62,11 +63,11 @@ public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCo
 			if (person instanceof Donor) {
 				Donor donor = (Donor) person;
 				donor.setDonorStatus(command.donorStatus.get());
-				donorRepository.save(donor);
+				donorService.save(donor);
 			} else if (person instanceof Donee) {
 				Donee donee = (Donee) person;
 				donee.setDoneeStatus(command.doneeStatus.get());
-				doneeRepository.save(donee);
+				doneeService.save(donee);
 			}
 		} catch (Exception e) {
 			return Response.of(Error.UnknownError);

@@ -1,8 +1,8 @@
 package com.foodforcharity.app.usecase.profile.modifymenuitem;
 
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.FoodRepository;
 
 import java.util.Optional;
 
@@ -14,16 +14,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuItemCommand, Response<Void>> {
-	FoodRepository foodRepository;
+	FoodService foodService;
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param foodRepository
+	 * @param foodService
 	 */
 	@Autowired
-	public ModifyMenuItemCommandHandler(FoodRepository foodRepository) {
-		this.foodRepository = foodRepository;
+	public ModifyMenuItemCommandHandler(FoodService foodService) {
+		this.foodService = foodService;
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 		try {
 
 			// check that food id exists
-			Optional<Food> dbFood = foodRepository.findById(command.foodId);
+			Optional<Food> dbFood = foodService.findById(command.foodId);
 			if (dbFood.isEmpty()) {
 				return Response.of(Error.FoodDoesNotExist);
 			}
@@ -80,8 +80,8 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 			
 			food.setAllergens(command.allergens);
 
-			// save to foodRepository
-			foodRepository.save(food);
+			// save to foodService
+			foodService.save(food);
 
 		} catch (Exception e) {
 			return Response.of(Error.UnknownError);

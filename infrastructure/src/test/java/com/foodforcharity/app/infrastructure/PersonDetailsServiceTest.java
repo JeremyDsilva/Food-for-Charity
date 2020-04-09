@@ -1,14 +1,13 @@
-package com.foodforcharity.app.usecase.account;
+package com.foodforcharity.app.infrastructure;
 
 import java.util.Optional;
 
 import com.foodforcharity.app.domain.constant.DonorStatus;
-import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donor;
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.domain.service.DonorService;
-import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
+import com.foodforcharity.app.domain.security.JwtProviderService;
+import com.foodforcharity.app.domain.security.PersonDetails;
+import com.foodforcharity.app.domain.security.PersonDetailsService;
+import com.foodforcharity.app.infrastructure.repository.DonorRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,13 +18,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ChangePasswordTest {
+public class PersonDetailsServiceTest {
 
     @Autowired
-    CommandHandler<ChangePasswordCommand, Response<Void>> handler;
+    PersonDetailsService service;
 
     @Autowired
-    DonorService repos;
+    DonorRepository repos;
+
+    @Autowired
+    JwtProviderService jwtProvider;
 
     Donor donor = null;
 
@@ -57,23 +59,24 @@ public class ChangePasswordTest {
     }
 
     @Test
-    public void successTest() {
-        ChangePasswordCommand command = new ChangePasswordCommand(donor.getId(), donor.getPassword(), "NewPassword");
-        assert (handler.handle(command).success());
+    public void loadUserByUsernameSuccessTest() {
+        PersonDetails personDetail = service.loadUserByUsername(donor.getUsername());
+        assert (personDetail.getPersonId() == donor.getId());
     }
 
     @Test
-    public void incorrectPasswordTest() {
-        ChangePasswordCommand command = new ChangePasswordCommand(donor.getId(), "InvalidPassword", "NewPassword");
-        assert (handler.handle(command).getError() == Error.IncorrectPassword);
-    }
+    public void reterieveJWTSuccessTest() {
+        PersonDetails personDetail = service.loadUserByUsername(donor.getUsername());
 
-    @Test
-    public void personNotFoundTest() {
-        ChangePasswordCommand command = new ChangePasswordCommand(Long.valueOf(100), donor.getPassword(),
-                "NewPassword");
+        String jwt = jwtProvider.createToken(personDetail);
 
-        assert (handler.handle(command).getError() == Error.PersonDoesNotExist);
+        personDetail = service.loadUserByJwtToken(jwt).orElseThrow();
+
+        Object[] auth = personDetail.getAuthorities().toArray();
+        assert(auth[0].toString().equals("Donor") || auth[1].toString().equals("Donor"));
+        assert(auth[0].toString().equals(donor.getStatus().get()) || auth[1].toString().equals(donor.getStatus().get()));
+
+        assert (personDetail.getPersonId() == donor.getId());
     }
 
 }

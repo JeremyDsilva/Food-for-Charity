@@ -5,8 +5,8 @@ import java.util.Optional;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Person;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.PersonService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswordCommand, Response<Void>> {
 
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
     @Autowired
-    ChangePasswordCommandHandler(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    ChangePasswordCommandHandler(PersonService personService) {
+        this.personService = personService;
     }
 
     @Override
@@ -26,13 +26,13 @@ public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswo
 
         try {
 
-            Optional<Person> dbPerson = personRepository.findById(command.personId);
+            Optional<Person> dbPerson = personService.findById(command.personId);
 
             if (dbPerson.isPresent()) {
                 Person person = dbPerson.get();
                 if (person.getPassword().equals(command.oldPassword)) {
                     person.setPassword(command.newPassword);
-                    personRepository.save(person);
+                    personService.save(person);
                     return Response.EmptyResponse();
                 } else {
                     return Response.of(Error.IncorrectPassword);

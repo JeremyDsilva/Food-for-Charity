@@ -5,8 +5,8 @@ import java.util.Optional;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.FoodRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,22 +14,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuItemCommand, Response<Void>> {
 
-	FoodRepository foodRepository;
+	FoodService foodService;
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param foodRepository
+	 * @param foodService
 	 */
 	@Autowired
-	public DeleteMenuItemCommandHandler(FoodRepository foodRepository) {
-		this.foodRepository = foodRepository;
+	public DeleteMenuItemCommandHandler(FoodService foodService) {
+		this.foodService = foodService;
 	}
 
 	@Override
 	public Response<Void> handle(DeleteMenuItemCommand command) {
 		try { // check that food item exists
-			Optional<Food> dbFood = foodRepository.findById(command.foodId);
+			Optional<Food> dbFood = foodService.findById(command.foodId);
 			if (dbFood.isEmpty()) {
 				return Response.of(Error.FoodDoesNotExist);
 			}
@@ -43,7 +43,7 @@ public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuIt
 			// check that food doesnt belong to any active requests
 
 			// delete
-			foodRepository.delete(food);
+			foodService.delete(food);
 			return Response.EmptyResponse();
 		} catch (Exception e) {
 			return Response.of(Error.UnknownError);

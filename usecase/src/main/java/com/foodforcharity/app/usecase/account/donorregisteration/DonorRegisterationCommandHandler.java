@@ -4,9 +4,9 @@ import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.PersonService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.PersonRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,21 +17,21 @@ import org.springframework.stereotype.Service;
  **/
 @Service
 public class DonorRegisterationCommandHandler implements CommandHandler<DonorRegisterationCommand, Response<Void>> {
-	private final PersonRepository personRepository;
-	private final DonorRepository donorRepository;
+	private final PersonService personService;
+	private final DonorService donorService;
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param personRepository
-	 * @param doneeRepository
-	 * @param donorRepository
+	 * @param personService
+	 * @param doneeService
+	 * @param donorService
 	 */
 	@Autowired
-	public DonorRegisterationCommandHandler(PersonRepository personRepository,
-			DonorRepository donorRepository) {
-		this.personRepository = personRepository;
-		this.donorRepository = donorRepository;
+	public DonorRegisterationCommandHandler(PersonService personService,
+			DonorService donorService) {
+		this.personService = personService;
+		this.donorService = donorService;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 			return Response.of(Error.InvalidEmail);
 		}
 
-		if (personRepository.findByUsername(command.email).isPresent()) {
+		if (personService.findByUsername(command.email).isPresent()) {
 			return Response.of(Error.EmailAlreadyExist);
 		}
 
@@ -62,7 +62,7 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 
 			donor.setDonorStatus(DonorStatus.Initial);
 
-			donorRepository.save(donor);
+			donorService.save(donor);
 		} catch (Exception e) {
 			return Response.of(Error.UnknownError);
 		}
@@ -78,7 +78,7 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 }
 
 /**
- * Optional<Person> dbPerson = personRepository.findById(command.personId);
+ * Optional<Person> dbPerson = personService.findById(command.personId);
  * step1: valid and check if email is unique step 2 : check personrole ->donee
  * /donor->there is no register as broker option so no exception if donee: check
  * if member count is valid create a donee with all fileds+ donee status=initial

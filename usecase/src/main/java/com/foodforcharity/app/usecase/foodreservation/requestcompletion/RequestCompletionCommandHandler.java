@@ -5,24 +5,24 @@ import java.util.Optional;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Request;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.RequestService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.RequestRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RequestCompletionCommandHandler implements CommandHandler<RequestCompletionCommand, Response<Void>> {
-	RequestRepository requestRepository;
+	RequestService requestService;
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param requestRepository
+	 * @param requestService
 	 */
 	@Autowired
-	public RequestCompletionCommandHandler(RequestRepository requestRepository) {
-		this.requestRepository = requestRepository;
+	public RequestCompletionCommandHandler(RequestService requestService) {
+		this.requestService = requestService;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 
 		try {
 			// check that request exists
-			Optional<Request> dbRequest = requestRepository.findById(command.requestId);
+			Optional<Request> dbRequest = requestService.findById(command.requestId);
 			if (dbRequest.isEmpty()) {
 				return Response.of(Error.RequestDoesNotExist);
 			}
@@ -48,7 +48,7 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 
 			// Update request and save
 			request.setIsActive(false);
-			requestRepository.save(request);
+			requestService.save(request);
 
 			return Response.EmptyResponse();
 		} catch (Exception e) {

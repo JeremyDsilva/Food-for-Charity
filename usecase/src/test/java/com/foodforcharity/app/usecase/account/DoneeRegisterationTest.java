@@ -3,8 +3,8 @@ package com.foodforcharity.app.usecase.account;
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.infrastructure.repository.PersonRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.PersonRepository;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
 
 import org.junit.Test;
@@ -47,20 +47,21 @@ public class DoneeRegisterationTest {
     public void invalidMemberCountErrorTest() {
         repos.findByUsername("doneeEmail@gmail.com").ifPresent(person -> repos.delete(person));
 
-        DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword", "doneeEmail@gmail.com",
-                "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual, -1);
+        DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword",
+                "doneeEmail@gmail.com", "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual,
+                -1);
         assert (handler.handle(command).getError() == Error.InvalidMemberCount);
     }
 
-    
     @Test
     public void emailAlreadyExistErrorTest() {
-        if(repos.findByUsername("doneeEmail@gmail.com").isEmpty()){
+        if (repos.findByUsername("doneeEmail@gmail.com").isEmpty()) {
             successTest();
         }
-        
-        DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword", "doneeEmail@gmail.com",
-                "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual, -1);
+
+        DoneeRegisterationCommand command = new DoneeRegisterationCommand("DoneeName", "DoneePassword",
+                "doneeEmail@gmail.com", "12334566", "DoneeCity", "DoneeCountry", "DoneeAddress", DoneeType.Individual,
+                -1);
         assert (handler.handle(command).getError() == Error.EmailAlreadyExist);
     }
 

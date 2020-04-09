@@ -17,10 +17,10 @@ import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DoneeService;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DoneeRepository;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.FoodRepository;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
 
 import org.junit.Before;
@@ -38,13 +38,13 @@ public class CreateRequestTest {
     CommandHandler<CreateRequestCommand, Response<Void>> handler;
 
     @Autowired
-    FoodRepository foodRepos;
+    FoodService foodRepos;
 
     @Autowired
-    DonorRepository donorRepos;
+    DonorService donorRepos;
 
     @Autowired
-    DoneeRepository doneeRepos;
+    DoneeService doneeRepos;
 
     Donor donor;
 

@@ -7,15 +7,15 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.foodforcharity.app.domain.constant.Allergen;
-import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DonorRepository;
 import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;
 
 import org.junit.Before;
@@ -33,7 +33,7 @@ public class AddMenuTest {
     CommandHandler<AddMenuCommand, Response<Void>> handler;
 
     @Autowired
-    DonorRepository repos;
+    DonorService repos;
 
     Donor donor;
 

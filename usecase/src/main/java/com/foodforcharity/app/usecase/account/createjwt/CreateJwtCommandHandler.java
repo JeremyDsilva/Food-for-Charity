@@ -2,16 +2,15 @@ package com.foodforcharity.app.usecase.account.createjwt;
 
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.domain.security.JwtProvider;
+import com.foodforcharity.app.domain.security.JwtProviderService;
 import com.foodforcharity.app.domain.security.PersonDetails;
+import com.foodforcharity.app.domain.security.PersonDetailsService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.PersonDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,12 +18,11 @@ public class CreateJwtCommandHandler implements CommandHandler<CreateJwtCommand,
 
     private final AuthenticationManager authenticationManager;
     private final PersonDetailsService personDetailsService;
-    private final JwtProvider jwtProvider;
-
+    private final JwtProviderService jwtProvider;
 
     @Autowired
-    public CreateJwtCommandHandler(AuthenticationManager authenticationManager, PersonDetailsService personDetailsService,
-            JwtProvider jwtProvider) {
+    public CreateJwtCommandHandler(AuthenticationManager authenticationManager,
+            PersonDetailsService personDetailsService, JwtProviderService jwtProvider) {
         this.authenticationManager = authenticationManager;
         this.personDetailsService = personDetailsService;
         this.jwtProvider = jwtProvider;

@@ -7,28 +7,29 @@ import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.DonorRepository;
-import com.foodforcharity.app.service.FoodRepository;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AddMenuCommandHandler implements CommandHandler<AddMenuCommand, Response<Void>> {
-	DonorRepository donorRepository;
-	FoodRepository foodRepository;
+	DonorService donorService;
+	FoodService foodService;
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param donorRepository
-	 * @param foodRepository
+	 * @param donorService
+	 * @param foodService
 	 */
 	@Autowired
-	public AddMenuCommandHandler(DonorRepository donorRepository, FoodRepository foodRepository) {
-		this.donorRepository = donorRepository;
-		this.foodRepository = foodRepository;
+	public AddMenuCommandHandler(DonorService donorService, FoodService foodService) {
+		this.donorService = donorService;
+		this.foodService = foodService;
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class AddMenuCommandHandler implements CommandHandler<AddMenuCommand, Res
 			}
 
 			// check that donee id exists and is active or inactive
-			Optional<Donor> dbDonor = donorRepository.findById(command.donorId);
+			Optional<Donor> dbDonor = donorService.findById(command.donorId);
 			if (dbDonor.isEmpty()) {
 				return Response.of(Error.DonorDoesNotExist);
 			}
@@ -93,10 +94,10 @@ public class AddMenuCommandHandler implements CommandHandler<AddMenuCommand, Res
 			// add food item to donors menu
 			donor.getFoods().add(food);
 			food.setDonor(donor);
-			// save to donorRepository
+			// save to donorService
 			
 
-			donorRepository.save(donor);
+			donorService.save(donor);
 
 		} catch (Exception e) {
 			return Response.of(Error.UnknownError);

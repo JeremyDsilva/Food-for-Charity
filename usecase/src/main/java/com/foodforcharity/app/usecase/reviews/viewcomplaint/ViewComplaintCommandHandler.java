@@ -6,25 +6,25 @@ import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Complaint;
 import com.foodforcharity.app.domain.entity.Request;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.service.ComplaintService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.service.ComplaintRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ViewComplaintCommandHandler implements CommandHandler<ViewComplaintCommand, Response<Complaint>> {
-	ComplaintRepository complaintRepository;
+	ComplaintService complaintService;
 	
 
 	/**
 	 * Public Constructor
 	 * 
-	 * @param complaintRepository
+	 * @param complaintService
 	 */
 	@Autowired
-	public ViewComplaintCommandHandler(ComplaintRepository complaintRepository) {
-		this.complaintRepository = complaintRepository;
+	public ViewComplaintCommandHandler(ComplaintService complaintService) {
+		this.complaintService = complaintService;
 
 	}
 
@@ -32,7 +32,7 @@ public class ViewComplaintCommandHandler implements CommandHandler<ViewComplaint
 	public Response<Complaint> handle(ViewComplaintCommand command) {
 
 		try {
-			Optional<Complaint> dbComplaint = complaintRepository.findById(command.complaintId);
+			Optional<Complaint> dbComplaint = complaintService.findById(command.complaintId);
 
 			if (dbComplaint.isEmpty()) {
 				return Response.of(Error.ComplaintDoesNotExist);
