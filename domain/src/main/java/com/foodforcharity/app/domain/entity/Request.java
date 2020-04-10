@@ -59,7 +59,6 @@ public class Request implements Serializable {
 	//bi-directional many-to-one association to Complaint
 	@OneToMany(mappedBy="request", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@Fetch(value = FetchMode.SUBSELECT)
-	@NotNull
 	private List<Complaint> complaints;
 
 	//bi-directional many-to-one association to Donor
