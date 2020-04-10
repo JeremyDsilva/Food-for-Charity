@@ -55,102 +55,105 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 
 	@Override
 	public Response<Void> handle(CreateRequestCommand command) {
-		Response<Void> response;
+		try { // 1- check if donee exists and has an active status
+			Optional<Donee> dbDonee = doneeService.findById(command.doneeId);
+			if (dbDonee.isEmpty()) {
+				return Response.of(Error.DoneeDoesNotExist);
+			}
+			Donee donee = dbDonee.get();
 
-		// 1- check if donee exists and has an active status
-		Optional<Donee> dbDonee = doneeService.findById(command.doneeId);
-		if (dbDonee.isEmpty()) {
-			return Response.of(Error.DoneeDoesNotExist);
-		}
-		Donee donee = dbDonee.get();
-
-		if (donee.getDoneeStatus() != DoneeStatus.Active) {
-			return Response.of(Error.IneligibleDoneeStatus);
-		}
-
-		// 2-check if donor exists and donee statis is active/inactive
-		Optional<Donor> dbDonor = donorService.findById(command.donorId);
-		if (dbDonor.isEmpty()) {
-			return Response.of(Error.DonorDoesNotExist);
-		}
-		Donor donor = dbDonor.get();
-		if ((donor.getDonorStatus() == DonorStatus.Initial )|| (donor.getDonorStatus() == DonorStatus.Suspended)) {
-			return Response.of(Error.IneligibleDonorStatus);
-		}
-		// 3- Validate each food item and add to list of foods
-		List<Food> foods = new ArrayList<Food>();
-
-		for (FoodQuantityPair foodQuantityPair : command.foodQuantityPairs) {
-			Optional<Food> dbFood = foodService.findById(foodQuantityPair.foodId);
-			// check if food exists
-			if (dbFood.isEmpty()) {
-				return Response.of(Error.FoodDoesNotExist);
+			if (donee.getDoneeStatus() != DoneeStatus.Active) {
+				return Response.of(Error.IneligibleDoneeStatus);
 			}
 
-			Food food = dbFood.get(); // get the food
+			// 2-check if donor exists and donee statis is active/inactive
+			Optional<Donor> dbDonor = donorService.findById(command.donorId);
+			if (dbDonor.isEmpty()) {
+				return Response.of(Error.DonorDoesNotExist);
+			}
+			Donor donor = dbDonor.get();
+			if ((donor.getDonorStatus() == DonorStatus.Initial) || (donor.getDonorStatus() == DonorStatus.Suspended)) {
+				return Response.of(Error.IneligibleDonorStatus);
+			}
+			// 3- Validate each food item and add to list of foods
+			List<Food> foods = new ArrayList<Food>();
 
-			// check that quantity requested is valid (>=1)
-			Integer minimumQuantity = 1;
+			for (FoodQuantityPair foodQuantityPair : command.foodQuantityPairs) {
+				Optional<Food> dbFood = foodService.findById(foodQuantityPair.foodId);
+				// check if food exists
+				if (dbFood.isEmpty()) {
+					return Response.of(Error.FoodDoesNotExist);
+				}
 
-			if (foodQuantityPair.quantity < minimumQuantity) {
-				return Response.of(Error.InvalidQuantityRequested);
+				Food food = dbFood.get(); // get the food
+
+				// check that quantity requested is valid (>=1)
+				Integer minimumQuantity = 1;
+
+				if (foodQuantityPair.quantity < minimumQuantity) {
+					return Response.of(Error.InvalidQuantityRequested);
+				}
+
+				// check that food requested is available by the donor
+				if (food.getQuantityAvailable() < foodQuantityPair.quantity) {
+					return Response.of(Error.FoodShortage);
+				}
+
+				// check that food belongs to the donor
+
+				if (food.getDonor().getId() != command.donorId) {// i donot know how to macth objects
+					return Response.of(Error.FoodsDonorMismatch);
+				}
+
+				// if food is valid, append it to the list of foods
+				foods.add(food);
+
 			}
 
-			// check that food requested is available by the donor
-			if (food.getQuantityAvailable() < foodQuantityPair.quantity) {
-				return Response.of(Error.FoodShortage);
+			// 5- if member_Type is donee check if the quantityrequested is allowed
+			if (donee.getDoneeType().equals(DoneeType.Individual)) {
+				if (donee.getQuantityRequested() + getTotalQuantityRequested(foods, command.foodQuantityPairs) > donee
+						.getMemberCount()) {
+					return Response.of(Error.QuanityAllowanceExceeded);
+				}
 			}
+			// 6- calculate the total Original price
+			Integer finalPrice = getTotalOriginalPrice(foods, command.foodQuantityPairs)
+					* (100 - donor.getDiscountApplied() / 100);
+			// Integer finalPrice = (int) price.doubleValue();
 
-			// check that food belongs to the donor
+			// 7-create request
+			Request request = new Request(); // assuming that id has already been generated
+			request.setDonor(donor);
+			request.setDonee(donee);
+			request.setRequestTime(new Date());
+			request.setDiscountApplied((int) donor.getDiscountApplied().doubleValue());
+			request.setFinalPrice(finalPrice);
+			request.setIsActive(true);
+			request.setIsRated(false);
 
-			if (food.getDonor().getId() != command.donorId) {// i donot know how to macth objects
-				return Response.of(Error.FoodsDonorMismatch);
-			}
+			// 8- create subreqs
+			List<SubRequest> subRequests = createSubRequests(request, foods, command.foodQuantityPairs, donor);
+			request.setSubRequests(subRequests);
 
-			// if food is valid, append it to the list of foods
-			foods.add(food);
+			// 9-update food
+			updateAndSaveFoods(foods, command.foodQuantityPairs);
 
+			// // 10-update donee-quantity requested
+			donee.setQuantityRequested(
+					donee.getQuantityRequested() + getTotalQuantityRequested(foods, command.foodQuantityPairs));
+
+			// 11- save all repositories
+			doneeService.save(donee);
+			requestService.save(request);
+			// no need to save donor back becasue nothing was changed
+
+			return Response.EmptyResponse();
+		} 
+		catch (Exception e) {
+			
+			return Response.of(Error.UnknownError);
 		}
-
-		// 5- if member_Type is donee check if the quantityrequested is allowed
-		if (donee.getDoneeType().equals(DoneeType.Individual))
-		{ if( donee.getQuantityRequested() + getTotalQuantityRequested(foods, command.foodQuantityPairs) > donee.getMemberCount()) {
-			return Response.of(Error.QuanityAllowanceExceeded);
-		}
-	}
-		// 6- calculate the total Original price
-		Integer finalPrice = getTotalOriginalPrice(foods, command.foodQuantityPairs)
-		* (100 - donor.getDiscountApplied() / 100);
-		// Integer finalPrice = (int) price.doubleValue();
-
-		// 7-create request
-		Request request = new Request(); // assuming that id has already been generated
-		request.setDonor(donor);
-		request.setDonee(donee);
-		request.setRequestTime(new Date());
-		request.setDiscountApplied((int) donor.getDiscountApplied().doubleValue());
-		request.setFinalPrice(finalPrice);
-		request.setIsActive(true);
-		request.setIsRated(false);
-
-		// 8- create subreqs
-		List<SubRequest> subRequests = createSubRequests(request, foods, command.foodQuantityPairs, donor);
-		request.setSubRequests(subRequests);
-
-		// 9-update food
-		updateAndSaveFoods(foods, command.foodQuantityPairs);
-
-		// // 10-update donee-quantity requested
-		donee.setQuantityRequested(
-				donee.getQuantityRequested() + getTotalQuantityRequested(foods, command.foodQuantityPairs));
-
-		// 11- save all repositories
-		doneeService.save(donee);
-		requestService.save(request);
-		// no need to save donor back becasue nothing was changed
-
-		return Response.EmptyResponse();
-
 	}
 
 	// converts quantity from integer units to meal units
