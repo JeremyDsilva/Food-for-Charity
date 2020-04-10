@@ -1,5 +1,6 @@
 package com.foodforcharity.app.usecase.foodreservation.createrequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.foodforcharity.app.domain.reponse.Response;
@@ -18,6 +19,7 @@ public class CreateRequestCommand implements Command<Response<Void>> {
 		public FoodQuantityPair(long foodId, int quantity) {
 			this.foodId = foodId;
 			this.quantity = quantity;
+			foodQuantityPairs= new ArrayList<FoodQuantityPair>();
 		}
 	}
 
@@ -33,7 +35,8 @@ public class CreateRequestCommand implements Command<Response<Void>> {
 	}
 
 	public void addFood(long foodId, int quantity){
-		foodQuantityPairs.add(new FoodQuantityPair(foodId, quantity));
+		FoodQuantityPair foodQuantityPair=new FoodQuantityPair(foodId, quantity);
+		foodQuantityPairs.add(foodQuantityPair);
 	}
 
 

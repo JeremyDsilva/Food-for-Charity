@@ -47,7 +47,6 @@ public class CreateRequestTest {
     DoneeService doneeRepos;
 
     Donor donor;
-
     Food food;
     Donee donee;
 
@@ -58,7 +57,12 @@ public class CreateRequestTest {
 
         if (dbFood.isPresent()) {
             food = dbFood.get();
+            food.setMealForNPeople(1);
             donor = food.getDonor();
+            donor.setDonorStatus(DonorStatus.Active);
+                // foodRepos.save(food);
+                donorRepos.save(donor);
+            
         } else {
 
             Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
@@ -75,13 +79,15 @@ public class CreateRequestTest {
                 donor.setRating(0);
                 donor.setDiscountApplied(10);
                 donor.setUsername(donor.getEmail());
+                donorRepos.save(donor);
             } else {
                 donor = dbDonor.get();
+                donor.setDonorStatus(DonorStatus.Active);
+                donorRepos.save(donor);
             }
 
-            donor.setDonorStatus(DonorStatus.Active);
+              
 
-            //
             food = new Food();
             food.setFoodName("foodName");
             food.setDescriptionText("descriptionText");
@@ -89,7 +95,7 @@ public class CreateRequestTest {
             food.setMealType(MealType.Mixed);
             food.setPrice(200);
             food.setQuantityAvailable(23);
-            food.setMealForNPeople(3);
+            food.setMealForNPeople(1);
             food.setSpiceLevel(SpiceLevel.MildSpice);
 
             // food.setMealTypes(MealType.RedMeat);
@@ -97,17 +103,20 @@ public class CreateRequestTest {
             Set<Allergen> iSet = new HashSet<Allergen>(aList);
 
             food.setAllergens(iSet);
-
+            // foodRepos.save(food);
             donor.addFood(food);
             donor = donorRepos.save(donor);
         }
 
         Optional<Donee> dbDonee = doneeRepos.findByUsername("doneeemail@gmail.com");
 
-        Donee donee;
+       
         if (dbDonee.isPresent()) {
             donee = dbDonee.get();
-
+            donee.setDoneeStatus(DoneeStatus.Active);
+            donee.setQuantityRequested(0);
+            donee.setMemberCount(food.getMealForNPeople()+2); // so that quantity is never exceded if we ask for 1
+            doneeRepos.save(donee);
         } else {
 
             donee = new Donee();
@@ -120,7 +129,7 @@ public class CreateRequestTest {
             donee.setDoneeType(DoneeType.Individual);
             donee.setPassword("DoneePassword");
             donee.setPhoneNumber("DoneePhoneNumber");
-            donee.setMemberCount(2);
+            donee.setMemberCount(food.getMealForNPeople()+2);
             donee.setQuantityRequested(0);
             donee.setUsername(donee.getEmail());
             donee = doneeRepos.save(donee);
@@ -128,11 +137,11 @@ public class CreateRequestTest {
 
     }
 
-    @Test
-    public void test() {
-    }
-
     // @Test
+    // public void test() {
+    // }
+
+    @Test
     public void successTest() {
 
         CreateRequestCommand command = new CreateRequestCommand(donee.getId(), donor.getId());
