@@ -46,6 +46,7 @@ a:focus {
     margin: 40px 0;
 }
 
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -98,6 +99,7 @@ a:focus {
     opacity: 0;
     transition: all 0.5s ease-in-out;
 }
+
 .overlay.active {
     display: block;
     opacity: 1;
@@ -175,6 +177,7 @@ a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
+
 
 /* ---------------------------------------------------
     CONTENT STYLE

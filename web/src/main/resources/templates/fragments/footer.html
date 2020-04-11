@@ -11,7 +11,9 @@
         &copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}">2020</span>
         <span>Food for Charity</span>
     </div>
-    <div th:fragment="footer-admin" th:align="center">
+    <!-- -->
+
+    <div th:fragment="footer-admin" th:align="center" th:if="${user.admin || user.donee || user.donor}">
         &copy; <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy')}">2020</span>
         <span>Food for Charity</span><span th:text="${@environment.getProperty('app.version')}"></span>
     </div>

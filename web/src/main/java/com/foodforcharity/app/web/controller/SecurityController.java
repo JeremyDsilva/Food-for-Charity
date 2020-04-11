@@ -36,7 +36,7 @@ public class SecurityController {
 
     @PostMapping(value = "/login")
     public String login(HttpServletResponse response,
-            @ModelAttribute AuthenticationRequest authenticationRequest) throws ExecutionException {
+            @ModelAttribute AuthenticationRequest authenticationRequest, Model model) throws ExecutionException {
 
         CreateJwtCommand command = new CreateJwtCommand(authenticationRequest.getUsername(),
                 authenticationRequest.getPassword());
@@ -49,7 +49,8 @@ public class SecurityController {
         response.setHeader(HttpHeaders.SET_COOKIE, ResponseCookie.from("accesstoken", jwt.getResponse())
                 .maxAge(Duration.ofDays(10)).httpOnly(true).path("/").build().toString());
 
-        return "redirect:/change-password";
+        
+        return "redirect:/home";
     }
 
 }
