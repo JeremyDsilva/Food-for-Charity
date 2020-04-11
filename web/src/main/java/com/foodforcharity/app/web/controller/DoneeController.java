@@ -103,7 +103,7 @@ public class DoneeController extends AbstractController {
             model.addAttribute("ErrorMessage", response.getError().getMessage());
         }
         else {
-            model.addAttribute("Success", "Food Preferences Modified Successfully!")
+            model.addAttribute("Success", "Food Preferences Modified Successfully!");
         }
         return "redirect:/";
     }
@@ -122,7 +122,7 @@ public class DoneeController extends AbstractController {
             model.addAttribute("ErrorMessage", response.getError().getMessage());
         }
 
-        model.addAttribute("Success", "Food Preferences Deleted Successfully!")
+        model.addAttribute("Success", "Food Preferences Deleted Successfully!");
 
         return "redirect:/";
     }
