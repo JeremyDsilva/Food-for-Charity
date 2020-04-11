@@ -8,6 +8,7 @@ import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand;
@@ -39,14 +40,33 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("/home")
     public String getDoneeHomepageView(Model model) {
-
+        // model.addAttribute("PersonName", );
+        // model.addAttribute("FoodAvailable", FoodAvailable);
         return "donee/donee-homepage";
     }
 
-    //--------------Food Preferences----------------
+    // --------------View Profile----------------
 
-    @GetMapping("FoodPreferences")
-    public String getFoodPreferencesView(Model model){
+    @GetMapping("profile/{profileId}")
+    public String getProfileView(@PathVariable long id, Model model){
+        //model.addAttribute("UserProfile", new Profile());
+        return "donee/view-profile";
+    }
+
+    @PutMapping("profile/{profileId}")
+    public String changeProfileInfo(@PathVariable long id, Model model){
+
+       // Response<Void> response;
+
+
+
+        return "redirect:/";
+    }
+
+    // --------------Food Preferences----------------
+
+    @GetMapping("FoodPreferences/{id}")
+    public String getFoodPreferencesView(@PathVariable long id, Model model) {
         model.addAttribute("createRequest", new CreateRequest());
         return "donee/food-preferences";
     }
@@ -107,16 +127,20 @@ public class DoneeController extends AbstractController {
         return "redirect:/";
     }
 
+    // --------------Food Requests----------------
 
-
-    //--------------Food Requests----------------
-
-    @GetMapping("FoodRequest")
-    public String getFoodRequestView(Model model){
-
+    @GetMapping("FoodRequests")
+    public String getFoodRequestsView(Model model) {
+        // model.addAttribute("food", Food());
         return "donee/Food-request";
     }
 
+    @GetMapping("FoodRequest/{foodId}")
+    public String getFoodRequestView(@PathVariable long id, Model model) {
+        model.addAttribute("FoodRequest", new CreateRequest());
+        return "redirect:/";
+
+    }
 
     @PostMapping("FoodRequest")
     public String createFoodRequest(@PathVariable("doneeId") long doneeId,
@@ -131,8 +155,7 @@ public class DoneeController extends AbstractController {
         if (!response.success()) {
             model.addAttribute("IsError", true);
             model.addAttribute("ErrorMessage", response.getError().getMessage());
-        }
-        else{
+        } else {
             model.addAttribute("Success", "Food have been requested!");
         }
         return "redirect:/";
