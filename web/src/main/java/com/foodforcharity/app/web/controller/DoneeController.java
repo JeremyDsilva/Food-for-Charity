@@ -39,8 +39,7 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("/home")
     public String getDoneeHomepageView(Model model) {
-
-        return "donee/donee-homepage";
+        return "donee/home";
     }
 
     //--------------Food Preferences----------------
@@ -51,61 +50,62 @@ public class DoneeController extends AbstractController {
         return "donee/food-preferences";
     }
 
-    @PostMapping("FoodPreferencess")
-    public String selectPreferences(@ModelAttribute CreateRequest createRequest, Model model) {
+    // @PostMapping("FoodPreferencess")
+    // public String selectPreferences(@ModelAttribute CreateRequest createRequest, Model model)
+    //         throws ExecutionException {
 
-        Response<Void> response;
+    //     Response<Void> response;
 
-        SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        response = publishAsync(selectPreferencesCommand).get();
+    //     Void v = publishAsync(selectPreferencesCommand).get();
 
-        if (!response.success()) {
-            model.addAttribute("IsError", true);
-            model.addAttribute("ErrorMessage", response.getError().getMessage());
-        } else {
-            model.addAttribute("Success", "Food Preferences Selected Successfully!");
-        }
-        return "redirect:/";
-    }
+    //     if (!response.success()) {
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     } else {
+    //         model.addAttribute("Success", "Food Preferences Selected Successfully!");
+    //     }
+    //     return "redirect:/";
+    // }
 
-    @PutMapping("FoodPreferences")
-    public String modifyPreferences(@ModelAttribute CreateRequest createRequest, Model model){
+    // @PutMapping("FoodPreferences")
+    // public String modifyPreferences(@ModelAttribute CreateRequest createRequest, Model model){
 
-        Response<Void> response;
+    //     Response<Void> response;
 
-        SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        response = publishAsync(selectPreferencesCommand).get();
+    //     response = publishAsync(selectPreferencesCommand).get();
 
-        if(!response.success()){
-            model.addAttribute("IsError", true);
-            model.addAttribute("ErrorMessage", response.getError().getMessage());
-        }
-        else {
-            model.addAttribute("Success", "Food Preferences Modified Successfully!")
-        }
-        return "redirect:/";
-    }
+    //     if(!response.success()){
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     }
+    //     else {
+    //         model.addAttribute("Success", "Food Preferences Modified Successfully!")
+    //     }
+    //     return "redirect:/";
+    // }
 
-    @DeleteMapping("FoodPreferences")
-    public String deletePreferences(@ModelAttribute CreateRequest createRequest, Model model){
+    // @DeleteMapping("FoodPreferences")
+    // public String deletePreferences(@ModelAttribute CreateRequest createRequest, Model model){
 
-        Response<Void> response;
+    //     Response<Void> response;
 
-        SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        response = publishAsync(selectPreferencesCommand).get();
+    //     response = publishAsync(selectPreferencesCommand).get();
 
-        if(!response.success()){
-            model.addAttribute("IsError", true);
-            model.addAttribute("ErrorMessage", response.getError().getMessage());
-        }
+    //     if(!response.success()){
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     }
 
-        model.addAttribute("Success", "Food Preferences Deleted Successfully!")
+    //     model.addAttribute("Success", "Food Preferences Deleted Successfully!")
 
-        return "redirect:/";
-    }
+    //     return "redirect:/";
+    // }
 
 
 
@@ -122,11 +122,9 @@ public class DoneeController extends AbstractController {
     public String createFoodRequest(@PathVariable("doneeId") long doneeId,
             @RequestParam(value = "donorId") long donorId, Model model) throws ExecutionException {
 
-        Response<Void> response;
-
         CreateRequestCommand createRequestCommand = new CreateRequestCommand(doneeId, donorId);
 
-        response = publishAsync(createRequestCommand).get();
+        Response<Void> response = publishAsync(createRequestCommand).get();
 
         if (!response.success()) {
             model.addAttribute("IsError", true);

@@ -32,10 +32,6 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 	private final DoneeService doneeService;
 	private final RequestService requestService;
 
-	// public CreateRequestCommandHandler(){
-
-	// }
-
 	/**
 	 * Public Constructor
 	 * 
@@ -55,7 +51,9 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 
 	@Override
 	public Response<Void> handle(CreateRequestCommand command) {
-		try { // 1- check if donee exists and has an active status
+		try { 
+			
+			// 1- check if donee exists and has an active status
 			Optional<Donee> dbDonee = doneeService.findById(command.doneeId);
 			if (dbDonee.isEmpty()) {
 				return Response.of(Error.DoneeDoesNotExist);
@@ -75,17 +73,18 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			if ((donor.getDonorStatus() == DonorStatus.Initial) || (donor.getDonorStatus() == DonorStatus.Suspended)) {
 				return Response.of(Error.IneligibleDonorStatus);
 			}
+
 			// 3- Validate each food item and add to list of foods
 			List<Food> foods = new ArrayList<Food>();
 
-			for (FoodQuantityPair foodQuantityPair : command.foodQuantityPairs) {
-				Optional<Food> dbFood = foodService.findById(foodQuantityPair.foodId);
-				// check if food exists
-				if (dbFood.isEmpty()) {
+			for (FoodQuantityPair foodQuantityPair : command.foodQuantityPairs) {	
+				Optional<Food> optionalFood = donor.getFoods().stream().filter(food -> food.getId() == foodQuantityPair.foodId).findFirst();
+				
+				if(optionalFood.isEmpty()){
 					return Response.of(Error.FoodDoesNotExist);
 				}
 
-				Food food = dbFood.get(); // get the food
+				Food food = optionalFood.get(); // get the food
 
 				// check that quantity requested is valid (>=1)
 				Integer minimumQuantity = 1;
@@ -99,15 +98,8 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 					return Response.of(Error.FoodShortage);
 				}
 
-				// check that food belongs to the donor
-
-				if (food.getDonor().getId() != command.donorId) {// i donot know how to macth objects
-					return Response.of(Error.FoodsDonorMismatch);
-				}
-
 				// if food is valid, append it to the list of foods
 				foods.add(food);
-
 			}
 
 			// 5- if member_Type is donee check if the quantityrequested is allowed
@@ -149,9 +141,8 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			// no need to save donor back becasue nothing was changed
 
 			return Response.EmptyResponse();
-		} 
-		catch (Exception e) {
-			
+		} catch (Exception e) {
+
 			return Response.of(Error.UnknownError);
 		}
 	}

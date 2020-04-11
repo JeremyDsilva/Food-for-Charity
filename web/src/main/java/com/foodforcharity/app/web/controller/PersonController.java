@@ -2,6 +2,8 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.validation.Valid;
+
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -9,15 +11,20 @@ import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
 import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;
+import com.foodforcharity.app.web.model.ChangePasswordRequest;
 import com.foodforcharity.app.web.model.RequestModel;
+import com.foodforcharity.app.web.validator.ChangePasswordValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 // @RequestMapping("/user")
@@ -28,24 +35,31 @@ public class PersonController extends AbstractController {
         super(mediator);
     }
 
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new ChangePasswordValidator());
+    }
+
     @GetMapping(value = "/home")
     public String getHomeView(Model model) {
         return "redirect:/" + getPersonRole().name().toLowerCase() + "/home";
     }
 
     @GetMapping(value = "/change-password")
-    public String getChangePasswordView(Model model) {
+    public String getChangePasswordView(ChangePasswordRequest request) {
         return "change-password";
     }
 
     @PostMapping(value = "/change-password")
-    public String changePassword(Model model, @RequestParam(defaultValue = "password") String password,
-            @RequestParam(defaultValue = "newPassword") String newPassword) throws ExecutionException {
-        /*
-         * Get person id from session
-         */
+    public String changePassword(Model model, @Validated ChangePasswordRequest requestModel, BindingResult result)
+            throws ExecutionException {
 
-        ChangePasswordCommand command = new ChangePasswordCommand(getPersonId(), password, newPassword);
+        if (result.hasErrors()) {
+            return "change-password";
+        }
+
+        ChangePasswordCommand command = new ChangePasswordCommand(getPersonId(), requestModel.getPassword(),
+                requestModel.getNewPassword());
 
         Response<Void> response = publishAsync(command).get();
 

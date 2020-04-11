@@ -20,13 +20,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class SecurityController {
-
-    Mediator mediator;
+public class SecurityController extends AbstractController {
 
     @Autowired
     SecurityController(Mediator mediator) {
-        this.mediator = mediator;
+       super(mediator);
     }
 
     @GetMapping(value = "/login")
@@ -41,7 +39,7 @@ public class SecurityController {
         CreateJwtCommand command = new CreateJwtCommand(authenticationRequest.getUsername(),
                 authenticationRequest.getPassword());
 
-        Response<String> jwt = mediator.publishAsync(command).get();
+        Response<String> jwt = publishAsync(command).get();
 
         if (!jwt.success())
             return "login";

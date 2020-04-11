@@ -2,8 +2,6 @@ package com.foodforcharity.app.web.model;
 
 import java.io.Serializable;
 
-import com.foodforcharity.app.domain.constant.PersonRole;
-
 
 public class RequestModel implements Serializable {
 
