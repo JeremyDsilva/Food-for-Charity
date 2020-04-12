@@ -7,15 +7,20 @@ import com.foodforcharity.app.domain.constant.Allergen;
 
 public class MenuModel implements Serializable{
 
-    String foodName;
-    String descriptionText;
-    int originalPrice;
-    int mealForNPeople;
-    int quantityAvailable;
-    String spiceLevel;
-    String mealType;
-    String cuisine;
-    Set<Allergen> allergen;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    private String foodName;
+    private String descriptionText;
+    private int originalPrice;
+    private int mealForNPeople;
+    private int quantityAvailable;
+    private String spiceLevel;
+    private String mealType;
+    private String cuisine;
+    private Set<Allergen> allergen;
 
     public MenuModel(){
 

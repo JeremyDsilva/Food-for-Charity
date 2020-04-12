@@ -14,7 +14,7 @@
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="">
-                    <form th:action="@{/register}" th:object="${requestModel}" method="POST">
+                    <form th:action="@{/register}" th:object="${UserDetails}" method="POST">
                         <!-- <th:block th:if="${#fields.hasErrors('${signupForm.*}')}">
         <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
     </th:block> -->

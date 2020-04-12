@@ -5,9 +5,13 @@ import java.io.Serializable;
 import com.foodforcharity.app.domain.constant.PersonRole;
 
 
-public class RequestModel implements Serializable {
+public class UserDetails implements Serializable {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private String name;
     private String password;
     private String email;
@@ -17,7 +21,7 @@ public class RequestModel implements Serializable {
     private String city;
     private String address;
 
-    public RequestModel(){
+    public UserDetails(){
 
     }
 

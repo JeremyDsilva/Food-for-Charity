@@ -9,7 +9,7 @@ import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
 import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;
-import com.foodforcharity.app.web.model.RequestModel;
+import com.foodforcharity.app.web.model.UserDetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,12 +60,12 @@ public class PersonController extends AbstractController {
 
     @GetMapping(value = "/register")
     public String getRegisterView(Model model) {
-        model.addAttribute("requestModel", new RequestModel());
+        model.addAttribute("requestModel", new UserDetails());
         return "register";
     }
 
     @PostMapping(value = "/register")
-    public String registerDonor(@ModelAttribute RequestModel requestModel, Model model) throws ExecutionException {
+    public String registerDonor(@ModelAttribute UserDetails requestModel, Model model) throws ExecutionException {
 
         Response<Void> response;
 

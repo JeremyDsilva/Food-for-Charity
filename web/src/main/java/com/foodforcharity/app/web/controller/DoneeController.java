@@ -13,7 +13,7 @@ import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand.Range;
-import com.foodforcharity.app.web.model.CreateRequest;
+import com.foodforcharity.app.web.model.FoodPreferences;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -67,12 +67,12 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("FoodPreferences/{id}")
     public String getFoodPreferencesView(@PathVariable long id, Model model) {
-        model.addAttribute("createRequest", new CreateRequest());
+        model.addAttribute("createRequest", new FoodPreferences());
         return "donee/food-preferences";
     }
 
     @PostMapping("FoodPreferencess")
-    public String selectPreferences(@ModelAttribute CreateRequest createRequest, Model model) {
+    public String selectPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
 
         Response<Void> response;
 
@@ -90,7 +90,7 @@ public class DoneeController extends AbstractController {
     }
 
     @PutMapping("FoodPreferences")
-    public String modifyPreferences(@ModelAttribute CreateRequest createRequest, Model model){
+    public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
 
         Response<Void> response;
 
@@ -109,7 +109,7 @@ public class DoneeController extends AbstractController {
     }
 
     @DeleteMapping("FoodPreferences")
-    public String deletePreferences(@ModelAttribute CreateRequest createRequest, Model model){
+    public String deletePreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
 
         Response<Void> response;
 
@@ -137,7 +137,7 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("FoodRequest/{foodId}")
     public String getFoodRequestView(@PathVariable long id, Model model) {
-        model.addAttribute("FoodRequest", new CreateRequest());
+        model.addAttribute("FoodRequest", new FoodPreferences());
         return "redirect:/";
 
     }
