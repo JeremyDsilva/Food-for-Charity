@@ -2,8 +2,6 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
-import javax.validation.Valid;
-
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 // @RequestMapping("/user")
@@ -63,23 +62,16 @@ public class PersonController extends AbstractController {
 
         Response<Void> response = publishAsync(command).get();
 
-        if (response.success()) {
-            model.addAttribute("Success", "Password Successfully Changed!");
-        } else {
-            model.addAttribute("Error", response.getError().getMessage());
-        }
-
-        return "change-password";
+        return response.success()? "redirect:/change-password?success" : "redirect:/change-password?error";
     }
 
     @GetMapping(value = "/register")
-    public String getRegisterView(Model model) {
-        model.addAttribute("requestModel", new RequestModel());
+    public String getRegisterView(RequestModel requestModel) {
         return "register";
     }
 
     @PostMapping(value = "/register")
-    public String registerDonor(@ModelAttribute RequestModel requestModel, Model model) throws ExecutionException {
+    public ModelAndView registerDonor(@ModelAttribute RequestModel requestModel, Model model) throws ExecutionException {
 
         Response<Void> response;
 
@@ -100,14 +92,10 @@ public class PersonController extends AbstractController {
         }
 
         if (response.success()) {
-            return "login";
+            new ModelAndView("login");
         }
 
-        model.addAttribute("IsError", true);
-        model.addAttribute("ErrorMessage", response.getError().getMessage());
-        model.addAttribute("requestModel", requestModel);
-
-        return "register";
+        return new ModelAndView("redirect:/register?error", "requestModel", requestModel);
     }
 
 }

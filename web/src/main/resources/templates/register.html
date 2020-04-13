@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
 
 <head>
 
@@ -14,91 +15,161 @@
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="">
-                    <form th:action="@{/register}" th:object="${requestModel}" method="POST">
-                        <!-- <th:block th:if="${#fields.hasErrors('${signupForm.*}')}">
-        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
-    </th:block> -->
-                        <fieldset>
-                            <div class="form-row">
-                                <div class="form-checkbox">
-                                    <label class="toggle-label-type">
-                                      <input class="mt-2" th:value="*{personRole}" name="personRole" type="radio" value="Donor" id="Donor">
-                                    Donor
-                                    </label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <label class="toggle-label-type">
-                                      <input class="mt-2" th:value="*{personRole}" name="personRole" type="radio" value="Donee" id="Donee">
-                                    Donee
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" th:value="*{name}" class="form-control" id="name" name="name" placeholder="Full Name">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputEmail4">Email</label>
-                                    <input type="email" th:value=*{email} class="form-control" name="email" id="email" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword4">Password</label>
-                                    <input type="password" th:value="*{password}" class="form-control" name="password" id="password" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputAddress">Address</label>
-                                    <input type="text" th:value="*{address}" class="form-control" name="address" id="address" placeholder="Apartment, Building, Area">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPhone">Phone Number</label>
-                                    <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputCountry">Country</label>
-                                    <select th:value="*{country}" id="country" name="country"></select>
-                                </div>
-                                <script th:inline="javascript">
-                                    populateCountries("country");
-                                </script>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputCity">City</label>
-                                    <select th:value="*{city}" name="city" id="city">
-    <option value=""  selected>Choose...</option>
-    <option value="AbuDhabi">Abu Dhabi</option>
-    <option value="Dubai">Dubai</option>
-    <option value="Sharjah">Sharjah</option>
-    <option value="RasAlKhaimah">Ras Al Khaimah </option>
-    <option value="Fujairah">Fujairah</option>
-    <option value="Ajman">Ajman</option>
-    <option value="UmmAlQwain">Umm Al Quwain </option>
-    </select>
-                                </div>
+                    <div class="tab">
+                        <button class="tablinks" onclick="openCity(event, 'Donor')">Donor</button>
+                        <button class="tablinks" onclick="openCity(event, 'Donee')">Donee</button>
+                    </div>
+                    <form id="Donor" class="tabcontent" th:action="@{/register}" th:object="${registerRequest}"
+                        method="POST">
+                        <div class="form-row">
+                            <input class="mt-2" th:value="*{personRole}" name="personRole" value="Donor"
+                                input type="hidden">
+                        </div>
+                        <div class="form-row">
+                            <label for="name">Full Name</label>
+                            <input type="text" th:value="*{name}" class="form-control" id="name" name="name"
+                                placeholder="Full Name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" th:value=*{email} class="form-control" name="email" id="email"
+                                    placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-primary">Register</button>
-                                </div>
+                                <label for="inputPassword4">Password</label>
+                                <input type="password" th:value="*{password}" class="form-control" name="password"
+                                    id="password" placeholder="Password">
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="address">Address</label>
+                            <input type="text" th:value="*{address}" class="form-control" name="address" id="address"
+                                placeholder="Apartment, Building, Area">
+                        </div>
+                        <div class="form-row">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber"
+                                id="phoneNumber" placeholder="Phone Number">
+                        </div>
+                        <div class="form-row">
                             <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <p>Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
-                                </div>
+                                <label for="inputCountry">Country</label>
+                                <select th:value="*{country}" id="country" name="country"></select>
                             </div>
-                        </fieldset>
+                            <script th:inline="javascript">
+                                populateCountries("country");
+                            </script>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputCity">City</label>
+                                <select th:value="*{city}" name="city" id="city">
+                                    <option value="" selected>Choose...</option>
+                                    <option value="AbuDhabi">Abu Dhabi</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Sharjah">Sharjah</option>
+                                    <option value="RasAlKhaimah">Ras Al Khaimah </option>
+                                    <option value="Fujairah">Fujairah</option>
+                                    <option value="Ajman">Ajman</option>
+                                    <option value="UmmAlQwain">Umm Al Quwain </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                        </div>
                     </form>
+                    <form id="Donee" class="tabcontent" th:action="@{/register}" th:object="${registerRequest}"
+                        method="POST">
+                        <div class="form-row">
+                            <input class="mt-2" th:value="*{personRole}" name="personRole" value="Donee"
+                                input type="hidden">
+                        </div>
+                        <div class="form-row">
+                            <label for="name">Full Name</label>
+                            <input type="text" th:value="*{name}" class="form-control" id="name" name="name"
+                                placeholder="Full Name">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" th:value=*{email} class="form-control" name="email" id="email"
+                                    placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword4">Password</label>
+                                <input type="password" th:value="*{password}" class="form-control" name="password"
+                                    id="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="address">Address</label>
+                            <input type="text" th:value="*{address}" class="form-control" name="address" id="address"
+                                placeholder="Apartment, Building, Area">
+                        </div>
+                        <div class="form-row">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber"
+                                id="phoneNumber" placeholder="Phone Number">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputCountry">Country</label>
+                                <select th:value="*{country}" id="country" name="country"></select>
+                            </div>
+                            <script th:inline="javascript">
+                                populateCountries("country");
+                            </script>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputCity">City</label>
+                                <select th:value="*{city}" name="city" id="city">
+                                    <option value="" selected>Choose...</option>
+                                    <option value="AbuDhabi">Abu Dhabi</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Sharjah">Sharjah</option>
+                                    <option value="RasAlKhaimah">Ras Al Khaimah </option>
+                                    <option value="Fujairah">Fujairah</option>
+                                    <option value="Ajman">Ajman</option>
+                                    <option value="UmmAlQwain">Umm Al Quwain </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div th:each="doneeType : ${T(com.foodforcharity.app.domain.constant.DoneeType).values()}">
+                                <input name="doneeType" type="radio" th:id="${{doneeType}}}" th:value="${{doneeType}}}"
+                                    th:field="*{doneeType}" /><label for="${{doneeType}}}"
+                                    th:text="| &nbsp; ${source} |">Label</label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="NumberOfMembers">Number of Members</label>
+                            <input type="text" th:value="*{numberOfMembers}" class="form-control" name="address" id="address"
+                                placeholder="Number of Members">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <p>Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
