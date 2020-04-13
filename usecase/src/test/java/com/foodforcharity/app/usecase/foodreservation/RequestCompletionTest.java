@@ -67,6 +67,8 @@ public class RequestCompletionTest {
         if (dbRequest.isPresent()) {
             request = dbRequest.get();
             donor = request.getDonor();
+            request.setIsActive(true);
+            requestRepos.save(request);
         } else {
             Optional<Food> dbFood = foodRepos.findById(Long.valueOf(1));
 
