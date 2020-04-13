@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,14 +38,14 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/home")
-    public String getDoneeHomepageView() {
-
+    public String getDoneeHomepageView(Model model) {
+        //model.addAttribute("PersonName", Person)
         return "donor/donor-homepage";
     }
 
     @GetMapping(value = "/menu")
     public String getMenu(Model model) {
-        model.addAttribute("menu", new MenuModel());
+        //model.addAttribute("menu", new MenuModel(id));
         return "redirect:/menu";
     }
 
@@ -94,7 +95,7 @@ public class DonorController extends AbstractController {
     }
 
     @DeleteMapping(value="/menu")
-    public String deleteMenuItem(@RequestParam(value = "foodId", required = true) long foodId, 
+    public String deleteMenuItem(@RequestParam(value = "foodId") long foodId, 
                             @ModelAttribute MenuModel menuModel, Model model) throws ExecutionException {
 
         Response<Void> response;

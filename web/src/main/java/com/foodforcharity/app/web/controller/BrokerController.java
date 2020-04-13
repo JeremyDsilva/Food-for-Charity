@@ -1,10 +1,12 @@
 package com.foodforcharity.app.web.controller;
 
+import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Mediator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,8 +21,12 @@ public class BrokerController extends AbstractController {
     }
 
     @GetMapping(value = "/home")
-    public String getMethodName() {
-        return "broker-home";
+    public String getBrokerHomepageView(Model model) {
+       // model.addAttribute("Person", PersonDetails());
+        return "";
     }
+
+    
+
 
 }

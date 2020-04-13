@@ -1,5 +1,6 @@
 package com.foodforcharity.app.web.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,7 @@ import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand.Range;
 
-public class CreateRequest {
+public class CreateRequest implements Serializable{
 
 
     Optional<Range<SpiceLevel>> spiceRange;

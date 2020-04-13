@@ -20,6 +20,7 @@ public class MenuModel implements Serializable{
     public MenuModel(){
 
     }
+    
 
     public String getFoodName() {
         return this.foodName;

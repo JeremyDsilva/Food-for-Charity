@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:fragment="index-header" class="bs-example">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a th:href="@{/}" class="navbar-brand">Food for Charity</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a th:href="@{/}" class="nav-item nav-link active">Home</a>
+                    <!-- <a th:href="@{/guests}" class="nav-item nav-link">Guests</a> -->
+                    <!-- <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <a th:href="@{/login}" class="btn nav-item nav-link">Login</a>
+                    <a th:href="@{/register}" class="btn btn-success nav-item nav-link">Register</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <div th:fragment="homepage-header" id="content" class="p-4 p-md-5 pt-5">
+        <div class="bs-example">
+            <nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
+                <a th:href="@{/home}" class="navbar-brand">Food for Charity</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a th:href="@{/home}" class="nav-item nav-link active">Home</a>
+                        <!-- <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
+                    </div>
+                    <div class="navbar-nav ml-auto">
+                        <a th:href="@{view-profile}" class="btn nav-item nav-link">Profile</a>
+                        <a th:href="@{/logout}" class="btn btn-danger nav-item nav-link">Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+</body>
+
+</html>

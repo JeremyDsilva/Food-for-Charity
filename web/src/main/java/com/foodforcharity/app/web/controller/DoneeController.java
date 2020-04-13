@@ -8,6 +8,7 @@ import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand;
@@ -39,16 +40,37 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("/home")
     public String getDoneeHomepageView(Model model) {
-        return "donee/home";
+        // model.addAttribute("PersonName", );
+        // model.addAttribute("FoodAvailable", FoodAvailable);
+        return "donee/donee-homepage";
     }
 
-    //--------------Food Preferences----------------
+    // --------------View Profile----------------
 
-    @GetMapping("FoodPreferences")
-    public String getFoodPreferencesView(Model model){
-        model.addAttribute("createRequest", new CreateRequest());
-        return "donee/food-preferences";
+    @GetMapping("profile/{profileId}")
+    public String getProfileView(@PathVariable long id, Model model){
+        //model.addAttribute("UserProfile", new Profile());
+        return "donee/view-profile";
     }
+
+    @PutMapping("profile/{profileId}")
+    public String changeProfileInfo(@PathVariable long id, Model model){
+
+       // Response<Void> response;
+
+
+
+        return "redirect:/";
+    }
+
+    // --------------Food Preferences----------------
+
+    // @GetMapping("FoodPreferences/{id}")
+    // public String getFoodPreferencesView(@PathVariable long id, SelectFoodPreferenceRequest model) {
+    
+    //     model.addAttribute("createRequest", new CreateRequest());
+    //     return "donee/food-preferences";
+    // }
 
     // @PostMapping("FoodPreferencess")
     // public String selectPreferences(@ModelAttribute CreateRequest createRequest, Model model)
@@ -83,7 +105,7 @@ public class DoneeController extends AbstractController {
     //         model.addAttribute("ErrorMessage", response.getError().getMessage());
     //     }
     //     else {
-    //         model.addAttribute("Success", "Food Preferences Modified Successfully!")
+    //         model.addAttribute("Success", "Food Preferences Modified Successfully!");
     //     }
     //     return "redirect:/";
     // }
@@ -102,38 +124,41 @@ public class DoneeController extends AbstractController {
     //         model.addAttribute("ErrorMessage", response.getError().getMessage());
     //     }
 
-    //     model.addAttribute("Success", "Food Preferences Deleted Successfully!")
+        // model.addAttribute("Success", "Food Preferences Deleted Successfully!");
 
     //     return "redirect:/";
     // }
 
+    // --------------Food Requests----------------
 
+    // @GetMapping("FoodRequests")
+    // public String getFoodRequestsView(Model model) {
+    //     // model.addAttribute("food", Food());
+    //     return "donee/Food-request";
+    // }
 
-    //--------------Food Requests----------------
+    // @GetMapping("FoodRequest/{foodId}")
+    // public String getFoodRequestView(@PathVariable long id, Model model) {
+    //     model.addAttribute("FoodRequest", new CreateRequest());
+    //     return "redirect:/";
 
-    @GetMapping("FoodRequest")
-    public String getFoodRequestView(Model model){
+    // }
 
-        return "donee/Food-request";
-    }
+    // @PostMapping("FoodRequest")
+    // public String createFoodRequest(@PathVariable("doneeId") long doneeId,
+    //         @RequestParam(value = "donorId") long donorId, Model model) throws ExecutionException {
 
+    //     CreateRequestCommand createRequestCommand = new CreateRequestCommand(doneeId, donorId);
 
-    @PostMapping("FoodRequest")
-    public String createFoodRequest(@PathVariable("doneeId") long doneeId,
-            @RequestParam(value = "donorId") long donorId, Model model) throws ExecutionException {
+    //     Response<Void> response = publishAsync(createRequestCommand).get();
 
-        CreateRequestCommand createRequestCommand = new CreateRequestCommand(doneeId, donorId);
-
-        Response<Void> response = publishAsync(createRequestCommand).get();
-
-        if (!response.success()) {
-            model.addAttribute("IsError", true);
-            model.addAttribute("ErrorMessage", response.getError().getMessage());
-        }
-        else{
-            model.addAttribute("Success", "Food have been requested!");
-        }
-        return "redirect:/";
-    }
+    //     if (!response.success()) {
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     } else {
+    //         model.addAttribute("Success", "Food have been requested!");
+    //     }
+    //     return "redirect:/";
+    // }
 
 }
