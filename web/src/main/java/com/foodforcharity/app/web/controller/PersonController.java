@@ -2,6 +2,8 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.validation.Valid;
+
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -65,21 +67,21 @@ public class PersonController extends AbstractController {
     }
 
     @PostMapping(value = "/register")
-    public String registerDonor(@ModelAttribute UserDetails requestModel, Model model) throws ExecutionException {
+    public String registerDonor(@Valid @ModelAttribute UserDetails userDetails, Model model) throws ExecutionException {
 
         Response<Void> response;
 
-        if (requestModel.getPersonRole() == PersonRole.Donor.name()) {
+        if (userDetails.getPersonRole() == PersonRole.Donor.name()) {
 
-            DonorRegisterationCommand command = new DonorRegisterationCommand(requestModel.getName(),
-                    requestModel.getPassword(), requestModel.getEmail(), requestModel.getPhoneNumber(),
-                    requestModel.getCity(), requestModel.getCountry(), requestModel.getAddress());
+            DonorRegisterationCommand command = new DonorRegisterationCommand(userDetails.getName(),
+            userDetails.getPassword(), userDetails.getEmail(), userDetails.getPhoneNumber(),
+            userDetails.getCity(), userDetails.getCountry(), userDetails.getAddress());
 
             response = publishAsync(command).get();
         } else {
-            DoneeRegisterationCommand command = new DoneeRegisterationCommand(requestModel.getName(),
-                    requestModel.getPassword(), requestModel.getEmail(), requestModel.getPhoneNumber(),
-                    requestModel.getCity(), requestModel.getCountry(), requestModel.getAddress(), DoneeType.Individual,
+            DoneeRegisterationCommand command = new DoneeRegisterationCommand(userDetails.getName(),
+            userDetails.getPassword(), userDetails.getEmail(), userDetails.getPhoneNumber(),
+            userDetails.getCity(), userDetails.getCountry(), userDetails.getAddress(), DoneeType.Individual,
                     1);
 
             response = publishAsync(command).get();
@@ -89,9 +91,9 @@ public class PersonController extends AbstractController {
             return "login";
         }
 
-        model.addAttribute("IsError", true);
-        model.addAttribute("ErrorMessage", response.getError().getMessage());
-        model.addAttribute("requestModel", requestModel);
+        // model.addAttribute("IsError", true);
+        // model.addAttribute("ErrorMessage", response.getError().getMessage());
+        model.addAttribute("userDetails", userDetails);
 
         return "register";
     }
