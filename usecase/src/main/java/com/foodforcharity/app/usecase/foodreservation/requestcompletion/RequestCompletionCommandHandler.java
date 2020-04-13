@@ -42,7 +42,7 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 			}
 
 			// check that request belongs to donor
-			if (request.getDonor().getId() == command.donorId) {
+			if (request.getDonor().getId() != command.donorId) {
 				return Response.of(Error.DonorRequestDontMatch);
 			}
 

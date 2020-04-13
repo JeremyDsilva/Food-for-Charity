@@ -7,9 +7,10 @@ import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class SelectPreferencesCommand implements Command<Void> {
+public class SelectPreferencesCommand implements Command<Response<Void>> {
 	long doneeId;
 	Optional<Range<SpiceLevel>> spiceRange;
 	Optional<List<Allergen>> allergens;
