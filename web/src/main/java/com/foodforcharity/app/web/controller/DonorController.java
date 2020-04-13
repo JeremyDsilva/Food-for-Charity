@@ -12,7 +12,6 @@ import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;
 import com.foodforcharity.app.usecase.profile.deletemenuitem.DeleteMenuItemCommand;
 import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemCommand;
 import com.foodforcharity.app.web.model.MenuModel;
-import com.foodforcharity.app.web.model.RequestModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
