@@ -1,14 +1,21 @@
 package com.foodforcharity.app.web.controller;
 
+<<<<<<< HEAD
 import com.foodforcharity.app.mediator.Mediator;
+=======
+import java.util.concurrent.ExecutionException;
+
+import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.mediator.Mediator;
+import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
+>>>>>>> 5189f34d8c7937f9708239de2ecbac17a3893ebf
 import com.foodforcharity.app.web.model.FoodPreferences;
+import com.foodforcharity.app.web.model.UserDetails;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +33,7 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("/home")
     public String getDoneeHomepageView(Model model) {
-        // model.addAttribute("PersonName", );
+        model.addAttribute("userDetails", new UserDetails());
         // model.addAttribute("FoodAvailable", FoodAvailable);
         return "donee/donee-homepage";
     }
@@ -49,73 +56,67 @@ public class DoneeController extends AbstractController {
 
     // --------------Food Preferences----------------
 
-    @GetMapping("FoodPreferences/{id}")
-    public String getFoodPreferencesView(@PathVariable long id, Model model) {
-        model.addAttribute("createRequest", new FoodPreferences());
-        return "donee/food-preferences";
-    }
+    // @GetMapping("FoodPreferences/{id}")
+    // public String getFoodPreferencesView(@PathVariable long id, Model model) {
+    //     model.addAttribute("createRequest", new FoodPreferences());
+    //     return "donee/food-preferences";
+    // }
 
-    @PostMapping("FoodPreferencess")
-    public String selectPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
+    // @PostMapping("FoodPreferencess")
+    // public String selectPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
 
-        // Response<Void> response;
+    //     Response<Void> response;
 
-        // SelectPreferencesCommand selectPreferencesCommand = new
-        // SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        // Void v = publishAsync(selectPreferencesCommand).get();
+    //     response = publishAsync(selectPreferencesCommand).get();
 
-        // if (!response.success()) {
-        // model.addAttribute("IsError", true);
-        // model.addAttribute("ErrorMessage", response.getError().getMessage());
-        // } else {
-        // model.addAttribute("Success", "Food Preferences Selected Successfully!");
-        // }
-        // return "redirect:/";
-        return null;
-    }
+    //     if (!response.success()) {
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     } else {
+    //         model.addAttribute("Success", "Food Preferences Selected Successfully!");
+    //     }
+    //     return "redirect:/";
+    // }
 
-    @PutMapping("FoodPreferences")
-    public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
+    // @PutMapping("FoodPreferences")
+    // public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
 
-        // Response<Void> response;
+    //     Response<Void> response;
 
-        // SelectPreferencesCommand selectPreferencesCommand = new
-        // SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        // response = publishAsync(selectPreferencesCommand).get();
+    //     response = publishAsync(selectPreferencesCommand).get();
 
-        // if(!response.success()){
-        // model.addAttribute("IsError", true);
-        // model.addAttribute("ErrorMessage", response.getError().getMessage());
-        // }
-        // else {
-        // model.addAttribute("Success", "Food Preferences Modified Successfully!");
-        // }
-        // return "redirect:/";
-        return null;
-    }
+    //     if(!response.success()){
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     }
+    //     else {
+    //         model.addAttribute("Success", "Food Preferences Modified Successfully!");
+    //     }
+    //     return "redirect:/";
+    // }
 
-    @DeleteMapping("FoodPreferences")
-    public String deletePreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
+    // @DeleteMapping("FoodPreferences")
+    // public String deletePreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
 
-        // Response<Void> response;
+    //     Response<Void> response;
 
-        // SelectPreferencesCommand selectPreferencesCommand = new
-        // SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        // response = publishAsync(selectPreferencesCommand).get();
+    //     response = publishAsync(selectPreferencesCommand).get();
 
-        // if(!response.success()){
-        // model.addAttribute("IsError", true);
-        // model.addAttribute("ErrorMessage", response.getError().getMessage());
-        // }
+    //     if(!response.success()){
+    //         model.addAttribute("IsError", true);
+    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
+    //     }
 
-        // model.addAttribute("Success", "Food Preferences Deleted Successfully!");
+    //     model.addAttribute("Success", "Food Preferences Deleted Successfully!");
 
-        // return "redirect:/";
-        return null;
-    }
+    //     return "redirect:/";
+    // }
 
     // --------------Food Requests----------------
 

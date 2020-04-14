@@ -1,17 +1,49 @@
+<<<<<<< HEAD
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout}">
+=======
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+>>>>>>> 5189f34d8c7937f9708239de2ecbac17a3893ebf
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 </head>
 
 <body>
-    <section layout:fragment="content">
-        <div class="container-fluid h-100 bg-light text-dark">
-            <div class="row justify-content-center align-items-center">
-                <h2>Create an account.</h2>
+
+    <div layout:fragment="content" class="container">
+
+        <form th:action="@{/register}" th:object="${userDetails}" method="POST">
+            <div class="container my-auto">
+                <h1>Create an account.</h1><br>
+
+            </div>
+            <div class="container">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" th:value="*{personRole}" name="personRole" id="Donee" value="Donee"> Donee
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" th:value="*{personRole}" name="personRole" id="Donor" value="Donor"> Donor
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="exampleInputEmail1"><br> Full Name</label>
+                <input type="text" class="form-control" th:value="*{name}" id="name" name="name" placeholder="Full Name">
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Generic Error</td>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="exampleInputEmail1">Email Address</label>
+                <input type="email" class="form-control" th:value="*{email}" id="emailAddress" name="email" placeholder="email@example.com">
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Generic Error</td>
+
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="">
@@ -54,12 +86,9 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="inputCountry">Country</label>
-                                <select th:value="*{country}" id="country" name="country"></select>
+                                Select Country <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
                             </div>
-                            <script th:inline="javascript">
-                                populateCountries("country");
-                            </script>
+                            
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -176,17 +205,21 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabel">Register</h4>
                     </div>
-                    <div class="modal-body" id="myModalBody">Lorem ipsum</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div class="form-group col-sm-3">
+                        Select City: <select class="custom-select" th:value="*{city}" name="city" id="city"></select>
+                        <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Generic Error</td>
                     </div>
                 </div>
-                <!-- /.modal-content -->
+                <script th:inline="javascript">
+                    populateCountries("country", "city"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+                </script>
             </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-    </section>
+            <div class="container">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p><br> Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

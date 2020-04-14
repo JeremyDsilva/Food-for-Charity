@@ -40,7 +40,11 @@ public class Response<R> {
     }
 
     public boolean success(){
-        return error == null;
+        return !hasError();
+    }
+
+    public boolean hasError(){
+        return error != null;
     }
 
 }

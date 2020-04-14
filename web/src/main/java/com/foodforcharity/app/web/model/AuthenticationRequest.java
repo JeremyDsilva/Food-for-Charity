@@ -1,8 +1,6 @@
 package com.foodforcharity.app.web.model;
 
-import java.io.Serializable;
-
-public class AuthenticationRequest implements Serializable {
+public class AuthenticationRequest extends Request {
 
     private String username;
     private String password;

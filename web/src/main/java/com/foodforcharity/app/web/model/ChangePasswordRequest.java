@@ -1,58 +1,19 @@
 package com.foodforcharity.app.web.model;
 
-public class ChangePasswordRequest {
+import javax.validation.constraints.NotBlank;
 
+import lombok.Data;
+
+@Data
+public class ChangePasswordRequest extends Request {
+
+    @NotBlank
     String password;
+
+    @NotBlank
     String newPassword;
 
+    @NotBlank
     String confirmNewPassword;
-
-    /**
-     * 
-     */
-    public ChangePasswordRequest() {
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the newPassword
-     */
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    /**
-     * @param newPassword the newPassword to set
-     */
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    /**
-     * @return the confirmNewPassword
-     */
-    public String getConfirmNewPassword() {
-        return confirmNewPassword;
-    }
-
-    /**
-     * @param confirmNewPassword the confirmNewPassword to set
-     */
-    public void setConfirmNewPassword(String confirmNewPassword) {
-        this.confirmNewPassword = confirmNewPassword;
-    }
 
 }
