@@ -9,6 +9,7 @@
 **/.settings/*
 **/.classpath
 **/.project
+**/.factorypath
 **/bin
 
 # vscode files

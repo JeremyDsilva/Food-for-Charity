@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -68,14 +69,14 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-
-                    <div class="form-group col-sm-3">
-                        <!-- <script th:inline="javascript" th:src="@{../static/js/countries.js}"></script> -->
-                        Select Country <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
-                        <td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Generic Error</td>
-
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Register</h4>
                     </div>
                     <div class="form-group col-sm-3">
                         Select City: <select class="custom-select" th:value="*{city}" name="city" id="city"></select>

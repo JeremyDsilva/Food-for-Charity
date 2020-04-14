@@ -1,6 +1,5 @@
 package com.foodforcharity.app.web.controller;
 
-import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Mediator;
 
 import org.springframework.beans.factory.annotation.Autowired;

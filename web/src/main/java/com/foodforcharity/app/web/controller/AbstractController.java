@@ -1,18 +1,11 @@
 package com.foodforcharity.app.web.controller;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Command;
 import com.foodforcharity.app.mediator.Mediator;
 
 import org.springframework.scheduling.annotation.AsyncResult;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AbstractController {

@@ -1,25 +1,31 @@
 package com.foodforcharity.app.web.controller;
 
+import static com.foodforcharity.app.web.model.Request.withSuccess;
+
 import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
 
+<<<<<<< HEAD
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
+=======
+>>>>>>> 2b3734fb45608191c268d20730450e3d26d95893
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
 import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;
-import com.foodforcharity.app.web.model.UserDetails;
+import com.foodforcharity.app.web.model.ChangePasswordRequest;
+import com.foodforcharity.app.web.model.DoneeRegisterRequest;
+import com.foodforcharity.app.web.model.DonorRegisterRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 // @RequestMapping("/user")
@@ -30,72 +36,100 @@ public class PersonController extends AbstractController {
         super(mediator);
     }
 
+    // @InitBinder
+    // protected void initBinder(WebDataBinder binder) {
+    // binder.setValidator(new ChangePasswordValidator());
+    // }
+
     @GetMapping(value = "/home")
     public String getHomeView(Model model) {
         return "redirect:/" + getPersonRole().name().toLowerCase() + "/home";
     }
 
+    // @GetMapping(value = {"/change-password", "/change-password/?success",
+    // "/change-password/?error"})
     @GetMapping(value = "/change-password")
-    public String getChangePasswordView(Model model) {
+    public String getChangePasswordView(ChangePasswordRequest request) {
         return "change-password";
     }
 
     @PostMapping(value = "/change-password")
-    public String changePassword(Model model, @RequestParam(defaultValue = "password") String password,
-            @RequestParam(defaultValue = "newPassword") String newPassword) throws ExecutionException {
-        /*
-         * Get person id from session
-         */
+    public String changePassword(@Valid ChangePasswordRequest request, BindingResult result) throws ExecutionException {
 
-        ChangePasswordCommand command = new ChangePasswordCommand(getPersonId(), password, newPassword);
+        if (result.hasErrors()) {
+            return "change-password";
+        }
+
+        ChangePasswordCommand command = new ChangePasswordCommand(Long.valueOf(1), request.getPassword(),
+                request.getNewPassword());
 
         Response<Void> response = publishAsync(command).get();
 
-        if (response.success()) {
-            model.addAttribute("Success", "Password Successfully Changed!");
-        } else {
-            model.addAttribute("Error", response.getError().getMessage());
-        }
-
-        return "change-password";
+        if (response.hasError()) {
+            request.setError(response.getError());
+            return "change-password";
+        } 
+            
+        return getChangePasswordView(withSuccess(new ChangePasswordRequest()));
     }
 
-    @GetMapping(value = "/register")
-    public String getRegisterView(Model model) {
-        model.addAttribute("userDetails", new UserDetails());
-        return "register";
+    @GetMapping(value = "/donee-register")
+    public String getDoneeRegisterView(DoneeRegisterRequest request) {
+        return "donee-register";
     }
 
+<<<<<<< HEAD
     @PostMapping(value = "/register")
     public String registerDonor(@Valid @ModelAttribute UserDetails userDetails, Model model) throws ExecutionException {
+=======
+    @PostMapping(value = "/donee-register/**")
+    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result) throws ExecutionException {
+>>>>>>> 2b3734fb45608191c268d20730450e3d26d95893
 
-        Response<Void> response;
+        if (result.hasErrors()) {
+            return "donee-register";
+        }
 
-        if (userDetails.getPersonRole() == PersonRole.Donor.name()) {
+        DoneeRegisterationCommand command = new DoneeRegisterationCommand(request.getName(), request.getPassword(),
+                request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),
+                request.getAddress(), request.getDoneeType(), request.getNumberOfMembers());
 
-            DonorRegisterationCommand command = new DonorRegisterationCommand(userDetails.getName(),
-            userDetails.getPassword(), userDetails.getEmail(), userDetails.getPhoneNumber(),
-            userDetails.getCity(), userDetails.getCountry(), userDetails.getAddress());
+        Response<Void> response = publishAsync(command).get();
 
-            response = publishAsync(command).get();
+        if(response.hasError()){
+            request.setError(response.getError());
+            return "/donor-register";
+        } 
+            
+        return getDoneeRegisterView(withSuccess(new DoneeRegisterRequest()));
+    }
+
+    @GetMapping(value = "/donor-register/**")
+    public String getDonorRegisterView(DonorRegisterRequest request) {
+        return "donor-register";
+    }
+
+    @PostMapping(value = "/donor-register")
+    public String registerDonor(@Valid DonorRegisterRequest request, BindingResult result) throws ExecutionException {
+
+        if (result.hasErrors()) {
+            return "donor-register";
+        }
+
+        DonorRegisterationCommand command = new DonorRegisterationCommand(request.getName(), request.getPassword(),
+                request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),
+                request.getAddress());
+
+        Response<Void> response = publishAsync(command).get();
+
+        if(response.hasError()){
+            request.setError(response.getError());
         } else {
-            DoneeRegisterationCommand command = new DoneeRegisterationCommand(userDetails.getName(),
-            userDetails.getPassword(), userDetails.getEmail(), userDetails.getPhoneNumber(),
-            userDetails.getCity(), userDetails.getCountry(), userDetails.getAddress(), DoneeType.Individual,
-                    1);
-
-            response = publishAsync(command).get();
+            request = new DonorRegisterRequest();
+            request.setSuccess(true);
         }
 
-        if (response.success()) {
-            return "login";
-        }
-
-        // model.addAttribute("IsError", true);
-        // model.addAttribute("ErrorMessage", response.getError().getMessage());
-        model.addAttribute("userDetails", userDetails);
-
-        return "register";
+        return getDonorRegisterView(withSuccess(new DonorRegisterRequest()));
     }
 
 }
