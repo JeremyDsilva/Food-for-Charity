@@ -1,22 +1,9 @@
 package com.foodforcharity.app.web.controller;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-
-import com.foodforcharity.app.domain.constant.Allergen;
-import com.foodforcharity.app.domain.constant.Cuisine;
-import com.foodforcharity.app.domain.constant.SpiceLevel;
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Mediator;
-import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
-import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand;
-import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand.Range;
 import com.foodforcharity.app.web.model.FoodPreferences;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/donee")
@@ -48,17 +34,15 @@ public class DoneeController extends AbstractController {
     // --------------View Profile----------------
 
     @GetMapping("profile/{profileId}")
-    public String getProfileView(@PathVariable long id, Model model){
-        //model.addAttribute("UserProfile", new Profile());
+    public String getProfileView(@PathVariable long id, Model model) {
+        // model.addAttribute("UserProfile", new Profile());
         return "donee/view-profile";
     }
 
     @PutMapping("profile/{profileId}")
-    public String changeProfileInfo(@PathVariable long id, Model model){
+    public String changeProfileInfo(@PathVariable long id, Model model) {
 
-       // Response<Void> response;
-
-
+        // Response<Void> response;
 
         return "redirect:/";
     }
@@ -74,58 +58,64 @@ public class DoneeController extends AbstractController {
     @PostMapping("FoodPreferencess")
     public String selectPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
 
-    //     Response<Void> response;
+        // Response<Void> response;
 
-    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+        // SelectPreferencesCommand selectPreferencesCommand = new
+        // SelectPreferencesCommand(getPersonId());
 
-    //     Void v = publishAsync(selectPreferencesCommand).get();
+        // Void v = publishAsync(selectPreferencesCommand).get();
 
-    //     if (!response.success()) {
-    //         model.addAttribute("IsError", true);
-    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
-    //     } else {
-    //         model.addAttribute("Success", "Food Preferences Selected Successfully!");
-    //     }
-    //     return "redirect:/";
-    // }
+        // if (!response.success()) {
+        // model.addAttribute("IsError", true);
+        // model.addAttribute("ErrorMessage", response.getError().getMessage());
+        // } else {
+        // model.addAttribute("Success", "Food Preferences Selected Successfully!");
+        // }
+        // return "redirect:/";
+        return null;
+    }
 
     @PutMapping("FoodPreferences")
-    public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
+    public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
 
-    //     Response<Void> response;
+        // Response<Void> response;
 
-    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+        // SelectPreferencesCommand selectPreferencesCommand = new
+        // SelectPreferencesCommand(getPersonId());
 
-    //     response = publishAsync(selectPreferencesCommand).get();
+        // response = publishAsync(selectPreferencesCommand).get();
 
-    //     if(!response.success()){
-    //         model.addAttribute("IsError", true);
-    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
-    //     }
-    //     else {
-    //         model.addAttribute("Success", "Food Preferences Modified Successfully!");
-    //     }
-    //     return "redirect:/";
-    // }
+        // if(!response.success()){
+        // model.addAttribute("IsError", true);
+        // model.addAttribute("ErrorMessage", response.getError().getMessage());
+        // }
+        // else {
+        // model.addAttribute("Success", "Food Preferences Modified Successfully!");
+        // }
+        // return "redirect:/";
+        return null;
+    }
 
     @DeleteMapping("FoodPreferences")
-    public String deletePreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
+    public String deletePreferences(@ModelAttribute FoodPreferences foodPreferences, Model model) {
 
-    //     Response<Void> response;
+        // Response<Void> response;
 
-    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+        // SelectPreferencesCommand selectPreferencesCommand = new
+        // SelectPreferencesCommand(getPersonId());
 
-    //     response = publishAsync(selectPreferencesCommand).get();
+        // response = publishAsync(selectPreferencesCommand).get();
 
-    //     if(!response.success()){
-    //         model.addAttribute("IsError", true);
-    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
-    //     }
+        // if(!response.success()){
+        // model.addAttribute("IsError", true);
+        // model.addAttribute("ErrorMessage", response.getError().getMessage());
+        // }
 
         // model.addAttribute("Success", "Food Preferences Deleted Successfully!");
 
-    //     return "redirect:/";
-    // }
+        // return "redirect:/";
+        return null;
+    }
 
     // --------------Food Requests----------------
 
@@ -140,28 +130,30 @@ public class DoneeController extends AbstractController {
         model.addAttribute("FoodRequest", new FoodPreferences());
         return "redirect:/";
 
-    // @GetMapping("FoodRequest/{foodId}")
-    // public String getFoodRequestView(@PathVariable long id, Model model) {
-    //     model.addAttribute("FoodRequest", new CreateRequest());
-    //     return "redirect:/";
+        // @GetMapping("FoodRequest/{foodId}")
+        // public String getFoodRequestView(@PathVariable long id, Model model) {
+        // model.addAttribute("FoodRequest", new CreateRequest());
+        // return "redirect:/";
 
-    // }
+    }
 
     // @PostMapping("FoodRequest")
     // public String createFoodRequest(@PathVariable("doneeId") long doneeId,
-    //         @RequestParam(value = "donorId") long donorId, Model model) throws ExecutionException {
+    // @RequestParam(value = "donorId") long donorId, Model model) throws
+    // ExecutionException {
 
-    //     CreateRequestCommand createRequestCommand = new CreateRequestCommand(doneeId, donorId);
+    // CreateRequestCommand createRequestCommand = new CreateRequestCommand(doneeId,
+    // donorId);
 
-    //     Response<Void> response = publishAsync(createRequestCommand).get();
+    // Response<Void> response = publishAsync(createRequestCommand).get();
 
-    //     if (!response.success()) {
-    //         model.addAttribute("IsError", true);
-    //         model.addAttribute("ErrorMessage", response.getError().getMessage());
-    //     } else {
-    //         model.addAttribute("Success", "Food have been requested!");
-    //     }
-    //     return "redirect:/";
+    // if (!response.success()) {
+    // model.addAttribute("IsError", true);
+    // model.addAttribute("ErrorMessage", response.getError().getMessage());
+    // } else {
+    // model.addAttribute("Success", "Food have been requested!");
+    // }
+    // return "redirect:/";
     // }
 
 }
