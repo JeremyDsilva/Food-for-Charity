@@ -2,10 +2,13 @@ package com.foodforcharity.app.web.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Id;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 public class UserDetails implements Serializable {
@@ -15,7 +18,7 @@ public class UserDetails implements Serializable {
      *
      */
     private static final long serialVersionUID = 1L;
-
+    
     @NotNull(message = "Please enter your name or restaurant name")
     private String name;
 
@@ -45,6 +48,9 @@ public class UserDetails implements Serializable {
 
     }
 
+    // public UserDetails(long id){
+    //     this.name = 
+    // }
     public String getName() {
         return this.name;
     }

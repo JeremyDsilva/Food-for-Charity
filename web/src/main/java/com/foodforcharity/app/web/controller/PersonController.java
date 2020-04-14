@@ -1,5 +1,7 @@
 package com.foodforcharity.app.web.controller;
 
+import static com.foodforcharity.app.web.model.Request.withSuccess;
+
 import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
@@ -12,7 +14,6 @@ import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterat
 import com.foodforcharity.app.web.model.ChangePasswordRequest;
 import com.foodforcharity.app.web.model.DoneeRegisterRequest;
 import com.foodforcharity.app.web.model.DonorRegisterRequest;
-import com.foodforcharity.app.web.model.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import static com.foodforcharity.app.web.model.Request.withSuccess;
 
 @Controller
 // @RequestMapping("/user")

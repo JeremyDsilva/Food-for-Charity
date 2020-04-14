@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout}">
-=======
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
->>>>>>> 5189f34d8c7937f9708239de2ecbac17a3893ebf
 
 <head>
     <meta charset="UTF-8">
@@ -35,164 +30,42 @@
                 </div>
             </div>
             <div class="form-group col-sm-6">
-                <label for="exampleInputEmail1"><br> Full Name</label>
+                <label for="name"><br> Full Name</label>
                 <input type="text" class="form-control" th:value="*{name}" id="name" name="name" placeholder="Full Name">
                 <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Generic Error</td>
             </div>
             <div class="form-group col-sm-6">
-                <label for="exampleInputEmail1">Email Address</label>
+                <label for="email">Email Address</label>
                 <input type="email" class="form-control" th:value="*{email}" id="emailAddress" name="email" placeholder="email@example.com">
                 <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Generic Error</td>
 
             </div>
-            <div class="row justify-content-center align-items-center">
-                <div class="">
-                    <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'Donor')">Donor</button>
-                        <button class="tablinks" onclick="openCity(event, 'Donee')">Donee</button>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" th:value="*{password}" id="password" name="password" placeholder="Password">
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td>
+
                     </div>
-                    <form id="Donor" class="tabcontent" th:action="@{/register}" th:object="${registerRequest}"
-                        method="POST">
-                        <div class="form-row">
-                            <input class="mt-2" th:value="*{personRole}" name="personRole" value="Donor"
-                                input type="hidden">
-                        </div>
-                        <div class="form-row">
-                            <label for="name">Full Name</label>
-                            <input type="text" th:value="*{name}" class="form-control" id="name" name="name"
-                                placeholder="Full Name">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" th:value=*{email} class="form-control" name="email" id="email"
-                                    placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" th:value="*{password}" class="form-control" name="password"
-                                    id="password" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="address">Address</label>
-                            <input type="text" th:value="*{address}" class="form-control" name="address" id="address"
-                                placeholder="Apartment, Building, Area">
-                        </div>
-                        <div class="form-row">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber"
-                                id="phoneNumber" placeholder="Phone Number">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                Select Country <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
-                            </div>
-                            
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="inputCity">City</label>
-                                <select th:value="*{city}" name="city" id="city">
-                                    <option value="" selected>Choose...</option>
-                                    <option value="AbuDhabi">Abu Dhabi</option>
-                                    <option value="Dubai">Dubai</option>
-                                    <option value="Sharjah">Sharjah</option>
-                                    <option value="RasAlKhaimah">Ras Al Khaimah </option>
-                                    <option value="Fujairah">Fujairah</option>
-                                    <option value="Ajman">Ajman</option>
-                                    <option value="UmmAlQwain">Umm Al Quwain </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                            </div>
-                        </div>
-                    </form>
-                    <form id="Donee" class="tabcontent" th:action="@{/register}" th:object="${registerRequest}"
-                        method="POST">
-                        <div class="form-row">
-                            <input class="mt-2" th:value="*{personRole}" name="personRole" value="Donee"
-                                input type="hidden">
-                        </div>
-                        <div class="form-row">
-                            <label for="name">Full Name</label>
-                            <input type="text" th:value="*{name}" class="form-control" id="name" name="name"
-                                placeholder="Full Name">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" th:value=*{email} class="form-control" name="email" id="email"
-                                    placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword4">Password</label>
-                                <input type="password" th:value="*{password}" class="form-control" name="password"
-                                    id="password" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="address">Address</label>
-                            <input type="text" th:value="*{address}" class="form-control" name="address" id="address"
-                                placeholder="Apartment, Building, Area">
-                        </div>
-                        <div class="form-row">
-                            <label for="phone">Phone Number</label>
-                            <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber"
-                                id="phoneNumber" placeholder="Phone Number">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="inputCountry">Country</label>
-                                <select th:value="*{country}" id="country" name="country"></select>
-                            </div>
-                            <script th:inline="javascript">
-                                populateCountries("country");
-                            </script>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="inputCity">City</label>
-                                <select th:value="*{city}" name="city" id="city">
-                                    <option value="" selected>Choose...</option>
-                                    <option value="AbuDhabi">Abu Dhabi</option>
-                                    <option value="Dubai">Dubai</option>
-                                    <option value="Sharjah">Sharjah</option>
-                                    <option value="RasAlKhaimah">Ras Al Khaimah </option>
-                                    <option value="Fujairah">Fujairah</option>
-                                    <option value="Ajman">Ajman</option>
-                                    <option value="UmmAlQwain">Umm Al Quwain </option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div th:each="doneeType : ${T(com.foodforcharity.app.domain.constant.DoneeType).values()}">
-                                <input name="doneeType" type="radio" th:id="${{doneeType}}}" th:value="${{doneeType}}}"
-                                    th:field="*{doneeType}" /><label for="${{doneeType}}}"
-                                    th:text="| &nbsp; ${source} |">Label</label>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <label for="NumberOfMembers">Number of Members</label>
-                            <input type="text" th:value="*{numberOfMembers}" class="form-control" name="address" id="address"
-                                placeholder="Number of Members">
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" class="btn btn-primary">Register</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-10">
-                            <p>Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
-                        </div>
+                    <div class="form-group col-sm-3">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" class="form-control" th:value="*{password}" id="password" name="password" placeholder="Confirm Password">
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" th:value="*{address}" id="address" name="address" placeholder="Area, St., building">
+                        <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Generic Error</td>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" th:value="*{phoneNumber}" id="phoneNumber" name="phoneNumber" placeholder="e.g.: 050 1234567">
+                        <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Generic Error</td>
                     </div>
                 </div>
             </div>
