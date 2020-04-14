@@ -25,8 +25,6 @@ import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.domain.service.RequestService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
-import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommandHandler;
 import com.foodforcharity.app.usecase.foodreservation.requestcompletion.RequestCompletionCommand;
 
 import org.junit.Before;
