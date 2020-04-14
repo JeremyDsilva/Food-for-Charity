@@ -69,11 +69,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inputCountry">Country</label>
-                            <select th:value="*{country}" id="country" name="country"></select>
+                            <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
                         </div>
-                        <script th:inline="javascript">
-                            populateCountries("country");
-                        </script>
                         <div class="text-danger">
                             <small><td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Error</td></small>
                         </div>  

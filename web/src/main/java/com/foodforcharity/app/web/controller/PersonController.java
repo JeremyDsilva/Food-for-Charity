@@ -12,6 +12,7 @@ import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterat
 import com.foodforcharity.app.web.model.ChangePasswordRequest;
 import com.foodforcharity.app.web.model.DoneeRegisterRequest;
 import com.foodforcharity.app.web.model.DonorRegisterRequest;
+import com.foodforcharity.app.web.model.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import static com.foodforcharity.app.web.model.Request.withSuccess;
 
 @Controller
 // @RequestMapping("/user")
@@ -60,12 +63,10 @@ public class PersonController extends AbstractController {
 
         if (response.hasError()) {
             request.setError(response.getError());
-        } else {
-            request = new ChangePasswordRequest();
-            request.setSuccess(true);
-        }
-
-        return "change-password";
+            return "change-password";
+        } 
+            
+        return getChangePasswordView(withSuccess(new ChangePasswordRequest()));
     }
 
     @GetMapping(value = "/donee-register")
@@ -88,12 +89,10 @@ public class PersonController extends AbstractController {
 
         if(response.hasError()){
             request.setError(response.getError());
-        } else {
-            request = new DoneeRegisterRequest();
-            request.setSuccess(true);
-        }
-
-        return "/donor-register";
+            return "/donor-register";
+        } 
+            
+        return getDoneeRegisterView(withSuccess(new DoneeRegisterRequest()));
     }
 
     @GetMapping(value = "/donor-register/**")
@@ -121,7 +120,7 @@ public class PersonController extends AbstractController {
             request.setSuccess(true);
         }
 
-        return "donor-register";
+        return getDonorRegisterView(withSuccess(new DonorRegisterRequest()));
     }
 
 }

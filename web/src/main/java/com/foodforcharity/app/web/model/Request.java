@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public abstract class Request implements Serializable {
+public class Request implements Serializable {
 
     Boolean success;
 
@@ -17,6 +17,11 @@ public abstract class Request implements Serializable {
 
     public void setSuccess(boolean success){
         this.success = success;
+    }
+
+    public static <T extends Request> T withSuccess(T request){
+        request.success = true;
+        return request;
     }
 
     public void setError(Error error){

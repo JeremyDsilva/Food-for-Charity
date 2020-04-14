@@ -69,7 +69,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="inputCountry">Country</label>
-                            <select th:value="*{country}" id="country" name="country"></select>
+                            <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
                         </div>
                         <script th:inline="javascript">
                             populateCountries("country");

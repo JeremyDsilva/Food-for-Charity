@@ -1,14 +1,6 @@
 package com.foodforcharity.app.web.controller;
 
-<<<<<<< HEAD
 import com.foodforcharity.app.mediator.Mediator;
-=======
-import java.util.concurrent.ExecutionException;
-
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.mediator.Mediator;
-import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
->>>>>>> 5189f34d8c7937f9708239de2ecbac17a3893ebf
 import com.foodforcharity.app.web.model.FoodPreferences;
 import com.foodforcharity.app.web.model.UserDetails;
 
