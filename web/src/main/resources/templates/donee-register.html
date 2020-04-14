@@ -1,128 +1,129 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout}">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 </head>
 
 <body>
-    <section layout:fragment="content">
-        <div class="container-fluid h-100 bg-light text-dark">
-            <div class="row justify-content-center align-items-center">
-                <h2>Create an account.</h2>
+
+    <div layout:fragment="content" class="container">
+
+        <form th:action="@{/donee-register}" th:object="${doneeRegisterRequest}" method="POST">
+            <div th:if="*{success != null}">
+                <div th:if="*{success}" class="alert alert-success">
+                    Registered Successful!
+                </div>
+                <div th:if="*{!success}">
+                    <div class="alert alert-danger" th:text="*{error.getMessage()}">
+                        Error
+                    </div>
+                </div>
             </div>
-            <div class="row justify-content-center align-items-center">
-                <form id="Donor" class="tabcontent" th:action="@{/donee-register}" th:object="${doneeRegisterRequest}"
-                    method="POST">
-                    <div th:if="*{success != null}">
-                        <div th:if="*{success}" class="alert alert-success">
-                            Registered Successful!
-                        </div>
-                        <div th:if="*{!success}">
-                            <div class="alert alert-danger" th:text="*{error.getMessage()}">
-                                Error
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <label for="name">Full Name</label>
-                        <input type="text" th:value="*{name}" class="form-control" id="name" name="name"
-                            placeholder="Full Name">
-                        <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</td></small>
-                        </div>  
-                    </div>
-                    <div class="form-row">
-                        <label for="email">Email</label>
-                        <input type="email" th:value=*{email} class="form-control" name="email" id="email"
-                            placeholder="Email">
-                        <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</td></small>
-                        </div>                      
-                    </div>
-                    <div class="form-row">
+            <div class="container my-auto">
+                <h1>Create an account.</h1>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="name"><br> Full Name</label>
+                <input type="text" class="form-control" th:value="*{name}" id="name" name="name" placeholder="Full Name">
+                <div class="text-danger">
+                    <small><td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Generic Error</td></small>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" th:value="*{email}" id="emailAddress" name="email" placeholder="email@example.com">
+                <div class="text-danger">
+                    <small><td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Generic Error</td></small>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
                         <label for="password">Password</label>
-                        <input type="password" th:value="*{password}" class="form-control" name="password" id="password"
-                            placeholder="Password">
+                        <input type="password" class="form-control" th:value="*{password}" id="password" name="password" placeholder="Password">
                         <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</td></small>
-                        </div>  
+                            <small><td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td></small>
+                        </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-group col-sm-3">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Confirm Password">
+                        <div class="text-danger">
+                            <small><td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
                         <label for="address">Address</label>
-                        <input type="text" th:value="*{address}" class="form-control" name="address" id="address"
-                            placeholder="Apartment, Building, Area">
+                        <input type="text" class="form-control" th:value="*{address}" id="address" name="address" placeholder="Area, St., building">
                         <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Error</td></small>
-                        </div>  
-                    </div>
-                    <div class="form-row">
-                        <label for="phone">Phone Number</label>
-                        <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber"
-                            id="phoneNumber" placeholder="Phone Number">
-                        <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Error</td></small>
-                        </div>  
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="inputCountry">Country</label>
-                            <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
-                        </div>
-                        <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Error</td></small>
-                        </div>  
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="inputCity">City</label>
-                            <select th:value="*{city}" name="city" id="city">
-                                <option value="" selected>Choose...</option>
-                                <option value="AbuDhabi">Abu Dhabi</option>
-                                <option value="Dubai">Dubai</option>
-                                <option value="Sharjah">Sharjah</option>
-                                <option value="RasAlKhaimah">Ras Al Khaimah </option>
-                                <option value="Fujairah">Fujairah</option>
-                                <option value="Ajman">Ajman</option>
-                                <option value="UmmAlQwain">Umm Al Quwain </option>
-                            </select>
-                            <div class="text-danger">
-                                <small><td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Error</td></small>
-                            </div>  
+                            <small><td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Generic Error</td></small>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <label for="phone">Donee Type:</label>
+                    <div class="form-group col-sm-3">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" th:value="*{phoneNumber}" id="phoneNumber" name="phoneNumber" placeholder="e.g.: 050 1234567">
+                        <div class="text-danger">
+                            <small><td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Generic Error</td></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+
+                    <div class="form-group col-sm-3">
+                        <!-- <script th:inline="javascript" th:src="@{../static/js/countries.js}"></script> -->
+                        Select Country <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
+                        <div class="text-danger">
+                            <small><td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Generic Error</td></small>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        Select City: <select class="custom-select" th:value="*{city}" name="city" id="city"></select>
+                        <div class="text-danger">
+                            <small><td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Generic Error</td></small>
+                        </div>
+                    </div>
+                </div>
+                <script th:inline="javascript">
+                    populateCountries("country", "city"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+                </script>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="DoneeType"></label>
                         <div th:each="doneeType : ${T(com.foodforcharity.app.domain.constant.DoneeType).values()}">
-                            <input type="checkbox" th:id="${{doneeType}}" th:value="${{doneeType}}" th:field="*{doneeType}" />
+                            <input type="radio" th:id="${{doneeType}}" th:value="${{doneeType}}" th:field="*{doneeType}" />
                             <label th:text="${{doneeType}}" th:for="${{doneeType}}">Donee Type</label>
                         </div>
                         <div class="text-danger">
                             <small><td th:if="${#fields.hasErrors('doneeType')}" th:errors="*{doneeType}">Error</td></small>
-                        </div>  
+                        </div>
                     </div>
-                    <div class="form-row">
+
+                    <div class="form-group col-sm-3">
                         <label for="phone">Number Of Members</label>
-                        <input type="text" th:value="*{numberOfMembers}" class="form-control" name="numberOfMembers"
-                            id="numberOfMembers" placeholder="Number Of Members">
+                        <input type="text" th:value="*{numberOfMembers}" class="form-control" name="numberOfMembers" id="numberOfMembers" placeholder="Number Of Members">
                         <div class="text-danger">
                             <small><td th:if="${#fields.hasErrors('numberOfMembers')}" th:errors="*{numberOfMembers}">Error</td></small>
-                        </div>  
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-offset-2 col-lg-4">
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                        <div class="col-lg-8">
-                            <p>Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </section>
+            <div class="container">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <p><br> Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

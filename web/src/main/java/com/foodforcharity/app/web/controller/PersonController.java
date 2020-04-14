@@ -6,11 +6,6 @@ import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
 
-<<<<<<< HEAD
-import com.foodforcharity.app.domain.constant.DoneeType;
-import com.foodforcharity.app.domain.constant.PersonRole;
-=======
->>>>>>> 2b3734fb45608191c268d20730450e3d26d95893
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
@@ -78,13 +73,8 @@ public class PersonController extends AbstractController {
         return "donee-register";
     }
 
-<<<<<<< HEAD
-    @PostMapping(value = "/register")
-    public String registerDonor(@Valid @ModelAttribute UserDetails userDetails, Model model) throws ExecutionException {
-=======
     @PostMapping(value = "/donee-register/**")
     public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result) throws ExecutionException {
->>>>>>> 2b3734fb45608191c268d20730450e3d26d95893
 
         if (result.hasErrors()) {
             return "donee-register";
