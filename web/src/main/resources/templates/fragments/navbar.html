@@ -37,7 +37,7 @@
 
     <div th:fragment="donee-header" id="content" class="p-4 p-md-5 pt-5">
         <div class="bs-example" th:object="${userDetails}">
-            <nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded">
                 <a th:href="@{/home}" class="navbar-brand">Food for Charity</a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="navbar-nav ml-auto">
                         <a th:href="@{/view-profile}" class="btn nav-item nav-link">
-                            <p><span th:text="*{name}">name</span></p>
+                            <p th:text="*{name}"></p>
                         </a>
                         <a th:href="@{/logout}" class="btn btn-danger nav-item nav-link">Logout</a>
                     </div>
