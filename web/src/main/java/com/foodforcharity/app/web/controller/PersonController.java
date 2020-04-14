@@ -2,6 +2,8 @@ package com.foodforcharity.app.web.controller;
 
 import java.util.concurrent.ExecutionException;
 
+import javax.validation.Valid;
+
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -65,7 +67,7 @@ public class PersonController extends AbstractController {
     }
 
     @PostMapping(value = "/register")
-    public String registerDonor(@ModelAttribute UserDetails userDetails, Model model) throws ExecutionException {
+    public String registerDonor(@Valid @ModelAttribute UserDetails userDetails, Model model) throws ExecutionException {
 
         Response<Void> response;
 
