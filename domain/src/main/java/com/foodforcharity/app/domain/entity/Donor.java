@@ -20,10 +20,13 @@ import com.foodforcharity.app.domain.constant.DonorStatus;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import lombok.Data;
+
 /**
  * The persistent class for the DONOR database table.
  * 
  */
+@Data
 @Entity
 @DiscriminatorValue("Donor")
 public class Donor extends Person {
@@ -78,89 +81,7 @@ public class Donor extends Person {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Request> requests;
 
-	public Donor() {
-	}
-
-	public String getAddressDescription() {
-		return this.addressDescription;
-	}
-
-	public void setAddressDescription(String addressDescription) {
-		this.addressDescription = addressDescription;
-	}
-
-	public String getCity() {
-		return this.city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getDonorName() {
-		return this.donorName;
-	}
-
-	public void setDonorName(String donorName) {
-		this.donorName = donorName;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Integer getNumberOfRating() {
-		return this.numberOfRating;
-	}
-
-	public void setNumberOfRating(Integer numberOfRating) {
-		this.numberOfRating = numberOfRating;
-	}
-
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public Integer getRating() {
-		return this.rating;
-	}
-
-	public void setRating(Integer rating) {
-		this.rating = rating;
-	}
-
-	public DonorStatus getDonorStatus() {
-		return this.donorStatus;
-	}
-
-	public void setDonorStatus(DonorStatus donorStatus) {
-		this.donorStatus = donorStatus;
-	}
-
-	public List<Food> getFoods() {
-		return this.foods;
-	}
-
-	public void setFoods(List<Food> foods) {
-		this.foods = foods;
-	}
-
+	
 	public Food addFood(Food food) {
 		if(getFoods() == null)
 			setFoods(new ArrayList<Food>());
@@ -175,14 +96,6 @@ public class Donor extends Person {
 		food.setDonor(null);
 
 		return food;
-	}
-
-	public List<Request> getRequests() {
-		return this.requests;
-	}
-
-	public void setRequests(List<Request> requests) {
-		this.requests = requests;
 	}
 
 	public Request addRequest(Request request) {
@@ -202,20 +115,6 @@ public class Donor extends Person {
 	@Override
 	public Optional<String> getStatus(){
 		return Optional.of(donorStatus.name());
-	}
-
-	/**
-	 * @return the discountApplied
-	 */
-	public Integer getDiscountApplied() {
-		return discountApplied;
-	}
-
-	/**
-	 * @param discountApplied the discountApplied to set
-	 */
-	public void setDiscountApplied(Integer discountApplied) {
-		this.discountApplied = discountApplied;
 	}
 
 }

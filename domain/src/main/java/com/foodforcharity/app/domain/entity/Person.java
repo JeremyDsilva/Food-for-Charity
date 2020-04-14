@@ -13,10 +13,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
 /**
  * The persistent class for the PERSON database table.
  * 
  */
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "PersonRole")
@@ -36,39 +39,6 @@ public abstract class Person implements Serializable {
 
 	@NotNull
 	private String password;
-
-	public Person() {
-	}
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public String getRole(){
 		return getClass().getSimpleName();

@@ -27,10 +27,13 @@ import com.foodforcharity.app.domain.constant.SpiceLevel;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import lombok.Data;
+
 /**
  * The persistent class for the FOOD database table.
  * 
  */
+@Data
 @Entity
 public class Food implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -88,73 +91,6 @@ public class Food implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<SubRequest> subRequests;
 
-	public Food() {
-	}
-
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getDescriptionText() {
-		return this.descriptionText;
-	}
-
-	public void setDescriptionText(String descriptionText) {
-		this.descriptionText = descriptionText;
-	}
-
-	public String getFoodName() {
-		return this.foodName;
-	}
-
-	public void setFoodName(String foodName) {
-		this.foodName = foodName;
-	}
-
-	public Integer getMealForNPeople() {
-		return this.mealForNPeople;
-	}
-
-	public void setMealForNPeople(Integer mealForNPeople) {
-		this.mealForNPeople = mealForNPeople;
-	}
-
-	public Integer getPrice() {
-		return this.price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public Integer getQuantityAvailable() {
-		return this.quantityAvailable;
-	}
-
-	public void setQuantityAvailable(Integer quantityAvailable) {
-		this.quantityAvailable = quantityAvailable;
-	}
-
-	public Donor getDonor() {
-		return this.donor;
-	}
-
-	public void setDonor(Donor donor) {
-		this.donor = donor;
-	}
-
-	public List<SubRequest> getSubRequests() {
-		return this.subRequests;
-	}
-
-	public void setSubRequests(List<SubRequest> subRequests) {
-		this.subRequests = subRequests;
-	}
-
 	public SubRequest addSubRequest(SubRequest subRequest) {
 		getSubRequests().add(subRequest);
 		subRequest.setFood(this);
@@ -167,62 +103,6 @@ public class Food implements Serializable {
 		subRequest.setFood(null);
 
 		return subRequest;
-	}
-
-	/**
-	 * @return the spiceLevel
-	 */
-	public SpiceLevel getSpiceLevel() {
-		return spiceLevel;
-	}
-
-	/**
-	 * @param spiceLevel the spiceLevel to set
-	 */
-	public void setSpiceLevel(SpiceLevel spiceLevel) {
-		this.spiceLevel = spiceLevel;
-	}
-
-	/**
-	 * @return the allergens
-	 */
-	public Set<Allergen> getAllergens() {
-		return allergens;
-	}
-
-	/**
-	 * @param allergens the allergens to set
-	 */
-	public void setAllergens(Set<Allergen> allergens) {
-		this.allergens = allergens;
-	}
-
-	/**
-	 * @return the cuisines
-	 */
-	public Cuisine getCuisines() {
-		return cuisine;
-	}
-
-	/**
-	 * @param cuisines the cuisines to set
-	 */
-	public void setCuisines(Cuisine cuisines) {
-		this.cuisine = cuisines;
-	}
-
-	/**
-	 * @return the mealTypes
-	 */
-	public MealType getMealType() {
-		return mealType;
-	}
-
-	/**
-	 * @param mealTypes the mealTypes to set
-	 */
-	public void setMealType(MealType mealType) {
-		this.mealType = mealType;
 	}
 
 	/**

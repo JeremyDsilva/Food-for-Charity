@@ -14,10 +14,13 @@ import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.convertor.BooleanCharacterConverter;
 
+import lombok.Data;
+
 /**
  * The persistent class for the COMPLAINT database table.
  * 
  */
+@Data
 @Entity
 public class Complaint implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -48,68 +51,5 @@ public class Complaint implements Serializable {
 	@ManyToOne
 	@NotNull
 	private Request request;
-
-	public Complaint() {
-	}
-
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Date getComplaintTime() {
-		return this.complaintTime;
-	}
-
-	public void setComplaintTime(Date complaintTime) {
-		this.complaintTime = complaintTime;
-	}
-
-	public String getDescriptionText() {
-		return this.descriptionText;
-	}
-
-	public void setDescriptionText(String descriptionText) {
-		this.descriptionText = descriptionText;
-	}
-
-	public Request getRequest() {
-		return this.request;
-	}
-
-	public void setRequest(Request request) {
-		this.request = request;
-	}
-
-	/**
-	 * @return the fromDonee
-	 */
-	public Boolean getFromDonee() {
-		return fromDonee;
-	}
-
-	/**
-	 * @param fromDonee the fromDonee to set
-	 */
-	public void setFromDonee(Boolean fromDonee) {
-		this.fromDonee = fromDonee;
-	}
-
-	/**
-	 * @return the isActive
-	 */
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	/**
-	 * @param isActive the isActive to set
-	 */
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
 
 }
