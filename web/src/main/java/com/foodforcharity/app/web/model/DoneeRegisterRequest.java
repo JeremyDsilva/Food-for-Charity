@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class DoneeRegisterRequest extends RegisterRequest {
 
-    @NotNull
+    @NotNull(message = "Please choose type")
     DoneeType doneeType;
 
     @Min(value = 1)

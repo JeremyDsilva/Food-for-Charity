@@ -1,5 +1,7 @@
 # Food for Charity 
-The project is a food donation managment web application that allows resturaunts and individuals (donors) to donate food to individuals in need (donees). The purpose of this project is to utilize extra food to charity instead of it going to waste. The project was assigned to us by our professor as a course requirement for the software engineering course offered at the American University of Sharjah. The professor was the primary client whom we were assigned to capturing the project's requirements that he provided.  
+This project is still under development
+
+The project is a food donation managment web application that allows resturaunts (donors) to donate food to individuals in need (donees). The purpose of this project is to utilize extra food to charity instead of it going to waste. The project was assigned to us by our professor as a course requirement for the software engineering course offered at the American University of Sharjah. The professor was the primary client whom we were assigned to capturing the project's requirements that he provided.  
 ## About The App
 The app handles the interaction between 3 main users: **Donor**, **Donee** and **Broker**.</br> 
 <p>
@@ -35,7 +37,7 @@ The <b>Broker</b> is responsible for managing the system which includes: updatin
   - Once successfully built, you can run using:
     
   ```
-   mvn spring-boot:run
+   mvn -pl web spring-boot:run
   ```
 
   - Access the web application on your browser using:
@@ -46,49 +48,6 @@ The <b>Broker</b> is responsible for managing the system which includes: updatin
 
 [comment]: <> (Will be changed)
 [comment]: <> (Start) 
-## Running the project with MySQL,
-[comment]: <> (End)
-### In pom.xml add:
-
-```
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-```
-
-### Append this to the end of application.yml:
-
-
-```
----
-spring:
-  profiles: mysql
-
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://<your_mysql_host_or_ip>/bootexample
-    username: <your_mysql_username>
-    password: <your_mysql_password>
-
-  jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.MySQLInnoDBDialect
-      ddl-auto: update # todo: in non-dev environments, comment this out:
-
-
-hotel.service:
-  name: 'test profile:'
-```
-
-### Then run is using the 'mysql' profile:
-
-
-```
-  java -jar -Dspring.profiles.active=mysql target/spring-boot-rest-example-0.5.0.war
-or
-  mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=mysql"
-``` 
 
 ## Acknowledgements
 Aghad AlAhmad: https://github.com/aghyad97</br> 
