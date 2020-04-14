@@ -1,8 +1,6 @@
 package com.foodforcharity.app.web.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;

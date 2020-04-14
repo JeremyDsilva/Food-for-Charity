@@ -1,121 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
 </head>
 
 <body>
-    <section layout:fragment="content">
-        <div class="container-fluid h-100 bg-light text-dark">
-            <div class="row justify-content-center align-items-center">
-                <h2>Create an account.</h2>
+
+    <div layout:fragment="content" class="container">
+
+        <form th:action="@{/register}" th:object="${userDetails}" method="POST">
+            <div class="container my-auto">
+                <h1>Create an account.</h1><br>
+
             </div>
-            <div class="row justify-content-center align-items-center">
-                <div class="">
-                    <form th:action="@{/register}" th:object="${UserDetails}" method="POST">
-                        <!-- <th:block th:if="${#fields.hasErrors('${signupForm.*}')}">
-        <div th:replace="fragments/alert :: alert (type='danger', message='Form contains errors. Please try again.')">Alert</div>
-    </th:block> -->
-                        <fieldset>
-                            <div class="form-row">
-                                <div class="form-checkbox">
-                                    <label class="toggle-label-type">
-                                      <input class="mt-2" th:value="*{personRole}" name="personRole" type="radio" value="Donor" id="Donor">
-                                    Donor
-                                    </label>
-                                </div>
-                                <div class="form-checkbox">
-                                    <label class="toggle-label-type">
-                                      <input class="mt-2" th:value="*{personRole}" name="personRole" type="radio" value="Donee" id="Donee">
-                                    Donee
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="name">Full Name</label>
-                                    <input type="text" th:value="*{name}" class="form-control" id="name" name="name" placeholder="Full Name">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputEmail4">Email</label>
-                                    <input type="email" th:value=*{email} class="form-control" name="email" id="email" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword4">Password</label>
-                                    <input type="password" th:value="*{password}" class="form-control" name="password" id="password" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputAddress">Address</label>
-                                    <input type="text" th:value="*{address}" class="form-control" name="address" id="address" placeholder="Apartment, Building, Area">
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPhone">Phone Number</label>
-                                    <input type="text" th:value="*{phoneNumber}" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputCountry">Country</label>
-                                    <select th:value="*{country}" id="country" name="country"></select>
-                                </div>
-                                <script th:inline="javascript">
-                                    populateCountries("country");
-                                </script>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="inputCity">City</label>
-                                    <select th:value="*{city}" name="city" id="city">
-    <option value=""  selected>Choose...</option>
-    <option value="AbuDhabi">Abu Dhabi</option>
-    <option value="Dubai">Dubai</option>
-    <option value="Sharjah">Sharjah</option>
-    <option value="RasAlKhaimah">Ras Al Khaimah </option>
-    <option value="Fujairah">Fujairah</option>
-    <option value="Ajman">Ajman</option>
-    <option value="UmmAlQwain">Umm Al Quwain </option>
-    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-primary">Register</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <p>Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
+            <div class="container">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" th:value="*{personRole}" name="personRole" id="Donee" value="Donee"> Donee
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" th:value="*{personRole}" name="personRole" id="Donor" value="Donor"> Donor
+                    </label>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Register</h4>
+            <div class="form-group col-sm-6">
+                <label for="exampleInputEmail1"><br> Full Name</label>
+                <input type="text" class="form-control" th:value="*{name}" id="name" name="name" placeholder="Full Name">
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Generic Error</td>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="exampleInputEmail1">Email Address</label>
+                <input type="email" class="form-control" th:value="*{email}" id="emailAddress" name="email" placeholder="email@example.com">
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Generic Error</td>
+
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" th:value="*{password}" id="password" name="password" placeholder="Password">
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td>
+
                     </div>
-                    <div class="modal-body" id="myModalBody">Lorem ipsum</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div class="form-group col-sm-3">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control" th:value="*{password}" id="password" name="password" placeholder="Confirm Password">
+                        <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td>
                     </div>
                 </div>
-                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-    </section>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label for="exampleInputPassword1">Address</label>
+                        <input type="text" class="form-control" th:value="*{address}" id="address" name="address" placeholder="Area, St., building">
+                        <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Generic Error</td>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="exampleInputPassword1">Phone Number</label>
+                        <input type="text" class="form-control" th:value="*{phoneNumber}" id="phoneNumber" name="phoneNumber" placeholder="e.g.: 050 1234567">
+                        <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Generic Error</td>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+
+                    <div class="form-group col-sm-3">
+                        <!-- <script th:inline="javascript" th:src="@{../static/js/countries.js}"></script> -->
+                        Select Country <select class="custom-select" th:value="*{country}" id="country" name="country"></select>
+                        <td th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Generic Error</td>
+
+                    </div>
+                    <div class="form-group col-sm-3">
+                        Select City: <select class="custom-select" th:value="*{city}" name="city" id="city"></select>
+                        <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Generic Error</td>
+                    </div>
+                </div>
+                <script th:inline="javascript">
+                    populateCountries("country", "city"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+                </script>
+            </div>
+            <div class="container">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p><br> Already have an account? <a href="login.html" th:href="@{/login}">Login</a></p>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

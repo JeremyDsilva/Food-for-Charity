@@ -62,7 +62,7 @@ public class PersonController extends AbstractController {
 
     @GetMapping(value = "/register")
     public String getRegisterView(Model model) {
-        model.addAttribute("requestModel", new UserDetails());
+        // model.addAttribute("userDetails", new UserDetails());
         return "register";
     }
 

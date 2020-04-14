@@ -36,7 +36,7 @@
 
 
     <div th:fragment="donee-header" id="content" class="p-4 p-md-5 pt-5">
-        <div class="bs-example">
+        <div class="bs-example" th:object="${userDetails}">
             <nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
                 <a th:href="@{/home}" class="navbar-brand">Food for Charity</a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -45,14 +45,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
-                        <a th:href="@{/home}" class="nav-item nav-link active">Name</a>
+                        <a th:href="@{/home}" class="nav-item nav-link active">Home</a>
                         <a th:href="@{/food-request}" class="nav-item nav-link active">Food Request</a>
                         <a th:href="@{/food-preferences}" class="nav-item nav-link active">Food Preferences</a>
 
                         <!-- <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
                     </div>
                     <div class="navbar-nav ml-auto">
-                        <a th:href="@{/view-profile}" class="btn nav-item nav-link" th:text="${user.name}">Username</a>
+                        <a th:href="@{/view-profile}" class="btn nav-item nav-link">
+                            <p><span th:text="*{name}">name</span></p>
+                        </a>
                         <a th:href="@{/logout}" class="btn btn-danger nav-item nav-link">Logout</a>
                     </div>
                 </div>
@@ -77,7 +79,7 @@
                         <!-- <a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a> -->
                     </div>
                     <div class="navbar-nav ml-auto">
-                        <a th:href="@{/view-profile}" class="btn nav-item nav-link" th:text="${user.name}"></a>
+                        <a th:href="@{/view-profile}" class="btn nav-item nav-link">Name</a>
                         <a th:href="@{/logout}" class="btn btn-danger nav-item nav-link">Logout</a>
                     </div>
                 </div>
