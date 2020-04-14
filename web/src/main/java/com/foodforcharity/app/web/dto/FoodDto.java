@@ -35,7 +35,7 @@ public class FoodDto {
 
     public FoodDto(Food food){
         this.allergens = food.getAllergens();
-        this.cuisine = food.getCuisines();
+        this.cuisine = food.getCuisine();
         this.descriptionText = food.getDescriptionText();
         this.foodName = food.getFoodName();
         this.id = food.getId();

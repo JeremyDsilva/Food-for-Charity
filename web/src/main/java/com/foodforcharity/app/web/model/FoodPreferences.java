@@ -12,7 +12,10 @@ import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand.Range;
 
-public class FoodPreferences implements Serializable{
+import lombok.Data;
+
+@Data
+public class FoodPreferences extends Request {
 
 
     /**

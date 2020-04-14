@@ -85,7 +85,7 @@ public class AddMenuCommandHandler implements CommandHandler<AddMenuCommand, Res
 			food.setPrice(command.originalPrice);
 			food.setMealForNPeople(command.mealForNPeople);
 			food.setQuantityAvailable(command.quantityAvailable);
-			food.setCuisines(command.cuisine);
+			food.setCuisine(command.cuisine);
 			food.setMealType(command.mealType); // method takes a set but we decided to
 			//make it a single value
 			food.setSpiceLevel(command.spiceLevel);
