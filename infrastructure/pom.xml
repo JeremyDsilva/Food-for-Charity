@@ -28,11 +28,11 @@
 		</dependency>
 
 		<!-- Oracle Database Driver -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.oracle.ojdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
 			<scope>runtime</scope>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
