@@ -12,6 +12,10 @@
 **/.factorypath
 **/bin
 
+#IntelliJ
+**/.idea
+**/*.iml
+
 # vscode files
 workspace.code-workspace
 **/.vscode/*
