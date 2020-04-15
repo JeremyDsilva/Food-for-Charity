@@ -37,25 +37,25 @@ public class DonorRegisterationCommandHandler implements CommandHandler<DonorReg
 	@Override
 	public Response<Void> handle(DonorRegisterationCommand command) {
 
-		if (!isValid(command.email)) {
+		if (!isValid(command.getEmail())) {
 			return Response.of(Error.InvalidEmail);
 		}
 
-		if (personService.findByUsername(command.email).isPresent()) {
+		if (personService.findByUsername(command.getEmail()).isPresent()) {
 			return Response.of(Error.EmailAlreadyExist);
 		}
 
 		try {
 			Donor donor = new Donor();
-			donor.setUsername(command.email);
-			donor.setPassword(command.password); // for now
+			donor.setUsername(command.getEmail());
+			donor.setPassword(command.getPassword()); // for now
 
-			donor.setDonorName(command.name);
-			donor.setAddressDescription(command.address);
-			donor.setCity(command.city);
-			donor.setEmail(command.email);
-			donor.setCountry(command.country);
-			donor.setPhoneNumber(command.phoneNumber);
+			donor.setDonorName(command.getName());
+			donor.setAddressDescription(command.getAddress());
+			donor.setCity(command.getCity());
+			donor.setEmail(command.getEmail());
+			donor.setCountry(command.getCountry());
+			donor.setPhoneNumber(command.getPhoneNumber());
 			donor.setRating(0);
 			donor.setNumberOfRating(0);
 			donor.setDiscountApplied(0);

@@ -30,7 +30,7 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 
 		try {
 			// check that request exists
-			Optional<Request> dbRequest = requestService.findById(command.requestId);
+			Optional<Request> dbRequest = requestService.findById(command.getRequestId());
 			if (dbRequest.isEmpty()) {
 				return Response.of(Error.RequestDoesNotExist);
 			}
@@ -42,7 +42,7 @@ public class RequestCompletionCommandHandler implements CommandHandler<RequestCo
 			}
 
 			// check that request belongs to donor
-			if (request.getDonor().getId() != command.donorId) {
+			if (request.getDonor().getId() != command.getDonorId()) {
 				return Response.of(Error.DonorRequestDontMatch);
 			}
 

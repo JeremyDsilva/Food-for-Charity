@@ -35,35 +35,35 @@ public class DoneeRegisterationCommandHandler implements CommandHandler<DoneeReg
 	@Override
 	public Response<Void> handle(DoneeRegisterationCommand command) {
 
-		if (!isValid(command.email)) {
+		if (!isValid(command.getEmail())) {
 			return Response.of(Error.InvalidEmail);
 		}
 
-		if (personService.findByUsername(command.email).isPresent()) {
+		if (personService.findByUsername(command.getEmail()).isPresent()) {
 			return Response.of(Error.EmailAlreadyExist);
 		}
 
 		try {
 				int minimumMemberCount = 1;
-				if (command.memberCount < minimumMemberCount) {
+				if (command.getMemberCount() < minimumMemberCount) {
 					return Response.of(Error.InvalidMemberCount);
 				}
 
 				Donee donee = new Donee();
-				donee.setUsername(command.email);
-				donee.setPassword(command.password); // for now
+				donee.setUsername(command.getEmail());
+				donee.setPassword(command.getPassword()); // for now
 
-				donee.setDoneeName(command.name);
-				donee.setAddressDescription(command.address);
-				donee.setCity(command.city);
-				donee.setEmail(command.email);
-				donee.setCountry(command.country);
-				donee.setPhoneNumber(command.phoneNumber);
+				donee.setDoneeName(command.getName());
+				donee.setAddressDescription(command.getAddress());
+				donee.setCity(command.getCity());
+				donee.setEmail(command.getEmail());
+				donee.setCountry(command.getCountry());
+				donee.setPhoneNumber(command.getPhoneNumber());
 
 				donee.setDoneeStatus(DoneeStatus.Initial);
 				donee.setQuantityRequested(0); // is this required over here??
-				donee.setDoneeType(command.doneeType);
-				donee.setMemberCount(command.memberCount);
+				donee.setDoneeType(command.getDoneeType());
+				donee.setMemberCount(command.getMemberCount());
 
 				doneeService.save(donee);
 

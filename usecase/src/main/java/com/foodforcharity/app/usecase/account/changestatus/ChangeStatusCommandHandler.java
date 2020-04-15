@@ -44,7 +44,7 @@ public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCo
 	public Response<Void> handle(ChangeStatusCommand command) {
 		try {
 			// check if person exists
-			Optional<Person> dbPerson = personService.findById(command.personId);
+			Optional<Person> dbPerson = personService.findById(command.getPersonId());
 			if (dbPerson.isEmpty()) {
 				return Response.of(Error.PersonDoesNotExist);
 			}
@@ -62,11 +62,11 @@ public class ChangeStatusCommandHandler implements CommandHandler<ChangeStatusCo
 			// update the status of the person
 			if (person instanceof Donor) {
 				Donor donor = (Donor) person;
-				donor.setDonorStatus(command.donorStatus.get());
+				donor.setDonorStatus(command.getDonorStatus().get());
 				donorService.save(donor);
 			} else if (person instanceof Donee) {
 				Donee donee = (Donee) person;
-				donee.setDoneeStatus(command.doneeStatus.get());
+				donee.setDoneeStatus(command.getDoneeStatus().get());
 				doneeService.save(donee);
 			}
 		} catch (Exception e) {

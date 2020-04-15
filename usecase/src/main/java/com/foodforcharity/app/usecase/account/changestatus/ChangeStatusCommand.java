@@ -7,6 +7,9 @@ import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
+import lombok.Getter;
+
+@Getter
 public class ChangeStatusCommand implements Command<Response<Void>> {
 	Optional<DonorStatus> donorStatus;
 	Optional<DoneeStatus> doneeStatus;

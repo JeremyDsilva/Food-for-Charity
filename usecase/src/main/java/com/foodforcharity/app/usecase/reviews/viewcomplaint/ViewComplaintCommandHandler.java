@@ -32,7 +32,7 @@ public class ViewComplaintCommandHandler implements CommandHandler<ViewComplaint
 	public Response<Complaint> handle(ViewComplaintCommand command) {
 
 		try {
-			Optional<Complaint> dbComplaint = complaintService.findById(command.complaintId);
+			Optional<Complaint> dbComplaint = complaintService.findById(command.getComplaintId());
 
 			if (dbComplaint.isEmpty()) {
 				return Response.of(Error.ComplaintDoesNotExist);
@@ -41,9 +41,9 @@ public class ViewComplaintCommandHandler implements CommandHandler<ViewComplaint
 			Complaint complaint = dbComplaint.get();
 			Request request = complaint.getRequest();
 
-			if (complaint.getFromDonee() && request.getDonee().getId() == command.personId) {
+			if (complaint.getFromDonee() && request.getDonee().getId() == command.getPersonId()) {
 				return Response.of(complaint);
-			} else if (!complaint.getFromDonee() && request.getDonor().getId() == command.personId) {
+			} else if (!complaint.getFromDonee() && request.getDonor().getId() == command.getPersonId()) {
 				return Response.of(complaint);
 			} else {
 				return Response.of(Error.ComplaintDoesNotExist);

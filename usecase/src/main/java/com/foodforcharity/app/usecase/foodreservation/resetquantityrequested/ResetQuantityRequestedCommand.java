@@ -3,10 +3,9 @@ package com.foodforcharity.app.usecase.foodreservation.resetquantityrequested;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 
-public class ResetQuantityRequestedCommand implements Command<Response<Void>> {
+import lombok.Value;
 
-	public ResetQuantityRequestedCommand(){
-		
-	}
+@Value
+public class ResetQuantityRequestedCommand implements Command<Response<Void>> {
 
 }

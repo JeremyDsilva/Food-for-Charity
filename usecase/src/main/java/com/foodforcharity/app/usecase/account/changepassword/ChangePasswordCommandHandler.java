@@ -26,12 +26,12 @@ public class ChangePasswordCommandHandler implements CommandHandler<ChangePasswo
 
         try {
 
-            Optional<Person> dbPerson = personService.findById(command.personId);
+            Optional<Person> dbPerson = personService.findById(command.getPersonId());
 
             if (dbPerson.isPresent()) {
                 Person person = dbPerson.get();
-                if (person.getPassword().equals(command.oldPassword)) {
-                    person.setPassword(command.newPassword);
+                if (person.getPassword().equals(command.getOldPassword())) {
+                    person.setPassword(command.getNewPassword());
                     personService.save(person);
                     return Response.EmptyResponse();
                 } else {
