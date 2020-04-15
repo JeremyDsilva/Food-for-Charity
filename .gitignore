@@ -22,3 +22,7 @@ workspace.code-workspace
 
 # OS X
 **/.DS_Store
+
+# Readme
+**/README.md
+
