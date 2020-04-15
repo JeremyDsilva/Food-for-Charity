@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.constant.Allergen;
 
-public class MenuModel implements Serializable{
+public class MenuModel extends Request{
 
     /**
      *

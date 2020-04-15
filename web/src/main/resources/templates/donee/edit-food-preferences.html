@@ -13,7 +13,7 @@
 <body>
 
     <div layout:fragment="content" class="container">
-        <form th:action="@{/edit-food-preferences}" th:object="${foodPreferences}" method="POST">
+        <form th:action="@{/food-preferences}" th:object="${foodPreferences}" method="POST">
             <div th:if="*{success != null}">
                 <div th:if="*{success}" class="alert alert-success">
                     Food Preferences Updated Successfully!

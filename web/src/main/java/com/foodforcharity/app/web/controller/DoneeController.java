@@ -37,13 +37,13 @@ public class DoneeController extends AbstractController {
     // --------------View Profile----------------
 
     @GetMapping("profile")
-    public String getProfileView(Model model) {
+    public String getProfileView() {
         // model.addAttribute("UserProfile", new Profile());
         return "donee/view-profile";
     }
 
     @PutMapping("profile")
-    public String changeProfileInfo(Model model) {
+    public String changeProfileInfo() {
 
         // Response<Void> response;
 
@@ -70,12 +70,9 @@ public class DoneeController extends AbstractController {
             return "donee/food-preferences";
         }
         
-        Response<Void> response;
-
-        
         SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        response = publishAsync(selectPreferencesCommand).get();
+        Response<Void> response = publishAsync(selectPreferencesCommand).get();
 
         if (!response.success()) {
             foodPreferences.setError(response.getError());
