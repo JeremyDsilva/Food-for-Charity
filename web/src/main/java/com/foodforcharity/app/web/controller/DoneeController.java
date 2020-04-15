@@ -55,13 +55,19 @@ public class DoneeController extends AbstractController {
     // --------------Food Preferences----------------
 
     @GetMapping(value = "/food-preferences")
-    public String getFoodPreferencesView(FoodPreferences foodPreferences) {
-        // model.addAttribute("foodPreferences", new FoodPreferences());
+    public String getFoodPreferencesView(FoodPreferences foodPreferences, Model model) {
+        model.addAttribute("foodPreferences", new FoodPreferences());
         return "donee/food-preferences";
     }
 
-    @PostMapping(value = "/food-preferences")
-    public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result) throws ExecutionException {
+    @GetMapping(value = "/edit-food-preferences")
+    public String getEditFoodPreferencesView(FoodPreferences foodPreferences, Model model) {
+        model.addAttribute("foodPreferences", new FoodPreferences());
+        return "donee/edit-food-preferences";
+    }
+
+    @PostMapping(value = "/edit-food-preferences")
+    public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model) throws ExecutionException {
 
         if(result.hasErrors()){
             return "donee/food-preferences";
@@ -69,6 +75,7 @@ public class DoneeController extends AbstractController {
         
         Response<Void> response;
 
+        
         SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
         response = publishAsync(selectPreferencesCommand).get();
@@ -79,7 +86,7 @@ public class DoneeController extends AbstractController {
             foodPreferences = new FoodPreferences();
             foodPreferences.setSuccess(true);
         }
-        return getFoodPreferencesView(withSuccess(new FoodPreferences()));
+        return getFoodPreferencesView(new FoodPreferences(), model);
     }
 
     // @PutMapping("FoodPreferences")

@@ -18,6 +18,9 @@ public abstract class RegisterRequest extends Request {
     @Size(min = 6, max = 30, message = "Password must be between 6 and 30 charcters")
     private String password;
     
+    @NotBlank
+    private String confirmPassword;
+    
     @NotNull(message = "Email cannot be empty")
     @Email
     private String email;

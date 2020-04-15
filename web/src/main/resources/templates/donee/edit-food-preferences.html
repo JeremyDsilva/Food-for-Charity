@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <script>
+        $("#example_id").ionRangeSlider();
+    </script>
 </head>
 
 <body>
 
     <div layout:fragment="content" class="container">
-        <form th:action="@{/food-preferences}" th:object="${foodPreferences}" method="POST">
+        <form th:action="@{/edit-food-preferences}" th:object="${foodPreferences}" method="POST">
             <div th:if="*{success != null}">
                 <div th:if="*{success}" class="alert alert-success">
                     Food Preferences Updated Successfully!
@@ -22,47 +25,79 @@
                 </div>
             </div>
             <div class="container">
-                <h2>Edit Food Preferences</h2>
                 <div class="row justify-content-center">
-                    <div class="col-4">
+                    <div class="col-sm-4 border rounded">
                         <h4>Spice Range</h4>
                         <label for="spiceRange"></label>
+                        <input type="text" id="spiceRange" name="example_name" value="" />
+                        <script type="text/javascript">
+                            $("#spiceRange").ionRangeSlider({
+                                type: "int",
+                                grid: true,
+                                min: 0,
+                                max: 100,
+                                from: 30,
+                                to: 40,
+                                values: [
+                                    "Jan", "Feb", "Mar", "Apr", "May", "Jun"
+                                ]
+                            });
+                        </script>
                         <!-- Spice Range Slider-->
                     </div>
-                </div>
-                <div class="col-4">
-                    <label for="Allergens"></label>
-                    <h4>Allergens</h4>
-                    <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
-                        <input type="checkbox" th:id="${{allergens}}" th:value="${{allergens}}" th:field="*{allergens}" />
-                        <label th:text="${{allergens}}" th:for="${{allergens}}">allergens</label>
+                    <div class="col-sm-4 border rounded">
+                        <h4>Allergens</h4>
+                        <label for="Allergens"></label>
+                        <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
+                            <input type="checkbox" th:id="${{allergens}}" th:value="${{allergens}}" th:field="*{allergens}" />
+                            <label th:text="${{allergens}}" th:for="${{allergens}}">allergens</label>
+                        </div>
                     </div>
-                </div>
-                <div class="col-4">
-                    <h4>Price Range</h4>
-                    <label for="priceRange"></label>
-                    <!-- Price Range Slider-->
+                    <div class="col-sm-4 border rounded">
+                        <h4>Price Range</h4>
+                        <label for="priceRange"></label>
+                        <!-- Price Range Slider-->
+                        <input type="text" id="priceRange" name="example_name" value="" />
+                        <script type="text/javascript">
+                            $("#priceRange").ionRangeSlider({
+                                type: "int",
+                                grid: true,
+                                min: 0,
+                                max: 100,
+                                from: 30,
+                                to: 40,
+                                suffix: "Dhs",
+                                values: [
+                                    "Jan", "Feb", "Mar", "Apr", "May", "Jun"
+                                ]
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-4">
+                <div class="form-check col-sm-4 border rounded ">
+                    <h4>Cuisines</h4>
                     <label for="cuisine"></label>
-                    <div th:each="cuisine : ${T(com.foodforcharity.app.domain.constant.Cuisine).values()}">
-                        <input type="checkbox" th:id="${{cuisine}}" th:value="${{cuisine}}" th:field="*{cuisine}" />
-                        <label th:text="${{cuisine}}" th:for="${{cuisine}}">Cuisine Type</label>
+                    <div th:each="cuisines : ${T(com.foodforcharity.app.domain.constant.Cuisine).values()}" class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" th:id="${{cuisines}}" th:value="${{cuisines}}" th:field="*{cuisines}" />
+                        <label class="form-check-input" th:text="${{cuisines}}" th:for="${{cuisines}}">Cuisine Type</label>
                     </div>
                 </div>
-                <div class="col-4">
-                    <label for="mealType"></label>
-                    <div th:each="mealType : ${T(com.foodforcharity.app.domain.constant.MealType).values()}">
-                        <input type="checkbox" th:id="${{mealType}}" th:value="${{mealType}}" th:field="*{mealType}" />
-                        <label th:text="${{mealType}}" th:for="${{mealType}}">Meal Type</label>
+                <div class="form-check col-sm-4 border rounded">
+                    <h4>Meal Types</h4>
+                    <label for="mealTypes"></label>
+                    <div th:each="mealTypes : ${T(com.foodforcharity.app.domain.constant.MealType).values()}">
+                        <input type="checkbox" th:id="${{mealTypes}}" th:value="${{mealTypes}}" th:field="*{mealTypes}" />
+                        <label th:text="${{mealTypes}}" th:for="${{mealTypes}}">Meal Type</label>
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <br><button type="submit" class="btn btn-success">Submit</button>
 
-    </div>
-    </form>
+            </div>
+        </form>
     </div>
 </body>
 

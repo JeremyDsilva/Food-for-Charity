@@ -50,9 +50,9 @@
                     </div>
                     <div class="form-group col-sm-3">
                         <label for="password">Confirm Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Confirm Password">
+                        <input type="password" class="form-control" th:value="*{confirmPassword}" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
                         <div class="text-danger">
-                            <small><td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td></small>
+                            <small><td th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Generic Error</td></small>
                         </div>
                     </div>
                 </div>

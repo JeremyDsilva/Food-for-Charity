@@ -82,11 +82,16 @@ public class PersonController extends AbstractController {
     }
 
     @PostMapping(value = "/donee-register")
-    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result) throws ExecutionException {
+    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
             return "donee-register";
         }
+
+        // if(request.getPassword() != request.getConfirmPassword()){
+        //     result.addError(new ObjectError("confirmPassword", "Passwords don't match"));
+        //     return "donee-register";
+        // }
 
         DoneeRegisterationCommand command = new DoneeRegisterationCommand(request.getName(), request.getPassword(),
                 request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),
@@ -114,6 +119,11 @@ public class PersonController extends AbstractController {
         if (result.hasErrors()) {
             return "donor-register";
         }
+
+        // if(request.getPassword() != request.getConfirmPassword()){
+        //     result.addError(new ObjectError("confirmNewPassword", "Passwords don't match"));
+        //     return "donor-register";
+        // }
 
         DonorRegisterationCommand command = new DonorRegisterationCommand(request.getName(), request.getPassword(),
                 request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),
