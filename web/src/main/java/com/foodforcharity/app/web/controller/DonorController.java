@@ -34,15 +34,14 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/home")
-    public String getDoneeHomepageView(Model model) {
+    public String getDonorHomepageView() {
         //model.addAttribute("PersonName", Person)
         return "donor/donor-homepage";
     }
 
     @GetMapping(value = "/menu")
-    public String getMenu(Model model) {
-        //model.addAttribute("menu", new MenuModel(id));
-        return "redirect:/menu";
+    public String getMenu(MenuModel menuModel) {
+        return "donor/menu-items";
     }
 
     @PostMapping(value = "/menu")
