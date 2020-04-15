@@ -21,11 +21,14 @@ import com.foodforcharity.app.domain.convertor.BooleanCharacterConverter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import lombok.Data;
+
 
 /**
  * The persistent class for the REQUEST database table.
  * 
  */
+@Data
 @Entity
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -76,49 +79,6 @@ public class Request implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<SubRequest> subRequests;
 
-	public Request() {
-	}
-
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Integer getDiscountApplied() {
-		return this.discountApplied;
-	}
-
-	public void setDiscountApplied(Integer discountApplied) {
-		this.discountApplied = discountApplied;
-	}
-
-	public Integer getFinalPrice() {
-		return this.finalPrice;
-	}
-
-	public void setFinalPrice(Integer finalPrice) {
-		this.finalPrice = finalPrice;
-	}
-
-	public Date getRequestTime() {
-		return this.requestTime;
-	}
-
-	public void setRequestTime(Date requestTime) {
-		this.requestTime = requestTime;
-	}
-
-	public List<Complaint> getComplaints() {
-		return this.complaints;
-	}
-
-	public void setComplaints(List<Complaint> complaints) {
-		this.complaints = complaints;
-	}
-
 	public Complaint addComplaint(Complaint complaint) {
 		getComplaints().add(complaint);
 		complaint.setRequest(this);
@@ -133,30 +93,6 @@ public class Request implements Serializable {
 		return complaint;
 	}
 
-	public Donor getDonor() {
-		return this.donor;
-	}
-
-	public void setDonor(Donor donor) {
-		this.donor = donor;
-	}
-
-	public Donee getDonee() {
-		return this.donee;
-	}
-
-	public void setDonee(Donee donee) {
-		this.donee = donee;
-	}
-
-	public List<SubRequest> getSubRequests() {
-		return this.subRequests;
-	}
-
-	public void setSubRequests(List<SubRequest> subRequests) {
-		this.subRequests = subRequests;
-	}
-
 	public SubRequest addSubRequest(SubRequest subRequest) {
 		getSubRequests().add(subRequest);
 		subRequest.setRequest(this);
@@ -169,34 +105,6 @@ public class Request implements Serializable {
 		subRequest.setRequest(null);
 
 		return subRequest;
-	}
-
-	/**
-	 * @return the isActive
-	 */
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	/**
-	 * @param isActive the isActive to set
-	 */
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	/**
-	 * @return the isRated
-	 */
-	public Boolean getIsRated() {
-		return isRated;
-	}
-
-	/**
-	 * @param isRated the isRated to set
-	 */
-	public void setIsRated(Boolean isRated) {
-		this.isRated = isRated;
 	}
 
 }

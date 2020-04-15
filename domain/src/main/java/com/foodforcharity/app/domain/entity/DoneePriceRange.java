@@ -14,10 +14,8 @@ public class DoneePriceRange implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	// @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@OneToOne
 	private Donee donee;
-	// private long id;
 
 	@Column(name="END_PRICE")
 	@NotNull
@@ -26,44 +24,5 @@ public class DoneePriceRange implements Serializable {
 	@Column(name="START_PRICE")
 	@NotNull
 	private Integer startPrice;
-
-	//bi-directional many-to-one association to Donee
-	// @OneToOne
-	// private Donee donee;
-
-	public DoneePriceRange() {
-	}
-
-	// public long getId() {
-	// 	return this.id;
-	// }
-
-	// public void setId(long id) {
-	// 	this.id = id;
-	// }
-
-	public Integer getEndPrice() {
-		return this.endPrice;
-	}
-
-	public void setEndPrice(Integer endPrice) {
-		this.endPrice = endPrice;
-	}
-
-	public Integer getStartPrice() {
-		return this.startPrice;
-	}
-
-	public void setStartPrice(Integer startPrice) {
-		this.startPrice = startPrice;
-	}
-
-	public Donee getDonee() {
-		return this.donee;
-	}
-
-	public void setDonee(Donee donee) {
-		this.donee = donee;
-	}
 
 }

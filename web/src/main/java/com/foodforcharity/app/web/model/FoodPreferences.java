@@ -13,7 +13,7 @@ import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreference
 import lombok.Data;
 
 @Data
-public class FoodPreferences extends Request{
+public class FoodPreferences extends Request {
 
 
     /**

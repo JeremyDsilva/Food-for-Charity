@@ -11,10 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
 /**
  * The persistent class for the SUB_REQUEST database table.
  * 
  */
+@Data
 @Entity
 @Table(name = "SUB_REQUEST")
 public class SubRequest implements Serializable {
@@ -40,55 +43,5 @@ public class SubRequest implements Serializable {
 	@ManyToOne
 	@NotNull
 	private Food food;
-
-	public SubRequest() {
-	}
-
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Integer getPriceAtPurchase() {
-		return this.priceAtPurchase;
-	}
-
-	public void setPriceAtPurchase(Integer priceAtPurchase) {
-		this.priceAtPurchase = priceAtPurchase;
-	}
-
-	public Integer getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Request getRequest() {
-		return this.request;
-	}
-
-	public void setRequest(Request request) {
-		this.request = request;
-	}
-
-	public Food getFood() {
-		return this.food;
-	}
-
-	public void setFood(Food food) {
-		this.food = food;
-	}
-
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 }

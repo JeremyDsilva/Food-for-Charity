@@ -74,7 +74,7 @@ public class ModifyMenuItemCommandHandler implements CommandHandler<ModifyMenuIt
 			command.originalPrice.ifPresent(x -> food.setPrice(x));
 			command.mealForNPeople.ifPresent(x -> food.setMealForNPeople(x));
 			command.quantityAvailable.ifPresent(x -> food.setQuantityAvailable(x));
-			command.cuisine.ifPresent(x -> food.setCuisines(x));
+			command.cuisine.ifPresent(x -> food.setCuisine(x));
 			command.mealType.ifPresent(x -> food.setMealType(x));
 			command.spiceLevel.ifPresent(x -> food.setSpiceLevel(x));
 			

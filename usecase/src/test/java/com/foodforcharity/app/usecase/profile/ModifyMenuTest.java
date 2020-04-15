@@ -78,7 +78,7 @@ public class ModifyMenuTest {
             food = new Food();
             food.setFoodName("foodName");
             food.setDescriptionText("descriptionText");
-            food.setCuisines(Cuisine.Belgravian);
+            food.setCuisine(Cuisine.Belgravian);
             food.setMealType(MealType.Mixed);
             food.setPrice(200);
             food.setQuantityAvailable(23);

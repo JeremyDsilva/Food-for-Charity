@@ -11,10 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
+
 /**
  * The persistent class for the ERROR_LOG database table.
  * 
  */
+@Data
 @Entity
 @Table(name = "ERROR_LOG")
 public class ErrorLog implements Serializable {
@@ -31,32 +34,5 @@ public class ErrorLog implements Serializable {
 	@Column(name = "ERROR_TIME")
 	@NotNull
 	private Date errorTime;
-
-	public ErrorLog() {
-	}
-
-	public long getId() {
-		return this.id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getDescriptionText() {
-		return this.descriptionText;
-	}
-
-	public void setDescriptionText(String descriptionText) {
-		this.descriptionText = descriptionText;
-	}
-
-	public Date getErrorTime() {
-		return this.errorTime;
-	}
-
-	public void setErrorTime(Date errorTime) {
-		this.errorTime = errorTime;
-	}
 
 }

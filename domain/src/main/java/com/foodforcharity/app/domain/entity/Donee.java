@@ -27,10 +27,13 @@ import com.foodforcharity.app.domain.constant.MealType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import lombok.Data;
+
 /**
  * The persistent class for the DONEE database table.
  * 
  */
+@Data
 @Entity
 @DiscriminatorValue("Donee")
 public class Donee extends Person {
@@ -103,97 +106,6 @@ public class Donee extends Person {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Request> requests;
 
-	public Donee() {
-	}
-
-	public String getAddressDescription() {
-		return this.addressDescription;
-	}
-
-	public void setAddressDescription(String addressDescription) {
-		this.addressDescription = addressDescription;
-	}
-
-	public String getCity() {
-		return this.city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getCountry() {
-		return this.country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getDoneeName() {
-		return this.doneeName;
-	}
-
-	public void setDoneeName(String doneeName) {
-		this.doneeName = doneeName;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Integer getMemberCount() {
-		return this.memberCount;
-	}
-
-	public void setMemberCount(Integer memberCount) {
-		this.memberCount = memberCount;
-	}
-
-	public String getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public Integer getQuantityRequested() {
-		return this.quantityRequested;
-	}
-
-	public void setQuantityRequested(Integer quantityRequested) {
-		this.quantityRequested = quantityRequested;
-	}
-
-	public DoneeStatus getDoneeStatus() {
-		return this.doneeStatus;
-	}
-
-	public void setDoneeStatus(DoneeStatus doneeStatus) {
-		this.doneeStatus = doneeStatus;
-	}
-
-	public DoneeType getDoneeType() {
-		return this.doneeType;
-	}
-
-	public void setDoneeType(DoneeType doneeType) {
-		this.doneeType = doneeType;
-	}
-
-	public List<Request> getRequests() {
-		return this.requests;
-	}
-
-	public void setRequests(List<Request> requests) {
-		this.requests = requests;
-	}
-
 	public Request addRequest(Request request) {
 		getRequests().add(request);
 		request.setDonee(this);
@@ -211,76 +123,6 @@ public class Donee extends Person {
 
 	public Optional<String> getStatus(){
 		return Optional.of(doneeStatus.name());
-	}
-
-	/**
-	 * @return the priceRange
-	 */
-	public DoneePriceRange getPriceRange() {
-		return priceRange;
-	}
-
-	/**
-	 * @param priceRange the priceRange to set
-	 */
-	public void setPriceRange(DoneePriceRange priceRange) {
-		this.priceRange = priceRange;
-	}
-
-	/**
-	 * @return the spiceRange
-	 */
-	public DoneeSpiceRange getSpiceRange() {
-		return spiceRange;
-	}
-
-	/**
-	 * @param spiceRange the spiceRange to set
-	 */
-	public void setSpiceRange(DoneeSpiceRange spiceRange) {
-		this.spiceRange = spiceRange;
-	}
-
-	/**
-	 * @return the allergens
-	 */
-	public Set<Allergen> getAllergens() {
-		return allergens;
-	}
-
-	/**
-	 * @param allergens the allergens to set
-	 */
-	public void setAllergens(Set<Allergen> allergens) {
-		this.allergens = allergens;
-	}
-
-	/**
-	 * @return the cuisines
-	 */
-	public Set<Cuisine> getCuisines() {
-		return cuisines;
-	}
-
-	/**
-	 * @param cuisines the cuisines to set
-	 */
-	public void setCuisines(Set<Cuisine> cuisines) {
-		this.cuisines = cuisines;
-	}
-
-	/**
-	 * @return the mealTypes
-	 */
-	public Set<MealType> getMealTypes() {
-		return mealTypes;
-	}
-
-	/**
-	 * @param mealTypes the mealTypes to set
-	 */
-	public void setMealTypes(Set<MealType> mealTypes) {
-		this.mealTypes = mealTypes;
 	}
 
 	/**

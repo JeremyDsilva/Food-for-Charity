@@ -81,8 +81,8 @@ public class PersonController extends AbstractController {
         return "donee-register";
     }
 
-    @PostMapping(value = "/donee-register/**")
-    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
+    @PostMapping(value = "/donee-register")
+    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result) throws ExecutionException {
 
         if (result.hasErrors()) {
             return "donee-register";
