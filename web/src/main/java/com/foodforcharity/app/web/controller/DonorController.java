@@ -50,11 +50,16 @@ public class DonorController extends AbstractController {
         return "donor/menu-items";
     }
 
-    @PostMapping(value = "/menu")
+    @GetMapping(value = "/edit-menu")
+    public String getEditMenu(MenuModel menuModel){
+        return "donor/edit-menu-item";
+    }
+
+    @PostMapping(value = "/edit-menu")
     public String addMenuItem(@Valid MenuModel menuModel, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
-            return "menu-items";
+            return "edit-menu";
         }
 
         AddMenuCommand addMenuCommand = new AddMenuCommand(getPersonId(), menuModel.getFoodName(),
@@ -67,14 +72,14 @@ public class DonorController extends AbstractController {
 
         if (response.hasError()) {
             menuModel.setError(response.getError());
-            return "menu-items";
+            return "edit-menu";
         }
         model.addAttribute("success", withSuccess(menuModel));
         return "redirect:/";
 
     }
 
-    @PutMapping(value = "/menu")
+    @PutMapping(value = "/edit-menu")
     public String updateMenuItem(@RequestParam(value = "itemId") long itemId, @Valid MenuModel menuModel,
             BindingResult result, Model model) throws ExecutionException {
 
@@ -95,7 +100,7 @@ public class DonorController extends AbstractController {
 
     }
 
-    @DeleteMapping(value = "/menu")
+    @DeleteMapping(value = "/delete-menu-item")
     public String deleteMenuItem(@RequestParam(value = "foodId") long foodId, @Valid MenuModel menuModel,
             BindingResult result, Model model) throws ExecutionException {
 
