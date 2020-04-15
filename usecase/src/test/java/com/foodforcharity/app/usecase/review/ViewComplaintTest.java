@@ -105,6 +105,7 @@ public class ViewComplaintTest {
                         donor.setRating(0);
                         donor.setDiscountApplied(10);
                         donor.setUsername(donor.getEmail());
+                        donor.setDonorStatus(DonorStatus.Active);
                         donorRepos.save(donor);
                     } else {
                         donor = dbDonor.get();
@@ -127,9 +128,8 @@ public class ViewComplaintTest {
                     Set<Allergen> iSet = new HashSet<Allergen>(aList);
 
                     food.setAllergens(iSet);
-                    // foodRepos.save(food);
-                    donor.addFood(food);
-                    donor = donorRepos.save(donor);
+                    food.setDonor(donor);
+                    food = foodRepos.save(food);
                 }
 
                 Optional<Donee> dbDonee = doneeRepos.findByUsername("doneeemail@gmail.com");
@@ -164,16 +164,17 @@ public class ViewComplaintTest {
                 SubRequest subR = new SubRequest();
                 subR.setFood(food);
                 subR.setQuantity(1);
+                subR.setPriceAtPurchase(food.getPrice() * (100 - donor.getDiscountApplied() / 100));
 
-                Request request = new Request();
-                request.setSubRequests(Arrays.asList(subR));
+                request = new Request();
+                request.addSubRequest(subR);
                 request.setDiscountApplied(donor.getDiscountApplied());
                 request.setDonee(donee);
                 request.setDonor(donor);
                 request.setFinalPrice(food.getPrice() * (100 - donor.getDiscountApplied() / 100));
                 request.setIsActive(true);
                 request.setRequestTime(new Date());
-                subR.setRequest(request);
+                request.setIsRated(false);
                 request = requestRepos.save(request);
 
                 // on this reques now create a complaint
@@ -186,7 +187,6 @@ public class ViewComplaintTest {
             complaintFromDonor.setFromDonee(false);
             complaintFromDonor.setIsActive(true);
             complaintFromDonor.setRequest(request);
-            request.addComplaint(complaintFromDonor);
             
             complaintFromDonor = complaintRepos.save(complaintFromDonor);
         }
