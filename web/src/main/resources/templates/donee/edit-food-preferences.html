@@ -29,14 +29,21 @@
                     <div class="col-sm-4 border rounded">
                         <h4>Spice Range</h4>
                         <label for="spiceRange"></label>
-                        <input type="text" id="spiceRange" name="example_name" value="" />
+                        <input id="spiceRange" name="example_name" value="" />
+                        <input hidden id="min" name="example_name" value="" />
+                        <input hidden id="max" name="example_name" value="" />
                         <script type="text/javascript">
                             $("#spiceRange").ionRangeSlider({
+                                type: "int",
                                 grid: true,
+                                from: "NoSpice",
+                                to: "Mild",
                                 values: [
                                     "No Spice", "Mild", "Medium", "Hot", "Extra"
                                 ]
                             });
+                            var min = $('#spiceRange').data.from;
+                            var max = $('#spiceRange').data.to;
                         </script>
                         <!-- Spice Range Slider-->
                     </div>
@@ -52,7 +59,9 @@
                         <h4>Price Range</h4>
                         <label for="priceRange"></label>
                         <!-- Price Range Slider-->
-                        <input type="text" id="priceRange" name="example_name" value="" />
+                        <input id="priceRange" name="example_name" value="" />
+                        <input hidden id="min" name="min" value="" />
+                        <input hidden id="max" name="max" value="" />
                         <script type="text/javascript">
                             $("#priceRange").ionRangeSlider({
                                 type: "double",
@@ -66,6 +75,8 @@
                                     console.dir(data);
                                 }
                             });
+                            var min = $('#priceRange').data.from;
+                            var max = $('#priceRange').data.to;
                         </script>
                     </div>
                 </div>
