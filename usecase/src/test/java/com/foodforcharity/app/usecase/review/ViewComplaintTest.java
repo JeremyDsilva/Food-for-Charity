@@ -166,7 +166,7 @@ public class ViewComplaintTest {
                 subR.setQuantity(1);
 
                 Request request = new Request();
-                request.addSubRequest(subR);
+                request.setSubRequests(Arrays.asList(subR));
                 request.setDiscountApplied(donor.getDiscountApplied());
                 request.setDonee(donee);
                 request.setDonor(donor);

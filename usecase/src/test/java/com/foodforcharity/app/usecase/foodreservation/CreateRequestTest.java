@@ -60,9 +60,9 @@ public class CreateRequestTest {
             food.setMealForNPeople(1);
             donor = food.getDonor();
             donor.setDonorStatus(DonorStatus.Active);
-                // foodRepos.save(food);
-                donorRepos.save(donor);
-            
+            // foodRepos.save(food);
+            donorRepos.save(donor);
+
         } else {
 
             Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
@@ -79,6 +79,7 @@ public class CreateRequestTest {
                 donor.setRating(0);
                 donor.setDiscountApplied(10);
                 donor.setUsername(donor.getEmail());
+                donor.setDonorStatus(DonorStatus.Active);
                 donorRepos.save(donor);
             } else {
                 donor = dbDonor.get();
@@ -86,12 +87,10 @@ public class CreateRequestTest {
                 donorRepos.save(donor);
             }
 
-              
-
             food = new Food();
             food.setFoodName("foodName");
             food.setDescriptionText("descriptionText");
-            food.setCuisines(Cuisine.Belgravian);
+            food.setCuisine(Cuisine.Belgravian);
             food.setMealType(MealType.Mixed);
             food.setPrice(200);
             food.setQuantityAvailable(23);
@@ -103,19 +102,17 @@ public class CreateRequestTest {
             Set<Allergen> iSet = new HashSet<Allergen>(aList);
 
             food.setAllergens(iSet);
-            // foodRepos.save(food);
-            donor.addFood(food);
-            donor = donorRepos.save(donor);
+            food.setDonor(donor);
+            food = foodRepos.save(food);
         }
 
         Optional<Donee> dbDonee = doneeRepos.findByUsername("doneeemail@gmail.com");
 
-       
         if (dbDonee.isPresent()) {
             donee = dbDonee.get();
             donee.setDoneeStatus(DoneeStatus.Active);
             donee.setQuantityRequested(0);
-            donee.setMemberCount(food.getMealForNPeople()+2); // so that quantity is never exceded if we ask for 1
+            donee.setMemberCount(food.getMealForNPeople() + 2); // so that quantity is never exceded if we ask for 1
             doneeRepos.save(donee);
         } else {
 
@@ -129,7 +126,7 @@ public class CreateRequestTest {
             donee.setDoneeType(DoneeType.Individual);
             donee.setPassword("DoneePassword");
             donee.setPhoneNumber("DoneePhoneNumber");
-            donee.setMemberCount(food.getMealForNPeople()+2);
+            donee.setMemberCount(food.getMealForNPeople() + 2);
             donee.setQuantityRequested(0);
             donee.setUsername(donee.getEmail());
             donee = doneeRepos.save(donee);
