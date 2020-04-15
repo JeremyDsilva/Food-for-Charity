@@ -26,7 +26,7 @@ The <b>Broker</b> is responsible for managing the system which includes: updatin
 
   - Clone this repository
 
-  - Make sure you are using JDK 13 and Maven 3.x
+  - Make sure you are using JDK 13 and Maven 4.0
   
   - You can build the project and run the tests by running
 
