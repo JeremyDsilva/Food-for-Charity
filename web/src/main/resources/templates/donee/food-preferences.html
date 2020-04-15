@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donee/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content" class="container">
+
+        <div class="container" th:object="${foodPreferences}">
+            <h2 th:case="null">No Food Preferences have been selected</h2>
+            <a class="btn btn-secondary" th:href="@{/edit-food-preferences}">Select Food Preferences</a>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <h4>Spice Range</h4>
+                    <!-- <tr th:each="spiceRange : ${foodPreferences.spiceRange}"> -->
+                    <tr th:each="spiceRange : ${spiceRange}">
+                        <td th:text="${spiceRange}"></td>
+                    </tr>
+                </div>
+                <div class="col-4">
+                    <h4>Allergen</h4>
+                    <tr th:each="allergen : ${allergens}">
+                        <td th:text="${allergen}"></td>
+                    </tr>
+                </div>
+                <div class="col-4">
+                    <h4>Price Range</h4>
+                    <tr th:each="priceRange : ${priceRange}">
+                        <td th:text="${priceRange}"></td>
+                    </tr>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <h4>Cuisines</h4>
+                <tr th:each="cuisines : ${cuisines}">
+                    <td th:text="${cuisines}"></td>
+                </tr>
+            </div>
+        </div>
+        <div class="col-4">
+            <h4>Meal Types</h4>
+            <tr th:each="mealTypes : ${mealTypes}">
+                <td th:text="${mealTypes}"></td>
+            </tr>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+</body>
+
+</html>

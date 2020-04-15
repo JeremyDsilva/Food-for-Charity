@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donee/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content" class="container">
+        <form th:action="@{/food-preferences}" th:object="${foodPreferences}" method="POST">
+            <div th:if="*{success != null}">
+                <div th:if="*{success}" class="alert alert-success">
+                    Food Preferences Updated Successfully!
+                </div>
+                <div th:if="*{!success}">
+                    <div class="alert alert-danger" th:text="*{error.getMessage()}">
+                        Error
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <h2>Edit Food Preferences</h2>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <h4>Spice Range</h4>
+                        <label for="spiceRange"></label>
+                        <!-- Spice Range Slider-->
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="Allergens"></label>
+                    <h4>Allergens</h4>
+                    <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
+                        <input type="checkbox" th:id="${{allergens}}" th:value="${{allergens}}" th:field="*{allergens}" />
+                        <label th:text="${{allergens}}" th:for="${{allergens}}">allergens</label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h4>Price Range</h4>
+                    <label for="priceRange"></label>
+                    <!-- Price Range Slider-->
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <label for="cuisine"></label>
+                    <div th:each="cuisine : ${T(com.foodforcharity.app.domain.constant.Cuisine).values()}">
+                        <input type="checkbox" th:id="${{cuisine}}" th:value="${{cuisine}}" th:field="*{cuisine}" />
+                        <label th:text="${{cuisine}}" th:for="${{cuisine}}">Cuisine Type</label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="mealType"></label>
+                    <div th:each="mealType : ${T(com.foodforcharity.app.domain.constant.MealType).values()}">
+                        <input type="checkbox" th:id="${{mealType}}" th:value="${{mealType}}" th:field="*{mealType}" />
+                        <label th:text="${{mealType}}" th:for="${{mealType}}">Meal Type</label>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    </form>
+    </div>
+</body>
+
+</html>

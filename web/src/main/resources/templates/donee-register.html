@@ -12,13 +12,15 @@
     <div layout:fragment="content" class="container">
 
         <form th:action="@{/donee-register}" th:object="${doneeRegisterRequest}" method="POST">
-            <div th:if="*{success != null}">
-                <div th:if="*{success}" class="alert alert-success">
-                    Registered Successful!
-                </div>
-                <div th:if="*{!success}">
-                    <div class="alert alert-danger" th:text="*{error.getMessage()}">
-                        Error
+            <div class="container">
+                <div th:if="*{success != null}">
+                    <div th:if="*{success}" class="alert alert-success">
+                        Registered Successful!
+                    </div>
+                    <div th:if="*{!success}">
+                        <div class="alert alert-danger" th:text="*{error.getMessage()}">
+                            Error
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,8 +51,8 @@
                         </div>
                     </div>
                     <div class="form-group col-sm-3">
-                        <label for="password">Confirm Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Confirm Password">
+                        <label for="ConfirmPassword">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
                         <div class="text-danger">
                             <small><td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Generic Error</td></small>
                         </div>

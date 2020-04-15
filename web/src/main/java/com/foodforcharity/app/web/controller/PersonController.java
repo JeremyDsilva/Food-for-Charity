@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -51,7 +52,14 @@ public class PersonController extends AbstractController {
     @PostMapping(value = "/change-password")
     public String changePassword(@Valid ChangePasswordRequest request, BindingResult result) throws ExecutionException {
 
+
+
         if (result.hasErrors()) {
+            return "change-password";
+        }
+
+        if(request.getConfirmNewPassword() != request.getNewPassword()){
+            result.addError(new ObjectError("confirmNewPassword", "Passwords don't match"));
             return "change-password";
         }
 
@@ -69,12 +77,12 @@ public class PersonController extends AbstractController {
     }
 
     @GetMapping(value = "/donee-register")
-    public String getDoneeRegisterView(DoneeRegisterRequest request) {
+    public String getDoneeRegisterView(DoneeRegisterRequest request, Model model) {
         return "donee-register";
     }
 
     @PostMapping(value = "/donee-register/**")
-    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result) throws ExecutionException {
+    public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
             return "donee-register";
@@ -88,10 +96,11 @@ public class PersonController extends AbstractController {
 
         if(response.hasError()){
             request.setError(response.getError());
-            return "/donor-register";
-        } 
+            return "/donee-register";
+        }
+        model.addAttribute("success", withSuccess(request));
             
-        return getDoneeRegisterView(withSuccess(new DoneeRegisterRequest()));
+        return getDoneeRegisterView(withSuccess(new DoneeRegisterRequest()), model);
     }
 
     @GetMapping(value = "/donor-register/**")
