@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donor/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Items</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content" class="container">
+
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div th:switch="${menuModel}" class="container my-5">
+                        <p class="my-5">
+                            <a th:href="@{menu}" class="btn btn-primary">
+                                <i><span class="oi oi-menu"></span> Add Menu Item </i></a>
+                        </p>
+                        <div class="col-sm-12">
+                            <h2 th:case="null">No record found !!</h2>
+                            <div th:case="*">
+                                <table class="table table-striped table-responsive-md">
+                                    <thead>
+                                        <tr>
+                                            <th>Food Name</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Meal for #people</th>
+                                            <th>Quantity Available</th>
+                                            <th>Spice Level</th>
+                                            <th>Meal Type</th>
+                                            <th>Cuisine</th>
+                                            <th>Allergen</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="menuModel : ${menuModel}">
+                                            <td th:text="${menuModel.foodName}"></td>
+                                            <td th:text="${menuModel.descriptionText}"></td>
+                                            <td th:text="${menuModel.originalPrice}"></td>
+                                            <td th:text="${menuModel.mealForNPeople}"></td>
+                                            <td th:text="${menuModel.quantityAvailable}"></td>
+                                            <td th:text="${menuModel.spiceLevel}"></td>
+                                            <td th:text="${menuModel.mealType}"></td>
+                                            <td th:text="${menuModel.cuisine}"></td>
+                                            <td th:text="${menuModel.allergen}"></td>
+
+                                            <!-- <tr th:each="allergen : ${menuModel.allergen}">
+                                                <td th:text="${allergen}"></td>
+                                            </tr> -->
+                                            <td>
+                                                <a href="" class="btn btn-warning">
+                                                    <span class="oi oi-pencil"></span> </a>
+                                            </td>
+                                            <td>
+                                                <a href="" class="btn btn-danger">
+                                                    <span class="oi oi-delete"></span> </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

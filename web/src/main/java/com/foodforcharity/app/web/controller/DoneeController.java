@@ -30,9 +30,7 @@ public class DoneeController extends AbstractController {
     }
 
     @GetMapping("/home")
-    public String getDoneeHomepageView(Model model) {
-        // model.addAttribute("userDetails", userDetails);
-        // model.addAttribute("FoodAvailable", FoodAvailable);
+    public String getDoneeHomepageView() {
         return "donee/donee-homepage";
     }
 
@@ -55,14 +53,13 @@ public class DoneeController extends AbstractController {
     // --------------Food Preferences----------------
 
     @GetMapping(value = "/food-preferences")
-    public String getFoodPreferencesView(FoodPreferences foodPreferences, Model model) {
-        model.addAttribute("foodPreferences", new FoodPreferences());
+    public String getFoodPreferencesView(FoodPreferences foodPreferences) {
+        // model.addAttribute("foodPreferences", new FoodPreferences());
         return "donee/food-preferences";
     }
 
     @GetMapping(value = "/edit-food-preferences")
-    public String getEditFoodPreferencesView(FoodPreferences foodPreferences, Model model) {
-        model.addAttribute("foodPreferences", new FoodPreferences());
+    public String getEditFoodPreferencesView(FoodPreferences foodPreferences) {
         return "donee/edit-food-preferences";
     }
 
@@ -86,7 +83,7 @@ public class DoneeController extends AbstractController {
             foodPreferences = new FoodPreferences();
             foodPreferences.setSuccess(true);
         }
-        return getFoodPreferencesView(new FoodPreferences(), model);
+        return getFoodPreferencesView(new FoodPreferences());
     }
 
     // @PutMapping("FoodPreferences")
