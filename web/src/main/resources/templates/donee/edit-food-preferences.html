@@ -32,14 +32,9 @@
                         <input type="text" id="spiceRange" name="example_name" value="" />
                         <script type="text/javascript">
                             $("#spiceRange").ionRangeSlider({
-                                type: "int",
                                 grid: true,
-                                min: 0,
-                                max: 100,
-                                from: 30,
-                                to: 40,
                                 values: [
-                                    "Jan", "Feb", "Mar", "Apr", "May", "Jun"
+                                    "No Spice", "Mild", "Medium", "Hot", "Extra"
                                 ]
                             });
                         </script>
@@ -60,16 +55,16 @@
                         <input type="text" id="priceRange" name="example_name" value="" />
                         <script type="text/javascript">
                             $("#priceRange").ionRangeSlider({
-                                type: "int",
+                                type: "double",
                                 grid: true,
                                 min: 0,
-                                max: 100,
+                                max: 200,
                                 from: 30,
                                 to: 40,
                                 suffix: "Dhs",
-                                values: [
-                                    "Jan", "Feb", "Mar", "Apr", "May", "Jun"
-                                ]
+                                onChange: function(data) {
+                                    console.dir(data);
+                                }
                             });
                         </script>
                     </div>
