@@ -38,7 +38,6 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("profile")
     public String getProfileView() {
-        // model.addAttribute("UserProfile", new Profile());
         return "donee/view-profile";
     }
 
@@ -53,8 +52,7 @@ public class DoneeController extends AbstractController {
     // --------------Food Preferences----------------
 
     @GetMapping(value = "/food-preferences")
-    public String getFoodPreferencesView(FoodPreferences foodPreferences) {
-        // model.addAttribute("foodPreferences", new FoodPreferences());
+    public String getFoodPreferencesView(FoodPreferences foodPreferences){
         return "donee/food-preferences";
     }
 
@@ -125,7 +123,6 @@ public class DoneeController extends AbstractController {
 
     @GetMapping("FoodRequests")
     public String getFoodRequestsView(Model model) {
-        // model.addAttribute("food", Food());
         return "donee/Food-request";
     }
 

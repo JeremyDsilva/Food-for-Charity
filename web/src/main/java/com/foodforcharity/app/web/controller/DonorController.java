@@ -41,7 +41,6 @@ public class DonorController extends AbstractController {
 
     @GetMapping(value = "/home")
     public String getDonorHomepageView() {
-        // model.addAttribute("PersonName", Person)
         return "donor/donor-homepage";
     }
 
