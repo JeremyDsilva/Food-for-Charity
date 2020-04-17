@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/broker")
-@PreAuthorize("Broker")
+@PreAuthorize(value = "hasAuthority('Broker')")
 public class BrokerController extends AbstractController {
 
     @Autowired

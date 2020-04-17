@@ -10,6 +10,7 @@ import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreference
 import com.foodforcharity.app.web.model.FoodPreferences;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/donee")
-// @PreAuthorize("Donee")
+@PreAuthorize(value = "hasAuthority('Donee')")
 public class DoneeController extends AbstractController {
 
     @Autowired
