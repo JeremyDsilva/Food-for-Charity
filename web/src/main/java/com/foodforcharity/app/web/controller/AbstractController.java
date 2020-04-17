@@ -1,6 +1,5 @@
 package com.foodforcharity.app.web.controller;
 
-import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.mediator.Command;
 import com.foodforcharity.app.mediator.Mediator;
@@ -28,7 +27,7 @@ public class AbstractController {
         return getPersonDetails().getPersonId();
     }   
     
-    final PersonRole getPersonRole() {
+    final String getPersonRole() {
         return getPersonDetails().getRole();
     }
 

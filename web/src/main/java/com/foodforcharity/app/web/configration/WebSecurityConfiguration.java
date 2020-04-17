@@ -1,9 +1,11 @@
 package com.foodforcharity.app.web.configration;
 
-import com.foodforcharity.app.domain.security.PersonDetailsService;
 import com.foodforcharity.app.web.filter.JwtTokenFilter;
+import com.foodforcharity.app.web.security.CookieUtil;
+import com.foodforcharity.app.web.security.JwtProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +22,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private PersonDetailsService personDetailsService;
+    private JwtProvider jwtProvider;
+
+    @Autowired
+    private CookieUtil cookieUtil;
+
+    @Value("${security.cookie.name}")
+    String cookieName;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,6 +39,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Disallow everything else..
                 // .anyRequest().authenticated();
 
+        http.logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+            .deleteCookies(cookieName)
+            .invalidateHttpSession(true);
+
         // Disable CSRF (cross site request forgery)
         http.csrf().disable();
 
@@ -39,7 +53,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // No session will be created or used by spring security
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(new JwtTokenFilter(personDetailsService), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtTokenFilter(cookieUtil, jwtProvider), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

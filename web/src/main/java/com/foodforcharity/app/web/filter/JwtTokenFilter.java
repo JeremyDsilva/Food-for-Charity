@@ -1,16 +1,15 @@
 package com.foodforcharity.app.web.filter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import com.foodforcharity.app.domain.security.PersonDetailsService;
+import com.foodforcharity.app.web.security.CookieUtil;
+import com.foodforcharity.app.web.security.JwtProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,14 +21,14 @@ import org.springframework.web.filter.GenericFilterBean;
  *
  */
 public class JwtTokenFilter extends GenericFilterBean {
-    private static final String BEARER = "Bearer";
-    private String COOKIENAME = "accesstoken";
 
-    private PersonDetailsService personDetailsService;
+    private final JwtProvider jwtProvider;
+    private final CookieUtil cookieUtil;
 
     @Autowired
-    public JwtTokenFilter(PersonDetailsService personDetailsService) {
-        this.personDetailsService = personDetailsService;
+    public JwtTokenFilter(CookieUtil cookieUtil, JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+        this.cookieUtil = cookieUtil;
     }
 
     /**
@@ -47,49 +46,17 @@ public class JwtTokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
 
-        // Check for Authorization:Bearer JWT
-        getJwtFromCookie((HttpServletRequest) request).ifPresent(jwt -> getBearerToken(jwt).ifPresent(token ->
+        // Get JWT from cookie
+        cookieUtil.getToken((HttpServletRequest) request).ifPresent(jwt ->
         // Pull the Username and Roles from the JWT to construct the user details
-        personDetailsService.loadUserByJwtToken(token).ifPresent(userDetails -> {
-            // Add the user details (Permissions) to the Context for just this API
-            // invocation
+        jwtProvider.loadUserByToken(jwt).ifPresent(userDetails -> {
+            // Add the user details to SecurityContextHolder
             SecurityContextHolder.getContext().setAuthentication(
                     new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
-        })));
+        }));
 
         // move on to the next filter in the chains
         filterChain.doFilter(request, response);
-    }
-
-    private Optional<String> getJwtFromCookie(HttpServletRequest request) {
-        try {
-            Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (COOKIENAME.equals(cookie.getName())) {
-                    String accessToken = cookie.getValue();
-                    if (accessToken == null)
-                        return Optional.empty();
-
-                    return Optional.of(accessToken);
-                }
-            }
-        } catch (Exception e) {
-
-        }
-        return Optional.empty();
-    }
-
-    /**
-     * if present, extract the jwt token from the "Bearer <jwt>" header value.
-     *
-     * @param headerVal
-     * @return jwt if present, empty otherwise
-     */
-    private Optional<String> getBearerToken(String headerVal) {
-        if (headerVal != null) {
-            return Optional.of(headerVal);
-        }
-        return Optional.empty();
     }
 
 }

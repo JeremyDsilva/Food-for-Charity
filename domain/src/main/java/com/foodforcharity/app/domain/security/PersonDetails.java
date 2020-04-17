@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.entity.Person;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -17,34 +16,35 @@ public class PersonDetails implements UserDetails {
 
     final long personId;
     final String username;
-    final PersonRole role;
+    final String role;
+    final String status;
     String password;
-    final Collection<? extends GrantedAuthority> authorities;
 
     public PersonDetails(Person person) {
         this.personId = person.getId();
         this.username = person.getUsername();
         this.password = person.getPassword();
-        this.role = PersonRole.valueOf(person.getRole());
-
-        Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(role.name()));
-        person.getStatus().ifPresent(status -> {
-            authorities.add(new SimpleGrantedAuthority(status));
-        });
-
-        this.authorities = authorities;
+        this.role = person.getRole();
+        this.status = person.getStatus().orElse(role);
     }
 
-    public PersonDetails(long personId, String username, String role, Collection<GrantedAuthority> authorities) {
+    public PersonDetails(long personId, String username, String role, String status) {
         this.personId = personId;
         this.username = username;
-        this.authorities = authorities;
-        this.role = PersonRole.valueOf(role);
+        this.role = role;
+        this.status = status;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
+        
+        authorities.add(new SimpleGrantedAuthority(role));
+        
+        if (role != status) {
+            authorities.add(new SimpleGrantedAuthority(status));
+        }
+
         return authorities;
     }
 
@@ -85,9 +85,15 @@ public class PersonDetails implements UserDetails {
         return personId;
     }
 
-
-    public PersonRole getRole() {
+    public String getRole() {
         return role;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
     }
 
 }

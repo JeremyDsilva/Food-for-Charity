@@ -15,8 +15,4 @@ public interface PersonDetailsService extends UserDetailsService {
    
     public PersonDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 
-    public Optional<PersonDetails> loadUserByJwtTokenAndDatabase(String jwtToken);
-
-    public Optional<PersonDetails> loadUserByJwtToken(String jwtToken);
-
 }

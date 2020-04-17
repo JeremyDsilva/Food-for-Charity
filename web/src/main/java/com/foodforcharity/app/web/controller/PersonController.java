@@ -39,7 +39,7 @@ public class PersonController extends AbstractController {
 
     @GetMapping(value = "/home")
     public String getHomeView(Model model) {
-        return "redirect:/" + getPersonRole().name().toLowerCase() + "/home";
+        return "redirect:/" + getPersonRole().toLowerCase() + "/home";
     }
 
     // @GetMapping(value = {"/change-password", "/change-password/?success",

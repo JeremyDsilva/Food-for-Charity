@@ -1,10 +1,6 @@
 package com.foodforcharity.app.infrastructure.security;
 
-import java.util.Optional;
-import java.util.Set;
-
 import com.foodforcharity.app.domain.entity.Person;
-import com.foodforcharity.app.domain.security.JwtProviderService;
 import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.domain.security.PersonDetailsService;
 import com.foodforcharity.app.domain.service.PersonService;
@@ -22,12 +18,10 @@ public class PersonDetailsServiceImplementaion implements PersonDetailsService {
 
     private final PersonService personService;
 
-    private final JwtProviderService jwtProvider;
 
     @Autowired
-    PersonDetailsServiceImplementaion(PersonService personService, JwtProviderService jwtProvider) {
+    PersonDetailsServiceImplementaion(PersonService personService) {
         this.personService = personService;
-        this.jwtProvider = jwtProvider;
     }
 
     @Override
@@ -38,33 +32,5 @@ public class PersonDetailsServiceImplementaion implements PersonDetailsService {
         return new PersonDetails(person);
     }
 
-    /**
-     * Extract the username from the JWT then lookup the user in the database.
-     *
-     * @param jwtToken
-     * @return
-     */
-    public Optional<PersonDetails> loadUserByJwtTokenAndDatabase(String jwtToken) {
-        if (jwtProvider.isValidToken(jwtToken)) {
-            return Optional.of(loadUserByUsername(jwtProvider.getUsername(jwtToken)));
-        } else {
-            return Optional.empty();
-        }
-    }
-
-    /**
-     * Extract username and roles from a validated jwt string.
-     *
-     * @param jwtToken jwt string
-     * @return UserDetails if valid, Empty otherwise
-     */
-    public Optional<PersonDetails> loadUserByJwtToken(String jwtToken) {
-        if (jwtProvider.isValidToken(jwtToken)) {
-            return Optional.of(new PersonDetails(jwtProvider.getPersonId(jwtToken), jwtProvider.getUsername(jwtToken),
-            jwtProvider.getRole(jwtToken),
-                    Set.copyOf(jwtProvider.getAuthorities(jwtToken))));
-        }
-        return Optional.empty();
-    }
 
 }

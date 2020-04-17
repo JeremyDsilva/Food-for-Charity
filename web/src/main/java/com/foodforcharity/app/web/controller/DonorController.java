@@ -2,6 +2,7 @@ package com.foodforcharity.app.web.controller;
 
 import static com.foodforcharity.app.web.model.Request.withSuccess;
 
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
@@ -49,7 +50,16 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/edit-menu")
-    public String getEditMenu(MenuModel menuModel){
+    public String getEditMenu(MenuModel menuModel, @RequestParam(value = "id", required = false) Optional<Long> id){
+
+        if(id.isPresent()){
+
+
+            
+        }
+
+
+
         return "donor/edit-menu-item";
     }
 

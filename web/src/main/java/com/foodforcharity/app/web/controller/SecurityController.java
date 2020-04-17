@@ -1,18 +1,18 @@
 package com.foodforcharity.app.web.controller;
 
-import java.time.Duration;
-import java.util.concurrent.ExecutionException;
-
 import javax.servlet.http.HttpServletResponse;
 
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.mediator.Mediator;
-import com.foodforcharity.app.usecase.account.createjwt.CreateJwtCommand;
+import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.web.model.AuthenticationRequest;
+import com.foodforcharity.app.web.security.CookieUtil;
+import com.foodforcharity.app.web.security.JwtProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +20,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class SecurityController extends AbstractController {
+public class SecurityController {
+
+    private final CookieUtil cookieUtil;
+    private final JwtProvider jwtProvider;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired
-    SecurityController(Mediator mediator) {
-       super(mediator);
+    SecurityController(AuthenticationManager authenticationManager, JwtProvider jwtProvider, CookieUtil cookieUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtProvider = jwtProvider;
+        this.cookieUtil = cookieUtil;
     }
 
     @GetMapping(value = "/login")
@@ -33,22 +39,20 @@ public class SecurityController extends AbstractController {
     }
 
     @PostMapping(value = "/login")
-    public String login(HttpServletResponse response,
-            @ModelAttribute AuthenticationRequest authenticationRequest, Model model) throws ExecutionException {
+    public String login(HttpServletResponse response, @ModelAttribute AuthenticationRequest authenticationRequest,
+            Model model) {
 
-        CreateJwtCommand command = new CreateJwtCommand(authenticationRequest.getUsername(),
-                authenticationRequest.getPassword());
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 
-        Response<String> jwt = publishAsync(command).get();
+            response.setHeader(HttpHeaders.SET_COOKIE, cookieUtil
+                    .create(jwtProvider.createToken((PersonDetails) authentication.getPrincipal())).toString());
 
-        if (!jwt.success())
-            return "login";
-
-        response.setHeader(HttpHeaders.SET_COOKIE, ResponseCookie.from("accesstoken", jwt.getResponse())
-                .maxAge(Duration.ofDays(10)).httpOnly(true).path("/").build().toString());
-
-        
-        return "redirect:/home";
+            return "redirect:/home";
+        } catch (BadCredentialsException e) {
+            return "redirect:login?error";
+        }
     }
 
 }
