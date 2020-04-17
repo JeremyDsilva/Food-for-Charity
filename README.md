@@ -50,7 +50,7 @@ The <b>Broker</b> is responsible for managing the system which includes: updatin
 [comment]: <> (Start) 
 
 ## Acknowledgements
-Aghad AlAhmad: https://github.com/aghyad97</br> 
+Aghyad AlAhmad: https://github.com/aghyad97</br> 
 Mohammed Al-Zaabi: https://github.com/mAlZaabi</br>
 Priyanka Prakash: https://github.com/PriyankaPrakashChand </br>
 
