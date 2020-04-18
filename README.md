@@ -1,25 +1,18 @@
 # Food for Charity 
 This project is still under development
 
-The project is a food donation management web application that allows restaurants (donors) to donate food to individuals in need (donees). The purpose of this project is to utilize extra food to charity instead of it going to waste. The project was assigned to us by our professor as a course requirement for the software engineering course offered at the American University of Sharjah. The professor was the primary client whom we were assigned to capturing the project's requirements that he provided.  
+Food for Charity is a web-based application that connectsrestaurants who have food in excess and wish to donate with individuals andorganizations who need food. Restaurant supply information on the food they arewilling to donate and those in need can reserve this food. The goal of this appis to reduced food wastage in society. This is a group software engineering project. Our professor was our primary client.
+
 ## About The App
 The app handles the interaction between 3 main users: **Donor**, **Donee** and **Broker**.</br> 
 <p>
-The <b>Donor</b>, specifically a restaurant, can donate a quantity of food to the app. They do this by adding their entire menu to the app. Once the menu has been submitted to the app, they can specify the type of cuisine, meal-type and any allergens that may be in their food. They choose what menu item to make available to order by specifying the quantity of the said item. 
+The <b>Donor</b>, specifically a restaurant, can donate a quantity of food to the app. They can add food to their menu, specifying the type of cuisine, meal-type, and allergens in the food. They then choose what to make available by specifying the quantity of the food they wish to donate. Donors are alerted when a donee makes a request and can mark a request complete once picked up. A donor can also file a complaint against the donee based on their interaction. Donors can exist in three states in the platform: Initial, Active, Inactive, or Suspended. Donors who register with the platform are in the Initial state awaiting approval from the broker. If a donor in Active state has not donated in two weeks their status becomes Inactive. Donors in the Suspended state cannot access the app.
 </p> 
 <p>
-The <b>Donee</b>, an individual or organization, can request food that has been donated by the donor. They can filter the food choices by cuisine or to not include an allergen. They can also filter food choices based on preference. Once they have selected a food item to order, they must specify the quantity and the time of delivery. There are limits to the amount of food they can order. For example, the donee cannot order an unlimited amount of food. The quantity requested must be approved by the broker before taking effect. The Donee can also rate the Donor using a five-star rating system to share their experience with other donees.
+The <b>Donee</b>, an individual or organization,can request for donated food. Once they have selected a food item to order,they must specify the quantity and the time of pickup. There are limits to the amount of food they can order in a given time interval. The quantity they can request is based on the number of members they have registered with. A donee can rate or file a complaint against the donor based on their interaction. Donees can exist in three states: Initial, Active or Suspended. Donees who register with the platform are in the Initial state awaiting approval from the broker. Only donees in the Active state can make food request. Donees in the Suspended state cannot access the app.
 </p>
-<p>
-The following is only true for both Donor and Donee:
-</p>
-
-* Both can file complaints based on their interaction with each other to the broker.
-
-* Both have a status indicating their state of activity (active/inactive/suspended) that the broker can update.
-
 <p> 
-The <b>Broker</b> is responsible for managing the system which includes: updating user status and resolving complaints. If a user, other than the broker, has not interacted with the system, then it is up to the broker to inform the other users of that user's activity. The <b>system</b> fulfills that responsibility by <i>automatically</i> updating the status of the user. The same responsibility is applied if a user has interacted with the system after a long period of inactivity. If a user (both Donor and Donee) behaves in a way that violates the terms of service provided by the app, other users can file a complaint that the broker has to evaluate and resolve. The broker then confirms whether a user has indeed violated the terms of service, and prevents them from further interacting with the system. The broker can also view all requests made by the system.
+The <b>Broker</b> manages the system. Brokers can view all user profiles, requests, and donated food. The broker can update donor anddonee statuses and can resolve complaints.
 </p>
 
 ## How To Run
