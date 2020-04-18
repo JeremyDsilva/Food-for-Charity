@@ -23,9 +23,14 @@
     <div th:replace="fragments/navbar :: index-header">header</div>
 
 
-    <section>
-        <div layout:fragment="content"></div>
-    </section>
+    <!-- <section> -->
+    <div class="m-5">
+        <div layout:fragment="content">
+
+
+        </div>
+        <!-- </section> -->
+    </div>
 
     <div th:replace="~{fragments/footer :: footer}">footer</div>
 </body>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+    <title>Register</title>
+</head>
+
+<body>
+    <div layout:fragment="content" class="container">
+        <div class="justify-content-center align-items-center">
+            <div>
+                <a th:href="@{donee-register}" class="btn btn-warning btn-lg btn-block">Donee</a>
+                <a th:href="@{donor-register}" class="btn btn-info btn-lg btn-block">Restaurant</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -42,6 +42,10 @@ public class PersonController extends AbstractController {
         return "redirect:/" + getPersonRole().toLowerCase() + "/home";
     }
 
+    @GetMapping(value = "/register")
+    public String getRegisterView(){
+        return "register";
+    }
     // @GetMapping(value = {"/change-password", "/change-password/?success",
     // "/change-password/?error"})
     @GetMapping(value = "/change-password")
