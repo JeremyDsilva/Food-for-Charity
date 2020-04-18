@@ -10,15 +10,19 @@ import javax.validation.Valid;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;
 import com.foodforcharity.app.usecase.profile.deletemenuitem.DeleteMenuItemCommand;
+import com.foodforcharity.app.usecase.profile.getdonor.GetDonorCommand;
 import com.foodforcharity.app.usecase.profile.getmenuitem.GetMenuItemCommand;
 import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemCommand;
+import com.foodforcharity.app.web.dto.DonorDto;
 import com.foodforcharity.app.web.dto.FoodDto;
 import com.foodforcharity.app.web.model.MenuModel;
+import com.foodforcharity.app.web.model.RegisterRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,7 +47,20 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/home")
-    public String getDonorHomepageView() {
+    public String getDonorHomepageView(Model model) throws ExecutionException {
+
+        GetDonorCommand command = new GetDonorCommand(getPersonId());
+
+        Response<Donor> response = publishAsync(command).get();
+
+        if(response.hasError()){
+            model.addAttribute("error", response.getError());
+        }
+
+        DonorDto donor = new DonorDto(response.getResponse());
+
+        model.addAttribute("donor", donor);
+
         return "donor/donor-homepage";
     }
 
