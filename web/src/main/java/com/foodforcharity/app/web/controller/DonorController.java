@@ -10,11 +10,14 @@ import javax.validation.Valid;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;
 import com.foodforcharity.app.usecase.profile.deletemenuitem.DeleteMenuItemCommand;
+import com.foodforcharity.app.usecase.profile.getmenuitem.GetMenuItemCommand;
 import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemCommand;
+import com.foodforcharity.app.web.dto.FoodDto;
 import com.foodforcharity.app.web.model.MenuModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,17 +53,29 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/edit-menu")
-    public String getEditMenu(MenuModel menuModel, @RequestParam(value = "id", required = false) Optional<Long> id){
+    public String getEditMenu(MenuModel menuModel,
+            @RequestParam(value = "foodId", required = false) Optional<Long> foodId, Model model)
+            throws ExecutionException {
 
-        if(id.isPresent()){
+        if (foodId.isPresent()) {
+            GetMenuItemCommand command = new GetMenuItemCommand(getPersonId(), foodId.get());
 
+            Response<Food> response = publishAsync(command).get();
 
-            
+            if (response.hasError()) {
+                menuModel.setError(response.getError());
+                return "redirect:/";
+            }
+
+            FoodDto food = new FoodDto(response.getResponse());
+
+            menuModel.setSuccess(true);
+            model.addAttribute("menuModel", food);
+        } else {
+            model.addAttribute("menuModel", new MenuModel());
         }
 
-
-
-        return "donor/edit-menu-item";
+        return "donor/edit-menu";
     }
 
     @PostMapping(value = "/edit-menu")
@@ -80,19 +95,19 @@ public class DonorController extends AbstractController {
 
         if (response.hasError()) {
             menuModel.setError(response.getError());
-            return "edit-menu";
+            return "reditrect:/";
         }
         model.addAttribute("success", withSuccess(menuModel));
-        return "redirect:/";
+        return "menu";
 
     }
 
     @PutMapping(value = "/edit-menu")
-    public String updateMenuItem(@RequestParam(value = "itemId") long itemId, @Valid MenuModel menuModel,
-            BindingResult result, Model model) throws ExecutionException {
+    public String updateMenuItem(@RequestParam(value = "itemId", required = true) long itemId,
+            @Valid MenuModel menuModel, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
-            return "menu-items";
+            return "edit-menu";
         }
 
         ModifyMenuItemCommand modifyMenuItemCommand = new ModifyMenuItemCommand(getPersonId(), itemId);
@@ -101,30 +116,27 @@ public class DonorController extends AbstractController {
 
         if (response.hasError()) {
             menuModel.setError(response.getError());
-            return "menu-items";
+            return "reditrect:/";
         }
         model.addAttribute("success", withSuccess(menuModel));
-        return "redirect:/";
+        return "menu";
 
     }
 
-    @DeleteMapping(value = "/delete-menu-item")
-    public String deleteMenuItem(@RequestParam(value = "foodId") long foodId, @Valid MenuModel menuModel,
-            BindingResult result, Model model) throws ExecutionException {
+    @DeleteMapping(value = "/delete-menu")
+    public String deleteMenuItem(@RequestParam(value = "foodId", required = true) long foodId,
+            @Valid MenuModel menuModel, Model model) throws ExecutionException {
 
-        if (result.hasErrors()) {
-            return "menu-items";
-        }
         DeleteMenuItemCommand deleteMenuItemCommand = new DeleteMenuItemCommand(getPersonId(), foodId);
 
         Response<Void> response = publishAsync(deleteMenuItemCommand).get();
 
         if (response.hasError()) {
             menuModel.setError(response.getError());
-            return "menu-items";
+            return "menu";
         }
         model.addAttribute("success", withSuccess(menuModel));
-        return "redirect:/";
+        return "menu";
     }
 
 }
