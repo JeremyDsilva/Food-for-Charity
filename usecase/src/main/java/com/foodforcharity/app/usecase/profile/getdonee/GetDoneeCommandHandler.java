@@ -27,8 +27,8 @@ public class GetDoneeCommandHandler implements CommandHandler<GetDoneeCommand, R
 		
 		Optional<Person> dbPerson = service.findById(command.getPersonId());
 
-		if(dbPerson.isEmpty() || dbPerson.get() instanceof Donee)
-			return Response.of(Error.DonorDoesNotExist);
+		if(dbPerson.isEmpty() || !(dbPerson.get() instanceof Donee))
+			return Response.of(Error.DoneeDoesNotExist);
 
 		return Response.of((Donee) dbPerson.get());			
 	}
