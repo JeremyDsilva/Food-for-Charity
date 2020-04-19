@@ -1,7 +1,7 @@
 # Food for Charity 
 This project is still under development
 
-Food for Charity is a web-based application that connects restaurants who have food in excess and wish to donate with individuals and organizations who need food. Restaurant supply information on the food they are willing to donate and those in need can reserve this food. The goal of this app is to reduce food wastage in society. This is a group software engineering project built using Spring Boot, Spring Data and Spring Security. Our professor is our primary client.
+Food for Charity is a web-based application that connects restaurants who have food in excess and wish to donate with individuals and organizations who need food. Restaurant supply information on the food they are willing to donate and those in need can reserve this food. The goal of this app is to reduce food wastage in society. This is a group software engineering university project built using Spring Boot, Spring Data and Spring Security. Our professor is our primary client.
 
 ## About The App
 The app handles the interaction between 3 main users: **Donor**, **Donee** and **Broker**.</br> 
