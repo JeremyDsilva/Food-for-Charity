@@ -113,12 +113,12 @@ public class PersonController extends AbstractController {
     }
 
     @GetMapping(value = "/donor-register/**")
-    public String getDonorRegisterView(DonorRegisterRequest request) {
+    public String getDonorRegisterView(DonorRegisterRequest request, Model model) {
         return "donor-register";
     }
 
     @PostMapping(value = "/donor-register")
-    public String registerDonor(@Valid DonorRegisterRequest request, BindingResult result) throws ExecutionException {
+    public String registerDonor(@Valid DonorRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
             return "donor-register";
@@ -137,12 +137,12 @@ public class PersonController extends AbstractController {
 
         if(response.hasError()){
             request.setError(response.getError());
-        } else {
-            request = new DonorRegisterRequest();
-            request.setSuccess(true);
+            return "/donor-register";
         }
 
-        return getDonorRegisterView(withSuccess(new DonorRegisterRequest()));
+        model.addAttribute("success", withSuccess(request));
+
+        return getDonorRegisterView(withSuccess(new DonorRegisterRequest()), model);
     }
 
 }
