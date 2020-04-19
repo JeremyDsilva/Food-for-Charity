@@ -1,5 +1,6 @@
 package com.foodforcharity.app.web.dto;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +14,7 @@ public class DonorDto {
 
     private long id;
 
-    private String donorName;
+    private String name;
 
     private String addressDescription;
 
@@ -37,12 +38,14 @@ public class DonorDto {
         this.city = donor.getCity();
         this.country = donor.getCountry();
         this.discountApplied = donor.getDiscountApplied();
-        this.donorName = donor.getDonorName();
+        this.name = donor.getDonorName();
         this.donorStatus = donor.getDonorStatus();
         this.email = donor.getEmail();
 
-        this.foods = donor.getFoods().stream().map(food -> new FoodDto(food)).collect(Collectors.toList());
-        this.foods.forEach(food -> food.setPrice(food.getPrice() * getDiscountApplied()/100));
+        if(donor.getFoods() != null)
+            this.foods = donor.getFoods().stream().map(food -> new FoodDto(food)).collect(Collectors.toList());
+        else
+            this.foods = Collections.emptyList();
         
         this.rating = donor.getNumberOfRating() != 0? donor.getRating() / donor.getNumberOfRating() : -1;
     }

@@ -27,7 +27,7 @@ public class GetDonorCommandHandler implements CommandHandler<GetDonorCommand, R
 		
 		Optional<Person> dbPerson = service.findById(command.getPersonId());
 
-		if(dbPerson.isEmpty() || dbPerson.get() instanceof Donor)
+		if(dbPerson.isEmpty() || !(dbPerson.get() instanceof Donor))
 			return Response.of(Error.DonorDoesNotExist);
 
 		return Response.of((Donor) dbPerson.get());			
