@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-// @RequestMapping("/user")
 public class PersonController extends AbstractController {
 
     @Autowired
@@ -44,10 +43,9 @@ public class PersonController extends AbstractController {
 
     @GetMapping(value = "/register")
     public String getRegisterView(){
-        return "register";
+        return "home/register";
     }
-    // @GetMapping(value = {"/change-password", "/change-password/?success",
-    // "/change-password/?error"})
+    
     @GetMapping(value = "/change-password")
     public String getChangePasswordView(ChangePasswordRequest request) {
         return "change-password";
@@ -55,8 +53,6 @@ public class PersonController extends AbstractController {
 
     @PostMapping(value = "/change-password")
     public String changePassword(@Valid ChangePasswordRequest request, BindingResult result) throws ExecutionException {
-
-
 
         if (result.hasErrors()) {
             return "change-password";
@@ -74,28 +70,24 @@ public class PersonController extends AbstractController {
 
         if (response.hasError()) {
             request.setError(response.getError());
-            return "change-password";
-        } 
+        } else {
+            request = withSuccess(new ChangePasswordRequest());
+        }
             
-        return getChangePasswordView(withSuccess(new ChangePasswordRequest()));
+        return "change-password";
     }
 
     @GetMapping(value = "/donee-register")
     public String getDoneeRegisterView(DoneeRegisterRequest request, Model model) {
-        return "donee-register";
+        return "home/donee-register";
     }
 
     @PostMapping(value = "/donee-register")
     public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
-            return "donee-register";
+            return "home/donee-register";
         }
-
-        // if(request.getPassword() != request.getConfirmPassword()){
-        //     result.addError(new ObjectError("confirmPassword", "Passwords don't match"));
-        //     return "donee-register";
-        // }
 
         DoneeRegisterationCommand command = new DoneeRegisterationCommand(request.getName(), request.getPassword(),
                 request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),
@@ -105,29 +97,24 @@ public class PersonController extends AbstractController {
 
         if(response.hasError()){
             request.setError(response.getError());
-            return "/donee-register";
+        } else {
+            request = withSuccess(new DoneeRegisterRequest()); 
         }
-        model.addAttribute("success", withSuccess(request));
             
-        return getDoneeRegisterView(withSuccess(new DoneeRegisterRequest()), model);
+        return "home/donee-register";
     }
 
     @GetMapping(value = "/donor-register/**")
     public String getDonorRegisterView(DonorRegisterRequest request, Model model) {
-        return "donor-register";
+        return "home/donor-register";
     }
 
     @PostMapping(value = "/donor-register")
     public String registerDonor(@Valid DonorRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
-            return "donor-register";
+            return "home/donor-register";
         }
-
-        // if(request.getPassword() != request.getConfirmPassword()){
-        //     result.addError(new ObjectError("confirmNewPassword", "Passwords don't match"));
-        //     return "donor-register";
-        // }
 
         DonorRegisterationCommand command = new DonorRegisterationCommand(request.getName(), request.getPassword(),
                 request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),
@@ -137,12 +124,11 @@ public class PersonController extends AbstractController {
 
         if(response.hasError()){
             request.setError(response.getError());
-            return "/donor-register";
+        } else {
+            request =  withSuccess(new DonorRegisterRequest()); 
         }
 
-        model.addAttribute("success", withSuccess(request));
-
-        return getDonorRegisterView(withSuccess(new DonorRegisterRequest()), model);
+        return "home/donor-register";
     }
 
 }
