@@ -43,7 +43,7 @@ public class PersonController extends AbstractController {
 
     @GetMapping(value = "/register")
     public String getRegisterView(){
-        return "home/register";
+        return "/register";
     }
     
     @GetMapping(value = "/change-password")
@@ -52,14 +52,14 @@ public class PersonController extends AbstractController {
     }
 
     @PostMapping(value = "/change-password")
-    public String changePassword(@Valid ChangePasswordRequest request, BindingResult result) throws ExecutionException {
+    public String changePassword(@Valid ChangePasswordRequest request, BindingResult result, Model model) throws ExecutionException {
 
-        if (result.hasErrors()) {
+        if(!request.getConfirmNewPassword().equals(request.getNewPassword())){
+            result.addError(new ObjectError("confirmNewPassword", "Passwords don't match"));
             return "change-password";
         }
 
-        if(request.getConfirmNewPassword() != request.getNewPassword()){
-            result.addError(new ObjectError("confirmNewPassword", "Passwords don't match"));
+        if (result.hasErrors()) {
             return "change-password";
         }
 
@@ -71,7 +71,7 @@ public class PersonController extends AbstractController {
         if (response.hasError()) {
             request.setError(response.getError());
         } else {
-            request = withSuccess(new ChangePasswordRequest());
+            model.addAttribute("changePasswordRequest", withSuccess(new ChangePasswordRequest()));
         }
             
         return "change-password";
@@ -79,14 +79,19 @@ public class PersonController extends AbstractController {
 
     @GetMapping(value = "/donee-register")
     public String getDoneeRegisterView(DoneeRegisterRequest request, Model model) {
-        return "home/donee-register";
+        return "donee-register";
     }
 
     @PostMapping(value = "/donee-register")
     public String registerDonee(@Valid DoneeRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
+        if(!request.getConfirmPassword().equals(request.getPassword())){
+            result.addError(new ObjectError("confirmPassword", "Passwords don't match"));
+            return "donee-register";
+        }
+
         if (result.hasErrors()) {
-            return "home/donee-register";
+            return "donee-register";
         }
 
         DoneeRegisterationCommand command = new DoneeRegisterationCommand(request.getName(), request.getPassword(),
@@ -98,22 +103,27 @@ public class PersonController extends AbstractController {
         if(response.hasError()){
             request.setError(response.getError());
         } else {
-            request = withSuccess(new DoneeRegisterRequest()); 
+            model.addAttribute("doneeRegisterRequest", withSuccess(new DoneeRegisterRequest())); 
         }
             
-        return "home/donee-register";
+        return "donee-register";
     }
 
-    @GetMapping(value = "/donor-register/**")
+    @GetMapping(value = "/donor-register")
     public String getDonorRegisterView(DonorRegisterRequest request, Model model) {
-        return "home/donor-register";
+        return "donor-register";
     }
 
     @PostMapping(value = "/donor-register")
     public String registerDonor(@Valid DonorRegisterRequest request, BindingResult result, Model model) throws ExecutionException {
 
+        if(!request.getConfirmPassword().equals(request.getPassword())){
+            result.addError(new ObjectError("confirmPassword", "Passwords don't match"));
+            return "donor-register";
+        }
+
         if (result.hasErrors()) {
-            return "home/donor-register";
+            return "donor-register";
         }
 
         DonorRegisterationCommand command = new DonorRegisterationCommand(request.getName(), request.getPassword(),
@@ -125,10 +135,10 @@ public class PersonController extends AbstractController {
         if(response.hasError()){
             request.setError(response.getError());
         } else {
-            request =  withSuccess(new DonorRegisterRequest()); 
+            model.addAttribute("donorRegisterRequest", withSuccess(new DonorRegisterRequest())); 
         }
 
-        return "home/donor-register";
+        return "donor-register";
     }
 
 }
