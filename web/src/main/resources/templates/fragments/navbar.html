@@ -66,7 +66,7 @@
     <div th:fragment="donor-header" id="content" class="p-4 p-md-5 pt-5" th:object="${donor}">
         <div class="bs-example">
             <nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
-                <a th:href="@{home}" class="navbar-brand">Food for Charity</a>
+                <a th:href="@{/home}" class="navbar-brand">Food for Charity</a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -78,7 +78,8 @@
                         <a th:href="@{orders}" class="nav-item nav-link active">Orders</a>
                     </div>
                     <div class="navbar-nav ml-auto">
-                        <a th:href="@{view-profile}" class="btn nav-item nav-link" th:text="*{name}">Name</a>
+                        <a th:href="@{view-profile}" class="btn nav-item nav-link mr-1">Name</a>
+                        <!--th:text="*{name}"-->
                         <a th:href="@{/logout}" class="btn btn-danger nav-item nav-link">Logout</a>
                     </div>
                 </div>

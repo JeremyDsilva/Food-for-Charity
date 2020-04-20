@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div th:switch="${menuModel}" class="container my-5">
                         <p class="my-5">
-                            <a th:href="@{menu}" class="btn btn-primary">
+                            <a th:href="@{edit-menu}" class="btn btn-primary">
                                 <i><span class="oi oi-menu"></span> Add Menu Item </i></a>
                         </p>
                         <div class="col-sm-12">
@@ -50,9 +50,9 @@
                                             <td th:text="${menuModel.cuisine}"></td>
                                             <td th:text="${menuModel.allergen}"></td>
 
-                                            <!-- <tr th:each="allergen : ${menuModel.allergen}">
-                                                <td th:text="${allergen}"></td>
-                                            </tr> -->
+                                            <ul th:each="allergen : ${menuModel.allergen}">
+                                                <li th:text="${allergen}"></li>
+                                            </ul>
                                             <td>
                                                 <a th:href="@{edit-menu}" class="btn btn-warning">
                                                     <span class="oi oi-pencil"></span> </a>
