@@ -41,13 +41,13 @@ public class MenuModel extends Request{
     
     @NotNull(message = "Spice level cannot be empty")
     @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "The number should be digits")
-    private List<SpiceLevel> spiceLevel;
+    private SpiceLevel spiceLevel;
     
     @NotNull(message = "Meal type cannot be empty")
-    private List<MealType> mealTypes;
+    private MealType mealTypes;
     
     @NotNull(message = "Cuisine cannot be empty")
-    private List<Cuisine> cuisines;
+    private Cuisine cuisines;
     
     @NotNull(message = "Allergen cannot be empty")
     private Set<Allergen> allergen;

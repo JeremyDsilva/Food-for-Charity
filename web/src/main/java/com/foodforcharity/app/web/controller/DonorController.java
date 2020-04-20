@@ -53,7 +53,7 @@ public class DonorController extends AbstractController {
 
         Response<Donor> response = publishAsync(command).get();
 
-        if(response.hasError()){
+        if (response.hasError()) {
             model.addAttribute("error", response.getError());
         }
 
@@ -104,9 +104,8 @@ public class DonorController extends AbstractController {
 
         AddMenuCommand addMenuCommand = new AddMenuCommand(getPersonId(), menuModel.getFoodName(),
                 menuModel.getDescriptionText(), menuModel.getOriginalPrice(), menuModel.getMealForNPeople(),
-                menuModel.getQuantityAvailable(), SpiceLevel.valueOf(menuModel.getSpiceLevel()),
-                MealType.valueOf(menuModel.getMealType()), Cuisine.valueOf(menuModel.getCuisine()),
-                menuModel.getAllergen());
+                menuModel.getQuantityAvailable(), menuModel.getSpiceLevel(), menuModel.getMealTypes(),
+                menuModel.getCuisines(), menuModel.getAllergen());
 
         Response<Void> response = publishAsync(addMenuCommand).get();
 
