@@ -11,6 +11,7 @@ import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Donee;
@@ -134,10 +135,6 @@ public class CreateRequestTest {
 
     }
 
-    // @Test
-    // public void test() {
-    // }
-
     @Test
     public void successTest() {
 
@@ -148,4 +145,152 @@ public class CreateRequestTest {
         assert (response.success());
     }
 
+    // --------------2--------------
+    @Test
+    public void DoneeDoesNotExistTest() {
+
+        CreateRequestCommand command = new CreateRequestCommand(Long.valueOf(1000), donor.getId());
+        command.addFood(food.getId(), 1);
+
+        assert (handler.handle(command).getError() == Error.DoneeDoesNotExist);
+
+    }
+
+    // --------------3--------------
+    @Test
+    public void DonorDoesNotExistTest() {
+
+        CreateRequestCommand command = new CreateRequestCommand(donee.getId(), Long.valueOf(1000));
+        command.addFood(food.getId(), 1);
+
+        assert (handler.handle(command).getError() == Error.DonorDoesNotExist);
+
+    }
+
+    // --------------4--------------
+    @Test
+    public void IneligibleDonorStatusTest() {
+        DonorStatus donorStatusToRemember = donor.getDonorStatus(); // save it for later
+
+        donor.setDonorStatus(DonorStatus.Initial);
+        donorRepos.save(donor);
+
+        CreateRequestCommand commandIntial = new CreateRequestCommand(donee.getId(), donor.getId());
+        commandIntial.addFood(food.getId(), 1);
+        Response<Void> responseIntitial = handler.handle(commandIntial);
+
+        donor.setDonorStatus(DonorStatus.Suspended);
+        donorRepos.save(donor);
+
+        CreateRequestCommand commandSuspended = new CreateRequestCommand(donee.getId(), donor.getId());
+        commandSuspended.addFood(food.getId(), 1);
+        Response<Void> responseSuspended = handler.handle(commandSuspended);
+
+        assert (responseSuspended.getError() == Error.IneligibleDonorStatus
+                && responseIntitial.getError() == Error.IneligibleDonorStatus);
+
+        // reset all changes
+        donor.setDonorStatus(donorStatusToRemember);
+        donorRepos.save(donor);
+
+    }
+
+    // --------------5--------------
+    @Test
+    public void IneligibleDoneeStatusTest() {
+        DoneeStatus doneeStatusToRemember = donee.getDoneeStatus(); // save it for later
+
+        donee.setDoneeStatus(DoneeStatus.Initial);
+        doneeRepos.save(donee);
+
+        CreateRequestCommand commandIntial = new CreateRequestCommand(donee.getId(), donor.getId());
+        commandIntial.addFood(food.getId(), 1);
+        Response<Void> responseIntitial = handler.handle(commandIntial);
+
+        donee.setDoneeStatus(DoneeStatus.Suspended);
+        doneeRepos.save(donee);
+
+        CreateRequestCommand commandSuspended = new CreateRequestCommand(donee.getId(), donor.getId());
+        commandSuspended.addFood(food.getId(), 1);
+        Response<Void> responseSuspended = handler.handle(commandSuspended);
+
+        assert (responseSuspended.getError() == Error.IneligibleDoneeStatus
+                && responseIntitial.getError() == Error.IneligibleDoneeStatus);
+
+        // reset all changes
+        donee.setDoneeStatus(doneeStatusToRemember);
+        doneeRepos.save(donee);
+
+    }
+
+    //// --------------6--------------
+    @Test
+    public void FoodDoesNotExistTest() {
+
+        CreateRequestCommand command = new CreateRequestCommand(donee.getId(), donor.getId());
+        command.addFood(100, 1);
+
+        assert (handler.handle(command).getError() == Error.FoodDoesNotExist);
+
+    }
+
+    // --------------7--------------
+    @Test
+    public void InvalidQuantityRequested() {
+
+        CreateRequestCommand command = new CreateRequestCommand(donee.getId(), donor.getId());
+        command.addFood(food.getId(), 0);
+
+        assert (handler.handle(command).getError() == Error.InvalidQuantityRequested);
+
+
+    }
+
+    // --------------8--------------
+    @Test
+    public void QuanityAllowanceExceededTest() {
+        DoneeType doneeTypeToRemember = donee.getDoneeType(); // save it for later
+        Integer initialQuantityRequested = donee.getQuantityRequested();
+        Integer initialFoodQuantityAvailable = food.getQuantityAvailable();
+
+        donee.setDoneeType(DoneeType.Individual);
+        donee.setQuantityRequested(donee.getMemberCount());
+        doneeRepos.save(donee);
+
+        Integer quantityToRequest = 1;
+        CreateRequestCommand command1 = new CreateRequestCommand(donee.getId(), donor.getId());
+        command1.addFood(food.getId(), quantityToRequest);
+        Response<Void> response1 = handler.handle(command1);
+
+        //////////////////// simple decision 2//////////////
+
+        donee.setDoneeType(DoneeType.Individual);
+        donee.setQuantityRequested(initialQuantityRequested);
+        doneeRepos.save(donee);
+
+        food.setQuantityAvailable(initialQuantityRequested + 100);
+        foodRepos.save(food);
+
+        CreateRequestCommand command2 = new CreateRequestCommand(donee.getId(), donor.getId());
+        command2.addFood(food.getId(), food.getQuantityAvailable()); // maximum that they can asknwithout getting food
+                                                                     // shortage error
+        Response<Void> response2 = handler.handle(command2);
+
+        assert (response1.getError() == Error.QuanityAllowanceExceeded
+                && response2.getError() == Error.QuanityAllowanceExceeded);
+
+        // reset all changes
+        donee.setDoneeType(doneeTypeToRemember);
+        donee.setQuantityRequested(initialQuantityRequested);
+        doneeRepos.save(donee);
+
+        food.setQuantityAvailable(initialFoodQuantityAvailable);
+        foodRepos.save(food);
+
+    }
+
+
+
+
+    // while loop test 
 }

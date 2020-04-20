@@ -112,8 +112,7 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 			// 6- calculate the total Original price
 			Integer finalPrice = getTotalOriginalPrice(foods, command.foodQuantityPairs)
 					* (100 - donor.getDiscountApplied() / 100);
-			// Integer finalPrice = (int) price.doubleValue();
-
+			
 			// 7-create request
 			Request request = new Request(); // assuming that id has already been generated
 			request.setDonor(donor);
