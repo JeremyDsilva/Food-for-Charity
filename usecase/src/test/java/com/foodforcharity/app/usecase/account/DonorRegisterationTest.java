@@ -33,10 +33,19 @@ public class DonorRegisterationTest {
     }
 
     @Test
-    public void emailErrorTest() {
+    public void InvalidemailErrorTest() {
         DonorRegisterationCommand command = new DonorRegisterationCommand("DonorName", "DonorPassword", "donorEmail",
                 "12334566", "DonorCity", "DonorCountry", "DonorAddress");
         assert (handler.handle(command).getError() == Error.InvalidEmail);
     }
 
+
+
+    @Test
+    public void EmailAlreadyExistTest() {
+        successTest();
+        DonorRegisterationCommand command = new DonorRegisterationCommand("DonorName", "DonorPassword", "donorEmail@gmail.com",
+                "12334566", "DonorCity", "DonorCountry", "DonorAddress");
+        assert (handler.handle(command).getError() == Error.EmailAlreadyExist);
+    }
 }

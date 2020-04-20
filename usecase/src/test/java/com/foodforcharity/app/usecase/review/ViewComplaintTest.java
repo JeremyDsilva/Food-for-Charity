@@ -70,6 +70,7 @@ public class ViewComplaintTest {
 
         if (dbComplaint.isPresent()) {
             complaintFromDonor= dbComplaint.get();
+            donor= complaintFromDonor.getRequest().getDonor();
 
         } else {
             Optional<Request> dbRequest = requestRepos.findById(Long.valueOf(1));
