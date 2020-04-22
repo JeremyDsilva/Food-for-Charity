@@ -15,18 +15,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@EntityScan(basePackages = { "com.foodforcharity.app.domain.entity" })
+@EntityScan(basePackages = {"com.foodforcharity.app.domain.entity"})
 @EnableJpaRepositories(basePackages = "com.foodforcharity.app.infrastructure.repository")
-@ComponentScan(basePackages = { "com.foodforcharity.app.domain" })
-@ComponentScan(basePackages = { "com.foodforcharity.app.infrastructure" })
+@ComponentScan(basePackages = {"com.foodforcharity.app.domain"})
+@ComponentScan(basePackages = {"com.foodforcharity.app.infrastructure"})
 public class ApplicationTests {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApplicationTests.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ApplicationTests.class, args);
+    }
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
 }

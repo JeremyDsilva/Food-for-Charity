@@ -1,17 +1,7 @@
 package com.foodforcharity.app.usecase.profile;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import com.foodforcharity.app.domain.constant.Allergen;
-import com.foodforcharity.app.domain.constant.Cuisine;
-import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.Error;
-import com.foodforcharity.app.domain.constant.MealType;
-import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.constant.*;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -19,13 +9,14 @@ import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemCommand;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

@@ -9,9 +9,9 @@ public class MediatorImplementation implements Mediator {
 
     private Hashtable<Class<? extends Command<?>>, CommandHandler> commandHandlerMap;
 
-	public MediatorImplementation(List<CommandHandler<?, ?>> handlers) {
+    public MediatorImplementation(List<CommandHandler<?, ?>> handlers) {
         commandHandlerMap = new Hashtable<Class<? extends Command<?>>, CommandHandler>();
-        
+
         for (CommandHandler<?, ?> handler : handlers) {
             ParameterizedType parameterizedType = (ParameterizedType) handler.getClass().getGenericInterfaces()[0];
             Type[] typeArguments = parameterizedType.getActualTypeArguments();

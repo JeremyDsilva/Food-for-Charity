@@ -1,24 +1,18 @@
 package com.foodforcharity.app.web.controller;
 
-import java.util.concurrent.ExecutionException;
-
-import javax.validation.Valid;
-
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand;
 import com.foodforcharity.app.web.model.FoodPreferences;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/donee")
@@ -53,7 +47,7 @@ public class DoneeController extends AbstractController {
     // --------------Food Preferences----------------
 
     @GetMapping(value = "/food-preferences")
-    public String getFoodPreferencesView(FoodPreferences foodPreferences){
+    public String getFoodPreferencesView(FoodPreferences foodPreferences) {
         return "donee/food-preferences";
     }
 
@@ -65,10 +59,10 @@ public class DoneeController extends AbstractController {
     @PostMapping(value = "/edit-food-preferences")
     public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model) throws ExecutionException {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "donee/food-preferences";
         }
-        
+
         SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
         Response<Void> response = publishAsync(selectPreferencesCommand).get();

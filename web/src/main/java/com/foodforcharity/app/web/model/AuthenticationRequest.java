@@ -42,7 +42,5 @@ public class AuthenticationRequest extends Request {
         this.password = password;
     }
 
-    
-    
-    
+
 }

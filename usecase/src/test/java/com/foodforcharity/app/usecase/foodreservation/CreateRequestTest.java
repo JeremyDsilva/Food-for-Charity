@@ -1,39 +1,28 @@
 package com.foodforcharity.app.usecase.foodreservation;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import com.foodforcharity.app.domain.constant.Allergen;
-import com.foodforcharity.app.domain.constant.Cuisine;
-import com.foodforcharity.app.domain.constant.DoneeStatus;
-import com.foodforcharity.app.domain.constant.DoneeType;
-import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.Error;
-import com.foodforcharity.app.domain.constant.MealType;
-import com.foodforcharity.app.domain.constant.SpiceLevel;
+import com.foodforcharity.app.domain.constant.*;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.domain.service.DoneeService;
 import com.foodforcharity.app.domain.service.DonorService;
-import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.infrastructure.repository.DoneeRepository;
 import com.foodforcharity.app.infrastructure.repository.DonorRepository;
 import com.foodforcharity.app.infrastructure.repository.FoodRepository;
 import com.foodforcharity.app.infrastructure.repository.RequestRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
-
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -106,9 +95,9 @@ public class CreateRequestTest {
     }
 
     @After
-    public void destroy(){
+    public void destroy() {
         donor = ((DonorService) donorRepos).findById(donor.getId()).get();
-        if(donor.getRequests() != null)
+        if (donor.getRequests() != null)
             requestRepos.deleteAll(donor.getRequests());
         foodRepos.deleteById(food.getId());
         donorRepos.deleteById(donor.getId());

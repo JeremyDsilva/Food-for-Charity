@@ -1,15 +1,5 @@
 package com.foodforcharity.app.web.controller;
 
-import static com.foodforcharity.app.web.model.Request.withSuccess;
-
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-
-import javax.validation.Valid;
-
-import com.foodforcharity.app.domain.constant.Cuisine;
-import com.foodforcharity.app.domain.constant.MealType;
-import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
@@ -22,19 +12,18 @@ import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemComma
 import com.foodforcharity.app.web.dto.DonorDto;
 import com.foodforcharity.app.web.dto.FoodDto;
 import com.foodforcharity.app.web.model.MenuModel;
-import com.foodforcharity.app.web.model.RegisterRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+
+import static com.foodforcharity.app.web.model.Request.withSuccess;
 
 @Controller
 @RequestMapping("/donor")
@@ -71,7 +60,7 @@ public class DonorController extends AbstractController {
 
     @GetMapping(value = "/edit-menu")
     public String getEditMenu(MenuModel menuModel,
-            @RequestParam(value = "foodId", required = false) Optional<Long> foodId, Model model)
+                              @RequestParam(value = "foodId", required = false) Optional<Long> foodId, Model model)
             throws ExecutionException {
 
         if (foodId.isPresent()) {
@@ -120,7 +109,7 @@ public class DonorController extends AbstractController {
 
     @PutMapping(value = "/edit-menu")
     public String updateMenuItem(@RequestParam(value = "itemId", required = true) long itemId,
-            @Valid MenuModel menuModel, BindingResult result, Model model) throws ExecutionException {
+                                 @Valid MenuModel menuModel, BindingResult result, Model model) throws ExecutionException {
 
         if (result.hasErrors()) {
             return "edit-menu";
@@ -141,7 +130,7 @@ public class DonorController extends AbstractController {
 
     @DeleteMapping(value = "/delete-menu")
     public String deleteMenuItem(@RequestParam(value = "foodId", required = true) long foodId,
-            @Valid MenuModel menuModel, Model model) throws ExecutionException {
+                                 @Valid MenuModel menuModel, Model model) throws ExecutionException {
 
         DeleteMenuItemCommand deleteMenuItemCommand = new DeleteMenuItemCommand(getPersonId(), foodId);
 

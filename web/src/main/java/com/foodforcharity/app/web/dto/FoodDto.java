@@ -1,14 +1,13 @@
 package com.foodforcharity.app.web.dto;
 
-import java.util.Set;
-
 import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
 import com.foodforcharity.app.domain.entity.Food;
-
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class FoodDto {
@@ -33,7 +32,7 @@ public class FoodDto {
 
     private MealType mealType;
 
-    public FoodDto(Food food){
+    public FoodDto(Food food) {
         this.allergens = food.getAllergens();
         this.cuisine = food.getCuisine();
         this.descriptionText = food.getDescriptionText();

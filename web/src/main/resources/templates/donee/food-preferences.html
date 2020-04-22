@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donee/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{donee/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -9,54 +10,54 @@
 
 <body>
 
-    <div layout:fragment="content" class="container">
+<div layout:fragment="content" class="container">
 
-        <div class="container" th:object="${foodPreferences}" th:switch="${foodPreferences}">
-            <h2 th:case="null">No Food Preferences have been selected</h2>
-            <div th:case="*">
-                <div class="row justify-content-center">
-                    <div class="col-sm-4 border rounded">
-                        <h4>Spice Range</h4>
-                        <!-- <tr th:each="spiceRange : ${foodPreferences.spiceRange}"> -->
-                        <tr th:each="spiceRange : ${spiceRange}">
-                            <td th:text="${spiceRange}"></td>
-                        </tr>
-                    </div>
-                    <div class="col-sm-4 border rounded">
-                        <h4>Allergen</h4>
-                        <tr th:each="allergen : ${allergens}">
-                            <td th:text="${allergen}"></td>
-                        </tr>
-                    </div>
-                    <div class="col-sm-4 border rounded">
-                        <h4>Price Range</h4>
-                        <tr th:each="priceRange : ${priceRange}">
-                            <td th:text="${priceRange}"></td>
-                        </tr>
-                    </div>
+    <div class="container" th:object="${foodPreferences}" th:switch="${foodPreferences}">
+        <h2 th:case="null">No Food Preferences have been selected</h2>
+        <div th:case="*">
+            <div class="row justify-content-center">
+                <div class="col-sm-4 border rounded">
+                    <h4>Spice Range</h4>
+                    <!-- <tr th:each="spiceRange : ${foodPreferences.spiceRange}"> -->
+                    <tr th:each="spiceRange : ${spiceRange}">
+                        <td th:text="${spiceRange}"></td>
+                    </tr>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-sm-4 border rounded">
-                        <h4>Cuisines</h4>
-                        <tr th:each="cuisines : ${cuisines}">
-                            <td th:text="${cuisines}"></td>
-                        </tr>
-                    </div>
-                    <div class="col-sm-4 border rounded">
-                        <h4>Meal Types</h4>
-                        <tr th:each="mealTypes : ${mealTypes}">
-                            <td th:text="${mealTypes}"></td>
-                        </tr>
-                    </div>
+                <div class="col-sm-4 border rounded">
+                    <h4>Allergen</h4>
+                    <tr th:each="allergen : ${allergens}">
+                        <td th:text="${allergen}"></td>
+                    </tr>
+                </div>
+                <div class="col-sm-4 border rounded">
+                    <h4>Price Range</h4>
+                    <tr th:each="priceRange : ${priceRange}">
+                        <td th:text="${priceRange}"></td>
+                    </tr>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-sm-4">
-                    <a class="btn btn-secondary" th:href="@{edit-food-preferences}">Edit Food Preferences</a>
+                <div class="col-sm-4 border rounded">
+                    <h4>Cuisines</h4>
+                    <tr th:each="cuisines : ${cuisines}">
+                        <td th:text="${cuisines}"></td>
+                    </tr>
+                </div>
+                <div class="col-sm-4 border rounded">
+                    <h4>Meal Types</h4>
+                    <tr th:each="mealTypes : ${mealTypes}">
+                        <td th:text="${mealTypes}"></td>
+                    </tr>
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-4">
+                <a class="btn btn-secondary" th:href="@{edit-food-preferences}">Edit Food Preferences</a>
+            </div>
+        </div>
     </div>
+</div>
 </body>
 
 </html>

@@ -4,21 +4,19 @@ import com.foodforcharity.app.domain.constant.*;
 import com.foodforcharity.app.domain.entity.*;
 import com.foodforcharity.app.domain.service.DoneeService;
 import com.foodforcharity.app.domain.service.DonorService;
-import com.foodforcharity.app.domain.service.FoodService;
 import com.foodforcharity.app.infrastructure.repository.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
- @RunWith(SpringRunner.class)
- @SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class RepositoryTest {
 
     @Autowired

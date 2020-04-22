@@ -1,23 +1,20 @@
 package com.foodforcharity.app.web.security;
 
-import java.util.Base64;
-import java.util.Date;
-import java.util.Optional;
-
 import com.foodforcharity.app.domain.security.PersonDetails;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.util.Base64;
+import java.util.Date;
+import java.util.Optional;
 
 /**
  * Utility Class for common Java Web Token operations
- *
  */
 @Component
 public class JwtProviderImplementaion implements JwtProvider {
@@ -31,7 +28,7 @@ public class JwtProviderImplementaion implements JwtProvider {
 
     @Autowired
     public JwtProviderImplementaion(@Value("${security.jwt.token.secret-key}") String secretKey,
-            @Value("${security.jwt.token.expiration}") long validityInMilliseconds) {
+                                    @Value("${security.jwt.token.expiration}") long validityInMilliseconds) {
 
         this.secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
         this.validityInMilliseconds = validityInMilliseconds;
@@ -39,7 +36,7 @@ public class JwtProviderImplementaion implements JwtProvider {
 
     /**
      * Create jwt token from persondetails
-     * 
+     *
      * @param personDetail
      * @return jwt token
      */

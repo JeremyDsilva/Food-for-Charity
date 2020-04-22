@@ -1,7 +1,5 @@
 package com.foodforcharity.app.usecase.account;
 
-import java.util.Optional;
-
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.DonorStatus;
@@ -14,13 +12,14 @@ import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.domain.service.PersonService;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.changestatus.ChangeStatusCommand;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Optional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

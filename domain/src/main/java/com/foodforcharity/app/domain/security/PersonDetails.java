@@ -1,14 +1,13 @@
 package com.foodforcharity.app.domain.security;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.foodforcharity.app.domain.entity.Person;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PersonDetails implements UserDetails {
 
@@ -38,9 +37,9 @@ public class PersonDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>();
-        
+
         authorities.add(new SimpleGrantedAuthority(role));
-        
+
         if (role != status) {
             authorities.add(new SimpleGrantedAuthority(status));
         }

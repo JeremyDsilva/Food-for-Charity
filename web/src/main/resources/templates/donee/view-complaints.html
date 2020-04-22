@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donee/layout}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donee/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -7,31 +7,32 @@
 </head>
 
 <body>
-    <script>
+<script>
         function SomeDeleteRowFunction(o) {
             //no clue what to put here?
             var p = o.parentNode.parentNode;
             p.parentNode.removeChild(p);
         }
-    </script>
-    <input type="button" onclick="window.location.href = '';" value="New Complaints" />
 
-    <table id="myTable">
-        <tr class="header">
-            <th style="width:10%;">Order Number</th>
-            <th style="width:60%;">Name</th>
-            <th style="width:40%;">Complaints</th>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>Flafel</td>
-            <td>Arabian</td>
-            <td><input type="button" onclick="SomeDeleteRowFunction(this)" value="delete" /></td>
-        </tr>
-    </table>
-    <template class="file-complaints">
+</script>
+<input type="button" onclick="window.location.href = '';" value="New Complaints"/>
 
-      </template>
+<table id="myTable">
+    <tr class="header">
+        <th style="width:10%;">Order Number</th>
+        <th style="width:60%;">Name</th>
+        <th style="width:40%;">Complaints</th>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Flafel</td>
+        <td>Arabian</td>
+        <td><input type="button" onclick="SomeDeleteRowFunction(this)" value="delete"/></td>
+    </tr>
+</table>
+<template class="file-complaints">
+
+</template>
 </body>
 
 </html>

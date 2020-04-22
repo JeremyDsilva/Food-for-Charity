@@ -1,11 +1,9 @@
 package com.foodforcharity.app.web.controller;
 
 import com.foodforcharity.app.mediator.Mediator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,7 @@ public class BrokerController extends AbstractController {
 
     @Autowired
     BrokerController(Mediator mediator) {
-       super(mediator);
+        super(mediator);
     }
 
     @GetMapping(value = "/home")
@@ -29,72 +27,66 @@ public class BrokerController extends AbstractController {
 
     //----------Donors and Donees------------
 
-    @GetMapping(value="donors")
+    @GetMapping(value = "donors")
     public String getListofDonors() {
         return new String();
     }
-    
-    @GetMapping(value="donees")
+
+    @GetMapping(value = "donees")
     public String getListofDonees() {
         return new String();
-    }  
-    
-    @GetMapping(value="donor")
+    }
+
+    @GetMapping(value = "donor")
     public String getDonorProfile(@RequestParam(value = "donor") long donorId) {
         return new String();
     }
-    
-    @GetMapping(value="donee")
+
+    @GetMapping(value = "donee")
     public String getDoneeProfile(@RequestParam(value = "donee") long doneeId) {
         return new String();
     }
-    
+
     @DeleteMapping(value = "donor")
-    public String deleteDonor(@RequestParam(value = "donor") long donorId){
+    public String deleteDonor(@RequestParam(value = "donor") long donorId) {
 
         return "redirect:/";
     }
 
     @DeleteMapping(value = "donee")
-    public String deleteDonee(@RequestParam(value = "donee") long doneeId){
+    public String deleteDonee(@RequestParam(value = "donee") long doneeId) {
 
         return "redirect:/";
     }
 
     //---------- Orders ------------
 
-    @GetMapping(value="orders")
+    @GetMapping(value = "orders")
     public String getListofOrders() {
         return new String();
     }
 
-    @GetMapping(value="order")
+    @GetMapping(value = "order")
     public String getOrder(@RequestParam(value = "orderId") long id) {
         return new String();
     }
 
-    @DeleteMapping(value="order")
+    @DeleteMapping(value = "order")
     public String deleteOrder(@RequestParam(value = "orderId") long id) {
         return new String();
     }
-    
+
 
     //---------- Comlaints ------------
 
 
-    @GetMapping(value="complaint")
+    @GetMapping(value = "complaint")
     public String getListofComplaints() {
         return new String();
     }
 
 
     //---------- Status ------------
-
-
-
-
-
-    
 
 
 }
