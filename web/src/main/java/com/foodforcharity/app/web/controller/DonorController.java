@@ -2,6 +2,7 @@ package com.foodforcharity.app.web.controller;
 
 import static com.foodforcharity.app.web.model.Request.withSuccess;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
@@ -65,7 +66,24 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/menu")
-    public String getMenu(MenuModel menuModel) {
+    public String getMenu(@Valid MenuModel request, Model model) throws ExecutionException {
+
+        GetDonorCommand command = new GetDonorCommand(getPersonId());
+
+        Response<Donor> response = publishAsync(command).get();
+
+        if (response.hasError()) {
+            request.setError(response.getError());
+        } else {
+            model.addAttribute("menuModel", withSuccess(new MenuModel()));
+        }
+
+        DonorDto donor = new DonorDto(response.getResponse());
+
+        List<FoodDto> foods = donor.getFoods();
+
+        model.addAttribute("foods", foods);
+
         return "donor/menu-items";
     }
 
@@ -111,7 +129,7 @@ public class DonorController extends AbstractController {
 
         if (response.hasError()) {
             menuModel.setError(response.getError());
-            return "reditrect:/";
+            return "redirect:/";
         }
         model.addAttribute("success", withSuccess(menuModel));
         return "menu";

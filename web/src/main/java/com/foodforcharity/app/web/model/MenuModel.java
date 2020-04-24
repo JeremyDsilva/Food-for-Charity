@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.foodforcharity.app.domain.constant.Allergen;
@@ -39,17 +40,16 @@ public class MenuModel extends Request{
     @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "The number should be digits")
     private int quantityAvailable;
     
-    @NotNull(message = "Spice level cannot be empty")
-    @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "The number should be digits")
+    @NotNull(message = "Please specify the spice level")
     private SpiceLevel spiceLevel;
     
-    @NotNull(message = "Meal type cannot be empty")
+    @NotNull(message = "Please specify the meal type")
     private MealType mealTypes;
     
-    @NotNull(message = "Cuisine cannot be empty")
+    @NotNull(message = "Please specify the meal cuisine")
     private Cuisine cuisines;
     
-    @NotNull(message = "Allergen cannot be empty")
+    @NotNull(message = "Please specify the meal allergen")
     private Set<Allergen> allergen;
 
 }
