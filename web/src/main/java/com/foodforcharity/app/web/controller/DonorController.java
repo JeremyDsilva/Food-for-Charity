@@ -1,19 +1,5 @@
 package com.foodforcharity.app.web.controller;
 
-<<<<<<< HEAD
-import static com.foodforcharity.app.web.model.Request.withSuccess;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-
-import javax.validation.Valid;
-
-import com.foodforcharity.app.domain.constant.Cuisine;
-import com.foodforcharity.app.domain.constant.MealType;
-import com.foodforcharity.app.domain.constant.SpiceLevel;
-=======
->>>>>>> acba97c9d8f6f410bbe7fcf48a3e87835392483d
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;

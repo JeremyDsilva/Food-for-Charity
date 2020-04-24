@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{donor/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donor/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +9,6 @@
 
 <body>
 
-<<<<<<< HEAD
     <div layout:fragment="content" class="container">
         <div class="container">
             <h3> Add Food Item</h3>
@@ -97,141 +95,6 @@
                             </div>
                         </div>
                     </div>
-=======
-<div layout:fragment="content" class="container">
-    <div class="container my-5">
-        <h3> Add Food Item</h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-10">
-                    <form action="#" th:action="@{edit-menu}" th:object="${menuModel}" method="post">
-                        <div class="container">
-                            <div class="row">
-                                <div class="form-group col-sm-3">
-                                    <label for="name">Meal Name</label>
-                                    <input type="text" class="form-control" th:field="*{foodName}" id="foodName"
-                                           name="foodName" placeholder="Ex: Biryani, Flafel..">
-                                    <div class="text-danger">
-                                        <small>
-                                            <td th:if="${#fields.hasErrors('foodName')}" th:errors="*{foodName}">Generic
-                                                Error
-                                            </td>
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-3">
-                                    <label for="name">Descripition</label>
-                                    <input type="text" class="form-control" th:field="*{descriptionText}"
-                                           id="descriptionText" name="descriptionText"
-                                           placeholder="Ex: Delicious arabian dish ">
-                                    <div class="text-danger">
-                                        <small>
-                                            <td th:if="${#fields.hasErrors('descriptionText')}"
-                                                th:errors="*{descriptionText}">Generic Error
-                                            </td>
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="form-group col-sm-2">
-                                    <label for="name">originalPrice</label>
-                                    <input type="text" class="form-control" th:field="*{originalPrice}"
-                                           id="originalPrice" name="originalPrice" placeholder="Ex: 10, 25 (dhs)">
-                                    <div class="text-danger">
-                                        <small>
-                                            <td th:if="${#fields.hasErrors('originalPrice')}"
-                                                th:errors="*{originalPrice}">Generic Error
-                                            </td>
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-2">
-                                    <label for="name">mealForNPeople</label>
-                                    <input type="text" class="form-control" th:field="*{mealForNPeople}"
-                                           id="mealForNPeople" name="mealForNPeople"
-                                           placeholder="Ex: Delicious arabian dish ">
-                                    <div class="text-danger">
-                                        <small>
-                                            <td th:if="${#fields.hasErrors('mealForNPeople')}"
-                                                th:errors="*{mealForNPeople}">Generic Error
-                                            </td>
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-2">
-                                    <label for="name">quantityAvailable</label>
-                                    <input type="text" class="form-control" th:field="*{quantityAvailable}"
-                                           id="quantityAvailable" name="quantityAvailable"
-                                           placeholder="Ex: Delicious arabian dish ">
-                                    <div class="text-danger">
-                                        <small>
-                                            <td th:if="${#fields.hasErrors('quantityAvailable')}"
-                                                th:errors="*{quantityAvailable}">Generic Error
-                                            </td>
-                                        </small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="form-check col-sm-4">
-                                    <h4>Allergens</h4>
-                                    <label for="Allergens"></label>
-                                    <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
-                                        <input type="checkbox" th:id="${{allergens}}" th:value="${{allergens}}"
-                                               th:field="*{allergens}"/>
-                                        <label th:text="${{allergens}}" th:for="${{allergens}}">allergens</label>
-                                    </div>
-                                </div>
-                                <div class="form-check col-sm-4 border rounded ">
-                                    <h4>Cuisines</h4>
-                                    <label for="cuisine"></label>
-                                    <div th:each="cuisines : ${T(com.foodforcharity.app.domain.constant.Cuisine).values()}"
-                                         class="form-check-inline">
-                                        <input class="form-check-input" type="checkbox" th:id="${{cuisines}}"
-                                               th:value="${{cuisines}}" th:field="*{cuisines}"/>
-                                        <label class="form-check-input" th:text="${{cuisines}}" th:for="${{cuisines}}">Cuisine
-                                            Type</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-4 border rounded">
-                                    <h4>Spice Range</h4>
-                                    <label for="spiceRange"></label>
-                                    <input id="spiceRange" name="example_name" value=""/>
-                                    <script type="text/javascript">
-                                            $("#spiceRange").ionRangeSlider({
-                                                type: "int",
-                                                grid: true,
-                                                values: [
-                                                    "No Spice", "Mild", "Medium", "Hot", "Extra"
-                                                ]
-                                            });
-                                            var value = $('#spiceRange').data;
-
-                                    </script>
-                                    <!-- Spice Range Slider-->
-                                </div>
-                                <div class="form-check col-sm-4 border rounded">
-                                    <h4>Meal Type</h4>
-                                    <label for="mealTypes"></label>
-                                    <div th:each="mealTypes : ${T(com.foodforcharity.app.domain.constant.MealType).values()}">
-                                        <input type="checkbox" th:id="${{mealTypes}}" th:value="${{mealTypes}}"
-                                               th:field="*{mealTypes}"/>
-                                        <label th:text="${{mealTypes}}" th:for="${{mealTypes}}">Meal Type</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
->>>>>>> acba97c9d8f6f410bbe7fcf48a3e87835392483d
                 </div>
                 <div class="container">
                     <div class="row">
@@ -266,13 +129,12 @@
             </form>
         </div>
     </div>
-<<<<<<< HEAD
-    </div>
-    </div>
-    </div>
-=======
-</div>
->>>>>>> acba97c9d8f6f410bbe7fcf48a3e87835392483d
+    <<<<<<< HEAD </div>
+        </div>
+        </div>
+        =======
+        </div>
+        >>>>>>> acba97c9d8f6f410bbe7fcf48a3e87835392483d
 </body>
 
 </html>
