@@ -2,6 +2,6 @@ package com.foodforcharity.app.domain.constant;
 
 public enum MealType {
 
-	Vegan, Vegetratian, Chicken, Seafood, RedMeat, Mixed;
+    Vegan, Vegetratian, Chicken, Seafood, RedMeat, Mixed;
 
 }

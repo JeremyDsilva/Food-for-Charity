@@ -8,19 +8,19 @@ public class BooleanCharacterConverter implements AttributeConverter<Boolean, Ch
 
     @Override
     public Character convertToDatabaseColumn(Boolean attribute) {
-        if(attribute == null)
+        if (attribute == null)
             throw new NullPointerException();
-        return attribute? 'Y': 'N';
+        return attribute ? 'Y' : 'N';
     }
 
     @Override
     public Boolean convertToEntityAttribute(Character dbData) {
-        if(dbData == 'Y')
+        if (dbData == 'Y')
             return true;
-        else if(dbData == 'N')
+        else if (dbData == 'N')
             return false;
         throw new IllegalArgumentException("Unexpected Character " + dbData);
     }
-       
+
 
 }

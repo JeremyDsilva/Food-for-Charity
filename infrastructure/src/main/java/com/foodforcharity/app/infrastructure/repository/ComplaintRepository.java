@@ -2,7 +2,6 @@ package com.foodforcharity.app.infrastructure.repository;
 
 import com.foodforcharity.app.domain.entity.Complaint;
 import com.foodforcharity.app.domain.service.ComplaintService;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

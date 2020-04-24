@@ -1,13 +1,12 @@
 package com.foodforcharity.app.web.dto;
 
+import com.foodforcharity.app.domain.constant.DonorStatus;
+import com.foodforcharity.app.domain.entity.Donor;
+import lombok.Data;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.foodforcharity.app.domain.constant.DonorStatus;
-import com.foodforcharity.app.domain.entity.Donor;
-
-import lombok.Data;
 
 @Data
 public class DonorDto {
@@ -25,14 +24,14 @@ public class DonorDto {
     private String email;
 
     private Integer rating;
-    
+
     private Integer discountApplied;
 
     private DonorStatus donorStatus;
 
     private List<FoodDto> foods;
 
-    public DonorDto(Donor donor){
+    public DonorDto(Donor donor) {
         this.id = donor.getId();
         this.addressDescription = donor.getAddressDescription();
         this.city = donor.getCity();
@@ -42,13 +41,13 @@ public class DonorDto {
         this.donorStatus = donor.getDonorStatus();
         this.email = donor.getEmail();
 
-        if(donor.getFoods() != null)
+        if (donor.getFoods() != null)
             this.foods = donor.getFoods().stream().map(food -> new FoodDto(food)).collect(Collectors.toList());
         else
             this.foods = Collections.emptyList();
-        
-        this.rating = donor.getNumberOfRating() != 0? donor.getRating() / donor.getNumberOfRating() : -1;
+
+        this.rating = donor.getNumberOfRating() != 0 ? donor.getRating() / donor.getNumberOfRating() : -1;
     }
-    
+
 
 }

@@ -11,39 +11,39 @@ public class Response<R> {
         return new Response<Void>();
     }
 
-    public static <R> Response<R> of(R response){
+    public static <R> Response<R> of(R response) {
         return new Response<R>(response);
     }
 
-    public static <R> Response<R> of(Error error){
+    public static <R> Response<R> of(Error error) {
         return new Response<R>(error);
     }
 
-    private Response(){
+    private Response() {
     }
 
-    private Response(R response){
+    private Response(R response) {
         this.response = response;
         error = null;
     }
 
-    private Response(Error error){
+    private Response(Error error) {
         this.error = error;
     }
 
-    public R getResponse(){
+    public R getResponse() {
         return response;
     }
 
-    public Error getError(){
+    public Error getError() {
         return error;
     }
 
-    public boolean success(){
+    public boolean success() {
         return !hasError();
     }
 
-    public boolean hasError(){
+    public boolean hasError() {
         return error != null;
     }
 

@@ -3,7 +3,6 @@ package com.foodforcharity.app.web.configration;
 import com.foodforcharity.app.web.filter.JwtTokenFilter;
 import com.foodforcharity.app.web.security.CookieUtil;
 import com.foodforcharity.app.web.security.JwtProvider;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -36,14 +35,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Entry points
         http.authorizeRequests()
                 .antMatchers("/").permitAll();
-                // Disallow everything else..
-                // .anyRequest().authenticated();
+        // Disallow everything else..
+        // .anyRequest().authenticated();
 
         http.logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/login")
-            .deleteCookies(cookieName)
-            .invalidateHttpSession(true);
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .deleteCookies(cookieName)
+                .invalidateHttpSession(true);
 
         // Disable CSRF (cross site request forgery)
         http.csrf().disable();

@@ -6,7 +6,6 @@ import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.infrastructure.repository.PersonRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@
 
 <head>
     <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,14 +13,14 @@
 </head>
 
 <body>
-    <div th:replace="fragments/header :: homepage-header">header</div>
+<div th:replace="fragments/header :: homepage-header">header</div>
 
 
-    <section>
-        <div layout:fragment="content"></div>
-    </section>
+<section>
+    <div layout:fragment="content"></div>
+</section>
 
-    <div th:replace="~{fragments/footer :: footer}">footer</div>
+<div th:replace="~{fragments/footer :: footer}">footer</div>
 </body>
 
 </html>

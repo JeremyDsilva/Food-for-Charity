@@ -1,24 +1,21 @@
 package com.foodforcharity.app.web.filter;
 
-import java.io.IOException;
+import com.foodforcharity.app.web.security.CookieUtil;
+import com.foodforcharity.app.web.security.JwtProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
-import com.foodforcharity.app.web.security.CookieUtil;
-import com.foodforcharity.app.web.security.JwtProvider;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
-import org.springframework.web.filter.GenericFilterBean;
+import java.io.IOException;
 
 /**
  * Filter for Java Web Token Authentication and Authorization
- *
  */
 public class JwtTokenFilter extends GenericFilterBean {
 
@@ -48,12 +45,12 @@ public class JwtTokenFilter extends GenericFilterBean {
 
         // Get JWT from cookie
         cookieUtil.getToken((HttpServletRequest) request).ifPresent(jwt ->
-        // Pull the Username and Roles from the JWT to construct the user details
-        jwtProvider.loadUserByToken(jwt).ifPresent(userDetails -> {
-            // Add the user details to SecurityContextHolder
-            SecurityContextHolder.getContext().setAuthentication(
-                    new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
-        }));
+                // Pull the Username and Roles from the JWT to construct the user details
+                jwtProvider.loadUserByToken(jwt).ifPresent(userDetails -> {
+                    // Add the user details to SecurityContextHolder
+                    SecurityContextHolder.getContext().setAuthentication(
+                            new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
+                }));
 
         // move on to the next filter in the chains
         filterChain.doFilter(request, response);

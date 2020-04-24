@@ -1,15 +1,14 @@
 package com.foodforcharity.app.web.security;
 
-import java.time.Duration;
-import java.util.Optional;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.time.Duration;
+import java.util.Optional;
 
 @Component
 public class CookieUtil {

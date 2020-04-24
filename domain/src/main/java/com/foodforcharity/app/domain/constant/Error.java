@@ -4,8 +4,8 @@ public enum Error {
 
     UnknownError("Unknown Error"),
     PersonDoesNotExist("Unknown Error"),
-    IncorrectUsernameOrPassword("Incorrect Username Or Password"), 
-    IncorrectPassword("Incorrect Password"), 
+    IncorrectUsernameOrPassword("Incorrect Username Or Password"),
+    IncorrectPassword("Incorrect Password"),
     InvalidEmail("Email Format Is Invalid"),
     EmailAlreadyExist("Email Already Exist"),
     InvalidMemberCount("Member Count Must Be Greater Than Zero"),
@@ -16,7 +16,7 @@ public enum Error {
     FoodDoesNotExist("Food Does Not Exist"),
     IneligibleDoneeStatus("Donee Must Be Active"), // it is either suspendid or invitial
     IneligibleDonorStatus("Donor Must Be Active Or Inactive"),
-    FoodShortage("Amount Of Food Requested Is More Than Amount Of Food Available"), 
+    FoodShortage("Amount Of Food Requested Is More Than Amount Of Food Available"),
     FoodsDonorMismatch("The Foods Donot Belong To The Donor"),
     InvalidQuantityRequested("Quantity Requested Must Be Greater Than Zero"),
     QuanityAllowanceExceeded("Individual Donee  Requests Cannot  Exceed The Allocated Quantity"),
@@ -29,7 +29,6 @@ public enum Error {
     InvalidFoodName("Food Name Cannot Be Empty"),
     EmptyDoneeStatusField("Donee Status Cannot be empty"),
     EmptyDonorStatusField("Donor Status Cannot be empty"),
-
 
 
     ;

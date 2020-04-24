@@ -1,12 +1,9 @@
 package com.foodforcharity.app.web.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
 import com.foodforcharity.app.domain.security.PersonDetails;
 import com.foodforcharity.app.web.model.AuthenticationRequest;
 import com.foodforcharity.app.web.security.CookieUtil;
 import com.foodforcharity.app.web.security.JwtProvider;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class SecurityController {
@@ -40,7 +39,7 @@ public class SecurityController {
 
     @PostMapping(value = "/login")
     public String login(HttpServletResponse response, @ModelAttribute AuthenticationRequest authenticationRequest,
-            Model model) {
+                        Model model) {
 
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
