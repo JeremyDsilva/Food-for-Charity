@@ -70,9 +70,12 @@ public class Donor extends Person {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Request> requests;
 
+    public Donor(){
+        foods = new ArrayList<Food>();
+        requests = new ArrayList<Request>();
+    }
+
     public Food addFood(Food food) {
-        if (getFoods() == null)
-            setFoods(new ArrayList<Food>());
         getFoods().add(food);
         food.setDonor(this);
 

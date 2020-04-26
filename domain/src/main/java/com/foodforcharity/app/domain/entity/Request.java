@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -66,11 +67,13 @@ public class Request implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<SubRequest> subRequests;
 
+    public Request(){
+        complaints = new ArrayList<>();
+        subRequests = new ArrayList();
+    }
+
     public Complaint addComplaint(Complaint complaint) {
-        if (getComplaints() == null)
-            setComplaints(Arrays.asList(complaint));
-        else
-            getComplaints().add(complaint);
+        getComplaints().add(complaint);
         complaint.setRequest(this);
 
         return complaint;
@@ -83,10 +86,7 @@ public class Request implements Serializable {
     }
 
     public SubRequest addSubRequest(SubRequest subRequest) {
-        if (getSubRequests() == null)
-            setSubRequests(Arrays.asList(subRequest));
-        else
-            getSubRequests().add(subRequest);
+       getSubRequests().add(subRequest);
 
         subRequest.setRequest(this);
         return subRequest;

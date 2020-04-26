@@ -8,9 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The persistent class for the DONEE database table.
@@ -87,6 +85,13 @@ public class Donee extends Person {
     @OneToMany(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Request> requests;
+
+    public Donee(){
+        allergens = new HashSet<Allergen>();
+        cuisines = new HashSet<Cuisine>();
+        mealTypes = new HashSet<MealType>();
+        requests = new ArrayList<Request>();
+    }
 
     public Request addRequest(Request request) {
         getRequests().add(request);
