@@ -29,8 +29,7 @@ public enum Error {
     InvalidFoodName("Food Name Cannot Be Empty"),
     EmptyDoneeStatusField("Donee Status Cannot be empty"),
     EmptyDonorStatusField("Donor Status Cannot be empty"),
-
-
+    FoodHasActiveRequestOrComplaints("Food has active request or complaints")
     ;
     String message;
 

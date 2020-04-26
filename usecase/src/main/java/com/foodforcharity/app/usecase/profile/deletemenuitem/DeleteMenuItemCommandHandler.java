@@ -40,9 +40,14 @@ public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuIt
             }
 
             // check that food doesnt belong to any active requests
+            if (food.getSubRequests().size() != 0 && (
+                    food.getSubRequests().stream().filter(subRequest -> subRequest.getRequest().getIsActive()
+                            || subRequest.getRequest().getComplaints().stream().filter(complaint -> complaint.getIsActive()).findFirst().isPresent()).findFirst().isPresent())) {
+                return Response.of(Error.FoodHasActiveRequestOrComplaints);
+            }
 
             // delete
-            foodService.delete(food);
+            food.getDonor().removeFood(food);
             return Response.EmptyResponse();
         } catch (Exception e) {
             return Response.of(Error.UnknownError);

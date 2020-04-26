@@ -1,7 +1,7 @@
-package com.foodforcharity.app.usecase.profile.getdonor;
+package com.foodforcharity.app.usecase.account.getdonee;
 
 import com.foodforcharity.app.domain.constant.Error;
-import com.foodforcharity.app.domain.entity.Donor;
+import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Person;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.PersonService;
@@ -12,24 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class GetDonorCommandHandler implements CommandHandler<GetDonorCommand, Response<Donor>> {
+public class GetDoneeCommandHandler implements CommandHandler<GetDoneeCommand, Response<Donee>> {
 
     private final PersonService service;
 
     @Autowired
-    public GetDonorCommandHandler(PersonService service) {
+    public GetDoneeCommandHandler(PersonService service) {
         this.service = service;
     }
 
     @Override
-    public Response<Donor> handle(GetDonorCommand command) {
+    public Response<Donee> handle(GetDoneeCommand command) {
 
         Optional<Person> dbPerson = service.findById(command.getPersonId());
 
-        if (dbPerson.isEmpty() || !(dbPerson.get() instanceof Donor))
-            return Response.of(Error.DonorDoesNotExist);
+        if (dbPerson.isEmpty() || !(dbPerson.get() instanceof Donee))
+            return Response.of(Error.DoneeDoesNotExist);
 
-        return Response.of((Donor) dbPerson.get());
+        return Response.of((Donee) dbPerson.get());
     }
 
 }

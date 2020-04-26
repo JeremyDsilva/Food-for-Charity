@@ -1,4 +1,4 @@
-package com.foodforcharity.app.usecase.profile.getdonee;
+package com.foodforcharity.app.usecase.account.getdonee;
 
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.reponse.Response;

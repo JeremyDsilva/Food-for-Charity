@@ -1,4 +1,4 @@
-package com.foodforcharity.app.usecase.profile.getdonor;
+package com.foodforcharity.app.usecase.account.getdonor;
 
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.reponse.Response;
