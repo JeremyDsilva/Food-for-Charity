@@ -136,7 +136,7 @@ public class CreateRequestTest {
         DonorStatus donorStatusToRemember = donor.getDonorStatus(); // save it for later
 
         donor.setDonorStatus(DonorStatus.Initial);
-        donorRepos.save(donor);
+      donor= donorRepos.save(donor);
 
         CreateRequestCommand command = new CreateRequestCommand(donee.getId(), donor.getId());
         command.addFood(food.getId(), 1);
@@ -144,6 +144,7 @@ public class CreateRequestTest {
 
         donor.setDonorStatus(DonorStatus.Suspended);
         donorRepos.save(donor);
+        //////////////////// simple decision 2//////////////
 
         CreateRequestCommand commandSuspended = new CreateRequestCommand(donee.getId(), donor.getId());
         commandSuspended.addFood(food.getId(), 1);
@@ -166,7 +167,7 @@ public class CreateRequestTest {
 
         donee.setDoneeStatus(DoneeStatus.Suspended);
         doneeRepos.save(donee);
-
+        //////////////////// simple decision 2//////////////
         CreateRequestCommand commandSuspended = new CreateRequestCommand(donee.getId(), donor.getId());
         commandSuspended.addFood(food.getId(), 1);
         Response<Void> responseSuspended = handler.handle(commandSuspended);
@@ -203,7 +204,7 @@ public class CreateRequestTest {
 
         donee.setDoneeType(DoneeType.Individual);
         donee.setQuantityRequested(donee.getMemberCount());
-        doneeRepos.save(donee);
+       donee= doneeRepos.save(donee);
 
         Integer quantityToRequest = 1;
         CreateRequestCommand command1 = new CreateRequestCommand(donee.getId(), donor.getId());

@@ -5,8 +5,11 @@ import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.infrastructure.repository.DonorRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,35 +27,37 @@ public class ChangePasswordTest {
     CommandHandler<ChangePasswordCommand, Response<Void>> handler;
 
     @Autowired
-    DonorService repos;
+    DonorRepository repos;
 
     Donor donor = null;
 
     @Before
     public void init() {
 
-        Optional<Donor> dbDonor = repos.findByUsername("donoremail@gmail.com");
+        donor = new Donor();
+        donor.setAddressDescription("DonorAddressDescription");
+        donor.setCity("DonorCity");
+        donor.setCountry("DonorCountry");
+        donor.setDonorName("DonorName");
+        donor.setDonorStatus(DonorStatus.Initial);
+        donor.setEmail("donoremail@gmail.com");
+        donor.setNumberOfRating(0);
+        donor.setPassword("DonorPassword");
+        donor.setPhoneNumber("DonorPhoneNumber");
+        donor.setRating(0);
+        donor.setUsername(donor.getEmail());
+        donor.setDiscountApplied(0);
 
-        if (dbDonor.isPresent())
-            donor = dbDonor.get();
-        else {
+        donor = repos.save(donor);
 
-            donor = new Donor();
-            donor.setAddressDescription("DonorAddressDescription");
-            donor.setCity("DonorCity");
-            donor.setCountry("DonorCountry");
-            donor.setDonorName("DonorName");
-            donor.setDonorStatus(DonorStatus.Initial);
-            donor.setEmail("donoremail@gmail.com");
-            donor.setNumberOfRating(0);
-            donor.setPassword("DonorPassword");
-            donor.setPhoneNumber("DonorPhoneNumber");
-            donor.setRating(0);
-            donor.setUsername(donor.getEmail());
-            donor.setDiscountApplied(0);
+    }
 
-            donor = repos.save(donor);
-        }
+    @After
+    public void Destroy(){
+    
+        
+        repos.deleteById(donor.getId());
+    
     }
 
     @Test

@@ -5,6 +5,8 @@ import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.infrastructure.repository.PersonRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;
+
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,15 @@ public class DonorRegisterationTest {
 
     @Autowired
     PersonRepository repos;
+
+
+@After
+public void Destroy(){
+
+    repos.deleteAll();
+
+}
+
 
     @Test
     public void successTest() {
@@ -45,5 +56,5 @@ public class DonorRegisterationTest {
         DonorRegisterationCommand command = new DonorRegisterationCommand("DonorName", "DonorPassword", "donorEmail@gmail.com",
                 "12334566", "DonorCity", "DonorCountry", "DonorAddress");
         assert (handler.handle(command).getError() == Error.EmailAlreadyExist);
-    }
+    } 
 }

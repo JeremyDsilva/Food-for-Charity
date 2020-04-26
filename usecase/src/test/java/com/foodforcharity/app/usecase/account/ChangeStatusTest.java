@@ -10,8 +10,13 @@ import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.DoneeService;
 import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.domain.service.PersonService;
+import com.foodforcharity.app.infrastructure.repository.DoneeRepository;
+import com.foodforcharity.app.infrastructure.repository.DonorRepository;
+import com.foodforcharity.app.infrastructure.repository.PersonRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.changestatus.ChangeStatusCommand;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,66 +34,61 @@ public class ChangeStatusTest {
     CommandHandler<ChangeStatusCommand, Response<Void>> handler;
 
     @Autowired
-    PersonService personRepos;
+    PersonRepository personRepos;
 
     @Autowired
-    DonorService donorRepos;
+    DonorRepository donorRepos;
 
     @Autowired
-    DoneeService doneeRepos;
+    DoneeRepository doneeRepos;
 
     Donor donor;
     Donee donee;
 
     @Before
     public void init() {
-        Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
 
-        if (dbDonor.isPresent()) {
-            donor = dbDonor.get();
-        } else {
+        donor = new Donor();
+        donor.setAddressDescription("DonorAddressDescription");
+        donor.setCity("DonorCity");
+        donor.setCountry("DonorCountry");
+        donor.setDonorName("DonorName");
+        donor.setDonorStatus(DonorStatus.Active);
+        donor.setEmail("donoremail@gmail.com");
+        donor.setNumberOfRating(0);
+        donor.setPassword("DonorPassword");
+        donor.setPhoneNumber("DonorPhoneNumber");
+        donor.setRating(0);
+        donor.setUsername(donor.getEmail());
+        donor.setDiscountApplied(0);
 
-            donor = new Donor();
-            donor.setAddressDescription("DonorAddressDescription");
-            donor.setCity("DonorCity");
-            donor.setCountry("DonorCountry");
-            donor.setDonorName("DonorName");
-            donor.setDonorStatus(DonorStatus.Active);
-            donor.setEmail("donoremail@gmail.com");
-            donor.setNumberOfRating(0);
-            donor.setPassword("DonorPassword");
-            donor.setPhoneNumber("DonorPhoneNumber");
-            donor.setRating(0);
-            donor.setUsername(donor.getEmail());
-            donor.setDiscountApplied(0);
+        donorRepos.save(donor);
 
-            donorRepos.save(donor);
-        }
-
-        Optional<Donee> dbDonee = doneeRepos.findByUsername("doneeemail@gmail.com");
-
-        if (dbDonee.isPresent()) {
-            donee = dbDonee.get();
-        } else {
-
-            donee = new Donee();
-            donee.setAddressDescription("DoneeAddressDescription");
-            donee.setCity("DoneeCity");
-            donee.setCountry("DoneeCountry");
-            donee.setDoneeName("DoneeName");
-            donee.setDoneeStatus(DoneeStatus.Active);
-            donee.setEmail("doneeemail@gmail.com");
-            donee.setDoneeType(DoneeType.Individual);
-            donee.setPassword("DoneePassword");
-            donee.setPhoneNumber("DoneePhoneNumber");
-            donee.setMemberCount(2);
-            donee.setQuantityRequested(0);
-            donee.setUsername(donee.getEmail());
-            donee = doneeRepos.save(donee);
-        }
+        donee = new Donee();
+        donee.setAddressDescription("DoneeAddressDescription");
+        donee.setCity("DoneeCity");
+        donee.setCountry("DoneeCountry");
+        donee.setDoneeName("DoneeName");
+        donee.setDoneeStatus(DoneeStatus.Active);
+        donee.setEmail("doneeemail@gmail.com");
+        donee.setDoneeType(DoneeType.Individual);
+        donee.setPassword("DoneePassword");
+        donee.setPhoneNumber("DoneePhoneNumber");
+        donee.setMemberCount(2);
+        donee.setQuantityRequested(0);
+        donee.setUsername(donee.getEmail());
+        donee = doneeRepos.save(donee);
 
     }
 
+
+    @After
+public void Destroy(){
+
+    doneeRepos.deleteById(donee.getId());
+    donorRepos.deleteById(donor.getId());
+
+}
     @Test
     public void successTest() {
         ChangeStatusCommand donorCommand = new ChangeStatusCommand(donor.getId(), DonorStatus.Active);

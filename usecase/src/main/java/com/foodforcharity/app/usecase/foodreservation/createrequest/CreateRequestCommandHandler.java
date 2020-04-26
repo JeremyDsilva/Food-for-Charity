@@ -110,8 +110,8 @@ public class CreateRequestCommandHandler implements CommandHandler<CreateRequest
 
             // 7-create request
             Request request = new Request(); // assuming that id has already been generated
-            request.setDonor(donor);
-            request.setDonee(donee);
+            donor.addRequest(request);
+            donee.addRequest(request);
             request.setRequestTime(new Date());
             request.setDiscountApplied((int) donor.getDiscountApplied().doubleValue());
             request.setFinalPrice(finalPrice);

@@ -7,8 +7,12 @@ import com.foodforcharity.app.domain.entity.Food;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.domain.service.FoodService;
+import com.foodforcharity.app.infrastructure.repository.DonorRepository;
+import com.foodforcharity.app.infrastructure.repository.FoodRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.profile.modifymenuitem.ModifyMenuItemCommand;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,67 +30,55 @@ public class ModifyMenuTest {
     CommandHandler<ModifyMenuItemCommand, Response<Void>> handler;
 
     @Autowired
-    FoodService foodRepos;
+    FoodRepository foodRepos;
 
     @Autowired
-    DonorService donorRepos;
+    DonorRepository donorRepos;
 
     Donor donor;
-
     Food food;
 
     @Before
     public void init() {
 
-        Optional<Food> dbFood = foodRepos.findById(Long.valueOf(1));
+       
+        donor = new Donor();
+        donor.setAddressDescription("DonorAddressDescription");
+        donor.setCity("DonorCity");
+        donor.setCountry("DonorCountry");
+        donor.setDonorName("DonorName");
+        donor.setEmail("donoremail@gmail.com");
+        donor.setNumberOfRating(0);
+        donor.setPassword("DonorPassword");
+        donor.setPhoneNumber("DonorPhoneNumber");
+        donor.setRating(0);
+        donor.setDiscountApplied(10);
+        donor.setUsername(donor.getEmail());
+        donor.setDonorStatus(DonorStatus.Active);
 
-        if (dbFood.isPresent()) {
-            food = dbFood.get();
-            donor = food.getDonor();
-        } else {
+        food = new Food();
+        food.setFoodName("foodName");
+        food.setDescriptionText("descriptionText");
+        food.setCuisine(Cuisine.Belgravian);
+        food.setMealType(MealType.Mixed);
+        food.setPrice(200);
+        food.setQuantityAvailable(23);
+        food.setMealForNPeople(1);
+        food.setSpiceLevel(SpiceLevel.MildSpice);
+        food.setAllergens(new HashSet<Allergen>(Arrays.asList(Allergen.Dairy)));
 
-            Optional<Donor> dbDonor = donorRepos.findByUsername("donoremail@gmail.com");
-            if (dbDonor.isEmpty()) {
-                donor = new Donor();
-                donor.setAddressDescription("DonorAddressDescription");
-                donor.setCity("DonorCity");
-                donor.setCountry("DonorCountry");
-                donor.setDonorName("DonorName");
-                donor.setEmail("donoremail@gmail.com");
-                donor.setNumberOfRating(0);
-                donor.setPassword("DonorPassword");
-                donor.setPhoneNumber("DonorPhoneNumber");
-                donor.setRating(0);
-                donor.setDiscountApplied(0);
-                donor.setUsername(donor.getEmail());
-            } else {
-                donor = dbDonor.get();
-            }
-
-            donor.setDonorStatus(DonorStatus.Active);
-
-            //
-            food = new Food();
-            food.setFoodName("foodName");
-            food.setDescriptionText("descriptionText");
-            food.setCuisine(Cuisine.Belgravian);
-            food.setMealType(MealType.Mixed);
-            food.setPrice(200);
-            food.setQuantityAvailable(23);
-            food.setMealForNPeople(3);
-            food.setSpiceLevel(SpiceLevel.MildSpice);
-
-            // food.setMealTypes(MealType.RedMeat);
-            List<Allergen> aList = Arrays.asList(Allergen.Dairy);
-            Set<Allergen> iSet = new HashSet<Allergen>(aList);
-
-            food.setAllergens(iSet);
-
-            donor.addFood(food);
-            donor = donorRepos.save(donor);
-        }
+        donor.addFood(food);
+        donor = donorRepos.save(donor);
     }
-
+    @After
+    public void destroy() {
+        donor = ((DonorService) donorRepos).findById(donor.getId()).get();
+        
+        foodRepos.deleteById(food.getId());
+        donorRepos.deleteById(donor.getId());
+       
+    }
+    
     List<Allergen> aList = Arrays.asList(Allergen.Nuts);
     Set<Allergen> hSet = new HashSet<Allergen>(aList);
 
