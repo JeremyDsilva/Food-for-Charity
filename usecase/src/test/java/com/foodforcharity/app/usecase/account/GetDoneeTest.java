@@ -2,6 +2,7 @@ package com.foodforcharity.app.usecase.account;
 
 import com.foodforcharity.app.domain.constant.DoneeStatus;
 import com.foodforcharity.app.domain.constant.DoneeType;
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.DoneeService;
@@ -61,4 +62,13 @@ public class GetDoneeTest {
         assert(response.success() && response.getResponse() != null);
     }
     
+
+
+    @Test
+    public void DoneeDoesNotExistTest(){
+        GetDoneeCommand command = new GetDoneeCommand(100);
+        Response<Donee> response = handler.handle(command);
+
+        assert(response.getError()== Error.DoneeDoesNotExist);
+    }
 }

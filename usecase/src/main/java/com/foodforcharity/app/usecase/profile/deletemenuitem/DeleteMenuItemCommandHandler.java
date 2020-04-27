@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+import javax.transaction.Transactional;
+
 @Service
 public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuItemCommand, Response<Void>> {
 
@@ -26,6 +29,7 @@ public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuIt
     }
 
     @Override
+    @Transactional
     public Response<Void> handle(DeleteMenuItemCommand command) {
         try { // check that food item exists
             Optional<Food> dbFood = foodService.findById(command.foodId);
@@ -40,15 +44,18 @@ public class DeleteMenuItemCommandHandler implements CommandHandler<DeleteMenuIt
             }
 
             // check that food doesnt belong to any active requests
-            if (food.getSubRequests().size() != 0 && (
-                    food.getSubRequests().stream().filter(subRequest -> subRequest.getRequest().getIsActive()
-                            || subRequest.getRequest().getComplaints().stream().filter(complaint -> complaint.getIsActive()).findFirst().isPresent()).findFirst().isPresent())) {
-                return Response.of(Error.FoodHasActiveRequestOrComplaints);
-            }
+            // food.getSubRequests().size();
+            // if (food.getSubRequests().size() != 0 && (food.getSubRequests().stream().filter(
+            //         subRequest -> subRequest.getRequest().getIsActive() || subRequest.getRequest().getComplaints()
+            //                 .stream().filter(complaint -> complaint.getIsActive()).findFirst().isPresent())
+            //         .findFirst().isPresent())) {
+            //     return Response.of(Error.FoodHasActiveRequestOrComplaints);
+            // }
 
             // delete
             food.getDonor().removeFood(food);
             return Response.EmptyResponse();
+
         } catch (Exception e) {
             return Response.of(Error.UnknownError);
         }

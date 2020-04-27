@@ -89,18 +89,19 @@ public class AddMenuCommandHandler implements CommandHandler<AddMenuCommand, Res
             food.setSpiceLevel(command.spiceLevel);
             food.setAllergens(command.allergens);
 
-            // add food item to donors menu
-            donor.getFoods().add(food);
-            food.setDonor(donor);
+
+
+            donor.addFood(food);
             // save to donorService
+            foodService.save(food);
 
 
-            donorService.save(donor);
+            return Response.EmptyResponse();
 
         } catch (Exception e) {
             return Response.of(Error.UnknownError);
         }
-        return Response.EmptyResponse();
+        
     }
 
 }

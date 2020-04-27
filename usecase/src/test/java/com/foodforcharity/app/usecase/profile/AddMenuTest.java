@@ -5,8 +5,12 @@ import com.foodforcharity.app.domain.constant.*;
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.infrastructure.repository.DonorRepository;
+import com.foodforcharity.app.infrastructure.repository.FoodRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,39 +28,40 @@ public class AddMenuTest {
     CommandHandler<AddMenuCommand, Response<Void>> handler;
 
     @Autowired
-    DonorService repos;
+    DonorRepository donorRepos;
+
+    @Autowired
+    FoodRepository foodRepos;
 
     Donor donor;
 
     @Before
     public void init() {
 
-        Optional<Donor> dbDonor = repos.findByUsername("donoremail@gmail.com");
+        donor = new Donor();
+        donor.setAddressDescription("DonorAddressDescription");
+        donor.setCity("DonorCity");
+        donor.setCountry("DonorCountry");
+        donor.setDonorName("DonorName");
+        donor.setEmail("donoremail@gmail.com");
+        donor.setNumberOfRating(0);
+        donor.setPassword("DonorPassword");
+        donor.setPhoneNumber("DonorPhoneNumber");
+        donor.setRating(0);
+        donor.setDiscountApplied(10);
+        donor.setUsername(donor.getEmail());
+        donor.setDonorStatus(DonorStatus.Active);
+        donor = donorRepos.save(donor);
 
-        if (dbDonor.isPresent()) {
-            donor = dbDonor.get();
-            if (donor.getDonorStatus() != DonorStatus.Active) {
-                donor.setDonorStatus(DonorStatus.Active);
-                repos.save(donor);
-            }
-        } else {
+    }
 
-            donor = new Donor();
-            donor.setAddressDescription("DonorAddressDescription");
-            donor.setCity("DonorCity");
-            donor.setCountry("DonorCountry");
-            donor.setDonorName("DonorName");
-            donor.setDonorStatus(DonorStatus.Active);
-            donor.setEmail("donoremail@gmail.com");
-            donor.setNumberOfRating(0);
-            donor.setPassword("DonorPassword");
-            donor.setPhoneNumber("DonorPhoneNumber");
-            donor.setRating(0);
-            donor.setUsername(donor.getEmail());
-            donor.setDiscountApplied(0);
+    @After
+    public void destroy() {
+        donor = ((DonorService) donorRepos).findById(donor.getId()).get();
+        if (donor.getFoods() != null)
+            foodRepos.deleteAll(donor.getFoods());
+        donorRepos.deleteById(donor.getId());
 
-            donor = repos.save(donor);
-        }
     }
 
     List<Allergen> aList = Arrays.asList(Allergen.Dairy);
