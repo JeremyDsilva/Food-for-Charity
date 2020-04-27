@@ -17,6 +17,11 @@ public class FoodPreferences extends Request {
     /**
      *
      */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     *
+     */
     @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "Spice range should be in digits")
     private Range<SpiceLevel> spiceRange;
 

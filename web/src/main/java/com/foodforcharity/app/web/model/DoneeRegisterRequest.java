@@ -9,6 +9,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class DoneeRegisterRequest extends RegisterRequest {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @NotNull(message = "Please choose type")
     DoneeType doneeType;
 

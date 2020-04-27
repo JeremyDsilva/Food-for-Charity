@@ -2,6 +2,10 @@ package com.foodforcharity.app.web.model;
 
 public class AuthenticationRequest extends Request {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private String username;
     private String password;
 
