@@ -6,15 +6,28 @@
 </head>
 
 <body>
-<section>
-    <div layout:fragment="content" class="container">
-        <h1>Hello Donee</h1>
+    <section>
+        <div layout:fragment="content" class="container">
+            <div class="container">
+                <h2>Food Available Now!</h2>
+                <div class="row">
+                    <div th:each="food : ${foodDto}" class="col-sm-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${food.name}">Product name</h5>
+                                <p class="card-text" th:text="${food.price}">Price</p>
+                                <a href="#" class="btn btn-primary">Buy</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
     </div>
-
-</section>
-
-
-</div>
 </body>
 
 </html>
