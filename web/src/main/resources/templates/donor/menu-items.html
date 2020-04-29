@@ -38,25 +38,25 @@
                             </thead>
                             <tbody>
                                 <tr th:each="food : ${foods}">
-                                    <td th:text="${foods.foodName}"></td>
-                                    <td th:text="${foods.descriptionText}"></td>
-                                    <td th:text="${foods.originalPrice}"></td>
-                                    <td th:text="${foods.mealForNPeople}"></td>
-                                    <td th:text="${foods.quantityAvailable}"></td>
-                                    <td th:text="${foods.spiceLevel}"></td>
-                                    <td th:text="${foods.mealTypes}"></td>
-                                    <td th:text="${foods.cuisines}"></td>
-                                    <td th:text="${foods.allergen}"></td>
+                                    <td th:text="${food.foodName}"></td>
+                                    <td th:text="${food.descriptionText}"></td>
+                                    <td th:text="${food.originalPrice}"></td>
+                                    <td th:text="${food.mealForNPeople}"></td>
+                                    <td th:text="${food.quantityAvailable}"></td>
+                                    <td th:text="${food.spiceLevel}"></td>
+                                    <td th:text="${food.mealTypes}"></td>
+                                    <td th:text="${food.cuisines}"></td>
+                                    <td th:text="${food.allergen}"></td>
 
-                                    <ul th:each="allergen : ${foods.allergen}">
+                                    <ul th:each="allergen : ${food.allergen}">
                                         <li th:text="${allergen}"></li>
                                     </ul>
                                     <td>
-                                        <a th:href="@{edit-menu}" class="btn btn-warning">
+                                        <a th:href="@{@{/edit-menu?id={id}(id=${food.id})}}" class="btn btn-warning">
                                             <span class="oi oi-pencil"></span> </a>
                                     </td>
                                     <td>
-                                        <a th:href="@{delete-menu-item}" class="btn btn-danger">
+                                        <a th:href="@{/delete-menu-item?id={id}(id=${food.id})}" class="btn btn-danger">
                                             <span class="oi oi-delete"></span> </a>
                                     </td>
                                 </tr>

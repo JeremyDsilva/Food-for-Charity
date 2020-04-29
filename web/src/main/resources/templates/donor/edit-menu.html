@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit menu item</title>
+
 </head>
 
 <body>
@@ -72,7 +73,7 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="form-check col-sm-4">
+                        <div class="form-check col-sm-4  border rounded ">
                             <h4>Allergens</h4>
                             <label for="Allergens"></label>
                             <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
@@ -124,7 +125,6 @@
                 </div>
                 <div class="row justify-content-center">
                     <br><button type="submit" class="btn btn-success">Submit</button>
-
                 </div>
             </form>
         </div>

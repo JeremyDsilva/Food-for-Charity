@@ -119,11 +119,10 @@ public class DonorController extends AbstractController {
 
         if (response.hasError()) {
             menuModel.setError(response.getError());
-            return "redirect:/";
+            return "donor/menu";
         }
-        System.out.println("im here");
         model.addAttribute("success", withSuccess(menuModel));
-        return "/menu";
+        return "donor/menu";
 
     }
 
