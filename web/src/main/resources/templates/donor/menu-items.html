@@ -12,7 +12,7 @@
     <div layout:fragment="content" class="container">
 
         <div class="container">
-            <div th:switch="${menuModel}">
+            <div th:switch="${foods}">
                 <p class="my-5">
                     <a th:href="@{edit-menu}" class="btn btn-primary">
                         <i><span class="oi oi-menu"></span> Add Menu Item </i></a>
@@ -37,18 +37,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="menuModel : ${menuModel}">
-                                    <td th:text="${menuModel.foodName}"></td>
-                                    <td th:text="${menuModel.descriptionText}"></td>
-                                    <td th:text="${menuModel.originalPrice}"></td>
-                                    <td th:text="${menuModel.mealForNPeople}"></td>
-                                    <td th:text="${menuModel.quantityAvailable}"></td>
-                                    <td th:text="${menuModel.spiceLevel}"></td>
-                                    <td th:text="${menuModel.mealTypes}"></td>
-                                    <td th:text="${menuModel.cuisines}"></td>
-                                    <td th:text="${menuModel.allergen}"></td>
+                                <tr th:each="food : ${foods}">
+                                    <td th:text="${foods.foodName}"></td>
+                                    <td th:text="${foods.descriptionText}"></td>
+                                    <td th:text="${foods.originalPrice}"></td>
+                                    <td th:text="${foods.mealForNPeople}"></td>
+                                    <td th:text="${foods.quantityAvailable}"></td>
+                                    <td th:text="${foods.spiceLevel}"></td>
+                                    <td th:text="${foods.mealTypes}"></td>
+                                    <td th:text="${foods.cuisines}"></td>
+                                    <td th:text="${foods.allergen}"></td>
 
-                                    <ul th:each="allergen : ${menuModel.allergen}">
+                                    <ul th:each="allergen : ${foods.allergen}">
                                         <li th:text="${allergen}"></li>
                                     </ul>
                                     <td>

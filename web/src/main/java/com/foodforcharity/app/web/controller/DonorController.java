@@ -56,7 +56,7 @@ public class DonorController extends AbstractController {
     }
 
     @GetMapping(value = "/menu")
-    public String getMenu(@Valid MenuModel request, Model model) throws ExecutionException {
+    public String getMenu(MenuModel request, Model model) throws ExecutionException {
 
         GetDonorCommand command = new GetDonorCommand(getPersonId());
 
@@ -121,8 +121,9 @@ public class DonorController extends AbstractController {
             menuModel.setError(response.getError());
             return "redirect:/";
         }
+        System.out.println("im here");
         model.addAttribute("success", withSuccess(menuModel));
-        return "menu";
+        return "/menu";
 
     }
 

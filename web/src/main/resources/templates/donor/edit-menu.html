@@ -14,7 +14,7 @@
             <h3> Add Food Item</h3>
             <!-- <div class="card">
                     <div class="col-md-10"> -->
-            <form action="#" th:action="@{edit-menu}" th:object="${menuModel}" method="post">
+            <form th:action="@{edit-menu}" th:object="${menuModel}" method="post">
                 <div class="container">
                     <div th:if="*{success != null}">
                         <div th:if="*{success}" class="alert alert-success">
@@ -129,12 +129,6 @@
             </form>
         </div>
     </div>
-    <<<<<<< HEAD </div>
-        </div>
-        </div>
-        =======
-        </div>
-        >>>>>>> acba97c9d8f6f410bbe7fcf48a3e87835392483d
 </body>
 
 </html>
