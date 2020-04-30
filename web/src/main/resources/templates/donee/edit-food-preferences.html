@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{donee/layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{donee/layout}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <script>
-        $("#example_id").ionRangeSlider();
-
-    </script>
 </head>
 
 <body>
 
-<div layout:fragment="content" class="container">
-    <form th:action="@{/food-preferences}" th:object="${foodPreferences}" method="POST">
-        <div th:if="*{success != null}">
-            <div th:if="*{success}" class="alert alert-success">
-                Food Preferences Updated Successfully!
-            </div>
-            <div th:if="*{!success}">
-                <div class="alert alert-danger" th:text="*{error.getMessage()}">
-                    Error
+    <div layout:fragment="content" class="container">
+        <form th:action="@{/food-preferences}" th:object="${foodPreferences}" method="POST">
+            <div th:if="*{success != null}">
+                <div th:if="*{success}" class="alert alert-success">
+                    Food Preferences Updated Successfully!
+                </div>
+                <div th:if="*{!success}">
+                    <div class="alert alert-danger" th:text="*{error.getMessage()}">
+                        Error
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-sm-4 border rounded">
-                    <h4>Spice Range</h4>
-                    <label for="spiceRange"></label>
-                    <input id="spiceRange" name="example_name" value=""/>
-                    <input hidden id="min" name="example_name" value=""/>
-                    <input hidden id="max" name="example_name" value=""/>
-                    <script type="text/javascript">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4 border rounded">
+                        <h4>Spice Range</h4>
+                        <label for="spiceRange"></label>
+                        <input id="spiceRange" name="example_name" value="" />
+                        <input hidden id="min" name="example_name" value="" />
+                        <input hidden id="max" name="example_name" value="" />
+                        <script type="text/javascript">
                             $("#spiceRange").ionRangeSlider({
                                 type: "int",
                                 grid: true,
@@ -46,27 +41,25 @@
                             });
                             var min = $('#spiceRange').data.from;
                             var max = $('#spiceRange').data.to;
-
-                    </script>
-                    <!-- Spice Range Slider-->
-                </div>
-                <div class="col-sm-4 border rounded">
-                    <h4>Allergens</h4>
-                    <label for="Allergens"></label>
-                    <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
-                        <input type="checkbox" th:id="${{allergens}}" th:value="${{allergens}}"
-                               th:field="*{allergens}"/>
-                        <label th:text="${{allergens}}" th:for="${{allergens}}">allergens</label>
+                        </script>
+                        <!-- Spice Range Slider-->
                     </div>
-                </div>
-                <div class="col-sm-4 border rounded">
-                    <h4>Price Range</h4>
-                    <label for="priceRange"></label>
-                    <!-- Price Range Slider-->
-                    <input id="priceRange" name="example_name" value=""/>
-                    <input hidden id="min" name="min" value=""/>
-                    <input hidden id="max" name="max" value=""/>
-                    <script type="text/javascript">
+                    <div class="col-sm-4 border rounded">
+                        <h4>Allergens</h4>
+                        <label for="Allergens"></label>
+                        <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
+                            <input type="checkbox" th:id="${{allergens}}" th:value="${{allergens}}" th:field="*{allergens}" />
+                            <label th:text="${{allergens}}" th:for="${{allergens}}">allergens</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border rounded">
+                        <h4>Price Range</h4>
+                        <label for="priceRange"></label>
+                        <!-- Price Range Slider-->
+                        <input id="priceRange" name="example_name" value="" />
+                        <input hidden id="min" name="min" value="" />
+                        <input hidden id="max" name="max" value="" />
+                        <script type="text/javascript">
                             $("#priceRange").ionRangeSlider({
                                 type: "double",
                                 grid: true,
@@ -81,38 +74,35 @@
                             });
                             var min = $('#priceRange').data.from;
                             var max = $('#priceRange').data.to;
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="form-check col-sm-4 border rounded ">
+                    <h4>Cuisines</h4>
+                    <label for="cuisine"></label>
+                    <div th:each="cuisines : ${T(com.foodforcharity.app.domain.constant.Cuisine).values()}" class="form-check-inline">
+                        <input class="form-check-input" type="checkbox" th:id="${{cuisines}}" th:value="${{cuisines}}" th:field="*{cuisines}" />
+                        <label class="form-check-input" th:text="${{cuisines}}" th:for="${{cuisines}}">Cuisine Type</label>
+                    </div>
+                </div>
+                <div class="form-check col-sm-4 border rounded">
+                    <h4>Meal Types</h4>
+                    <label for="mealTypes"></label>
+                    <div th:each="mealTypes : ${T(com.foodforcharity.app.domain.constant.MealType).values()}">
+                        <input type="checkbox" th:id="${{mealTypes}}" th:value="${{mealTypes}}" th:field="*{mealTypes}" />
+                        <label th:text="${{mealTypes}}" th:for="${{mealTypes}}">Meal Type</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <br>
+                <button type="submit" class="btn btn-success">Submit</button>
 
-                    </script>
-                </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="form-check col-sm-4 border rounded ">
-                <h4>Cuisines</h4>
-                <label for="cuisine"></label>
-                <div th:each="cuisines : ${T(com.foodforcharity.app.domain.constant.Cuisine).values()}"
-                     class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" th:id="${{cuisines}}" th:value="${{cuisines}}"
-                           th:field="*{cuisines}"/>
-                    <label class="form-check-input" th:text="${{cuisines}}" th:for="${{cuisines}}">Cuisine Type</label>
-                </div>
-            </div>
-            <div class="form-check col-sm-4 border rounded">
-                <h4>Meal Types</h4>
-                <label for="mealTypes"></label>
-                <div th:each="mealTypes : ${T(com.foodforcharity.app.domain.constant.MealType).values()}">
-                    <input type="checkbox" th:id="${{mealTypes}}" th:value="${{mealTypes}}" th:field="*{mealTypes}"/>
-                    <label th:text="${{mealTypes}}" th:for="${{mealTypes}}">Meal Type</label>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <br>
-            <button type="submit" class="btn btn-success">Submit</button>
-
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </body>
 
 </html>
