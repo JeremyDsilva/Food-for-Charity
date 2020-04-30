@@ -171,4 +171,14 @@ public class Donee extends Person {
         return mealTypes.remove(mealType);
     }
 
+    public void setSpiceRange(DoneeSpiceRange spiceRange){
+        this.spiceRange = spiceRange;
+        spiceRange.setDonee(this);
+    }
+
+    public void setPriceRange(DoneePriceRange priceRange){
+        this.priceRange = priceRange;
+        priceRange.setDonee(this);
+    }
+
 }
