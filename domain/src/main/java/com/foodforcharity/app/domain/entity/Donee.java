@@ -69,16 +69,16 @@ public class Donee extends Person {
     private DoneeSpiceRange spiceRange;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Allergen.class)
+    @ElementCollection(targetClass = Allergen.class, fetch = FetchType.EAGER)
     private Set<Allergen> allergens;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Cuisine.class)
+    @ElementCollection(targetClass = Cuisine.class, fetch = FetchType.EAGER)
     private Set<Cuisine> cuisines;
 
     // bi-directional many-to-one association to MapDoneeMealType
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = MealType.class)
+    @ElementCollection(targetClass = MealType.class, fetch = FetchType.EAGER)
     private Set<MealType> mealTypes;
 
     // bi-directional many-to-one association to Request
