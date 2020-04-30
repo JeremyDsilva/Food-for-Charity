@@ -57,7 +57,7 @@ public class Food implements Serializable {
 
     // bi-directional many-to-one association to MapFoodAllergen
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Allergen.class)
+    @ElementCollection(targetClass = Allergen.class, fetch = FetchType.EAGER)
     private Set<Allergen> allergens;
 
     @Enumerated(EnumType.STRING)
