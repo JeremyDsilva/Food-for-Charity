@@ -56,25 +56,25 @@ public class DoneeController extends AbstractController {
         return "donee/edit-food-preferences";
     }
 
-    @PostMapping(value = "/edit-food-preferences")
-    public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model) throws ExecutionException {
+    // @PostMapping(value = "/edit-food-preferences")
+    // public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model) throws ExecutionException {
 
-        if (result.hasErrors()) {
-            return "donee/food-preferences";
-        }
+    //     if (result.hasErrors()) {
+    //         return "donee/food-preferences";
+    //     }
 
-        SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
 
-        Response<Void> response = publishAsync(selectPreferencesCommand).get();
+    //     Response<Void> response = publishAsync(selectPreferencesCommand).get();
 
-        if (!response.success()) {
-            foodPreferences.setError(response.getError());
-        } else {
-            foodPreferences = new FoodPreferences();
-            foodPreferences.setSuccess(true);
-        }
-        return getFoodPreferencesView(new FoodPreferences());
-    }
+    //     if (!response.success()) {
+    //         foodPreferences.setError(response.getError());
+    //     } else {
+    //         foodPreferences = new FoodPreferences();
+    //         foodPreferences.setSuccess(true);
+    //     }
+    //     return getFoodPreferencesView(new FoodPreferences());
+    // }
 
     // @PutMapping("FoodPreferences")
     // public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model){
