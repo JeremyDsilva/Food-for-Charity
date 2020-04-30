@@ -33,11 +33,9 @@ public class MenuModel extends Request {
     private int mealForNPeople;
 
     @NotNull(message = "Quantity available cannot be empty")
-    @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "The number should be digits")
     private int quantityAvailable;
 
     @NotNull(message = "Spice level cannot be empty")
-    @Digits(integer = Integer.MAX_VALUE, fraction = 0, message = "The number should be digits")
     private SpiceLevel spiceLevel;
 
     @NotNull(message = "Meal type cannot be empty")

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div th:fragment="index-header" class="bs-example">
+    <div th:fragment="index-navbar" class="bs-example">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a th:href="@{/}" class="navbar-brand">Food for Charity</a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -36,7 +36,7 @@
 
 
 
-    <div th:fragment="donee-header" id="content" class="p-4 p-md-5 pt-5">
+    <div th:fragment="donee-navbar" id="content" class="p-4 p-md-5 pt-5">
         <div class="bs-example" th:object="${userDetails}">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark rounded">
                 <a th:href="@{/home}" class="navbar-brand">Food for Charity</a>
@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div th:fragment="donor-header" id="content" class="p-4 p-md-5 pt-5" th:object="${donor}">
+    <div th:fragment="donor-navbar" id="content" class="p-4 p-md-5 pt-5" th:object="${donor}">
         <div class="bs-example">
             <nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top bg-dark">
                 <a th:href="@{/home}" class="navbar-brand">Food for Charity</a>

@@ -7,6 +7,11 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ChangePasswordRequest extends Request {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @NotBlank
     String password;
 

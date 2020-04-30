@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit menu item</title>
+
 </head>
 
 <body>
@@ -14,7 +15,7 @@
             <h3> Add Food Item</h3>
             <!-- <div class="card">
                     <div class="col-md-10"> -->
-            <form action="#" th:action="@{edit-menu}" th:object="${menuModel}" method="post">
+            <form th:action="@{edit-menu}" th:object="${menuModel}" method="post">
                 <div class="container">
                     <div th:if="*{success != null}">
                         <div th:if="*{success}" class="alert alert-success">
@@ -72,7 +73,7 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <div class="form-check col-sm-4">
+                        <div class="form-check col-sm-4  border rounded ">
                             <h4>Allergens</h4>
                             <label for="Allergens"></label>
                             <div th:each="allergens : ${T(com.foodforcharity.app.domain.constant.Allergen).values()}">
@@ -124,17 +125,10 @@
                 </div>
                 <div class="row justify-content-center">
                     <br><button type="submit" class="btn btn-success">Submit</button>
-
                 </div>
             </form>
         </div>
     </div>
-    <<<<<<< HEAD </div>
-        </div>
-        </div>
-        =======
-        </div>
-        >>>>>>> acba97c9d8f6f410bbe7fcf48a3e87835392483d
 </body>
 
 </html>

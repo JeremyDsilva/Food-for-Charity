@@ -7,6 +7,11 @@ import javax.validation.constraints.*;
 @Data
 public abstract class RegisterRequest extends Request {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @NotBlank(message = "Please enter full name")
     private String name;
 
