@@ -16,7 +16,12 @@ public class DoneePriceRange implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    private long id;
+
     @OneToOne
+    @NotNull
     private Donee donee;
 
     @Column(name = "END_PRICE")

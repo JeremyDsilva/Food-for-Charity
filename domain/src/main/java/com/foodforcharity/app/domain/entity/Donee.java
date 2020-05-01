@@ -42,6 +42,7 @@ public class Donee extends Person {
     @NotNull
     private Integer memberCount;
 
+
     @Column(name = "PHONE_NUMBER")
     @NotNull
     private String phoneNumber;
@@ -61,11 +62,11 @@ public class Donee extends Person {
     private DoneeType doneeType;
 
     // bi-directional many-to-one association to DoneePriceRange
-    @OneToOne(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private DoneePriceRange priceRange;
 
     // bi-directional many-to-one association to DoneeSpiceRange
-    @OneToOne(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "donee", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private DoneeSpiceRange spiceRange;
 
     @Enumerated(EnumType.STRING)
