@@ -114,4 +114,29 @@ public class RepositoryTest {
         doneeRepos.delete(donee);
 
     }
+
+    @Test
+    public void selectPreference(){
+        Donee donee = new Donee();
+        donee.setAddressDescription("DoneeAddressDescription");
+        donee.setCity("DoneeCity");
+        donee.setCountry("DoneeCountry");
+        donee.setDoneeName("DoneeName");
+        donee.setDoneeStatus(DoneeStatus.Active);
+        donee.setEmail("doneeemail@gmail.com");
+        donee.setDoneeType(DoneeType.Individual);
+        donee.setPassword("DoneePassword");
+        donee.setPhoneNumber("DoneePhoneNumber");
+        donee.setMemberCount(5);
+        donee.setQuantityRequested(0);
+        donee.setUsername(donee.getEmail());
+        donee = doneeRepos.save(donee);
+
+        donee.setPriceRange(new DoneePriceRange());;
+        donee.getPriceRange().setStartPrice(0);
+        donee.getPriceRange().setEndPrice(10);
+
+        donee = doneeRepos.save(donee);
+
+    }
 }
