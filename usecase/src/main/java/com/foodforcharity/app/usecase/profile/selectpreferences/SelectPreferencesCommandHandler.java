@@ -2,6 +2,8 @@ package com.foodforcharity.app.usecase.profile.selectpreferences;
 
 import java.util.Optional;
 import com.foodforcharity.app.domain.entity.Donee;
+import com.foodforcharity.app.domain.entity.DoneePriceRange;
+import com.foodforcharity.app.domain.entity.DoneeSpiceRange;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.domain.service.DoneeService;
 import com.foodforcharity.app.mediator.CommandHandler;
@@ -28,6 +30,9 @@ public class SelectPreferencesCommandHandler implements CommandHandler<SelectPre
     @Override
     public Response<Void> handle(SelectPreferencesCommand command) {
         try {
+
+
+            
             // 1 check that donee exists
             // 1- check if donee exists and has an active status
             Optional<Donee> dbDonee = doneeService.findById(command.getDoneeId());
@@ -36,36 +41,40 @@ public class SelectPreferencesCommandHandler implements CommandHandler<SelectPre
             }
             Donee donee = dbDonee.get();
             // 2- reset previouses preferences
-            if (!donee.getAllergens().isEmpty()) {
+           
                 donee.getAllergens().clear();
-            }
-            
-            if (!donee.getCuisines().isEmpty()) {
+        
                 donee.getCuisines().clear();
-            }
-
-            if (!donee.getMealTypes().isEmpty()) {
+            
                 donee.getMealTypes().clear();
-            }
 
             // 3-price ranges start is always greater than 0 and less than stop
-            Range<Integer> priceRange = command.getPriceRange();
-            if (priceRange.getStart() < 0 || priceRange.getStop() < priceRange.getStart()) {
+       
+            if (command.getPriceRange().getStart() < 0 || command.getPriceRange().getStop() < command.getPriceRange().getStart()) {
                 return Response.of(Error.InvalidPriceRange);
-            } else {
-                donee.getPriceRange().setStartPrice(priceRange.getStart());
-                donee.getPriceRange().setEndPrice(priceRange.getStop());
             }
+            
+            if(donee.getPriceRange() == null){
+                donee.setPriceRange(new DoneePriceRange());
+            }
+               
+            donee.getPriceRange().setStartPrice(command.getPriceRange().getStart());
+            donee.getPriceRange().setEndPrice(command.getPriceRange().getStop());
+            
 
             // 4- the spice range must be valid
-            Range<SpiceLevel> spiceRange = command.getSpiceRange();
-            if (spiceRange.getStop().ordinal() < spiceRange.getStart().ordinal()) {
+            if (command.getSpiceRange().getStop().ordinal() < command.getSpiceRange().getStart().ordinal()) {
                 return Response.of(Error.InvalidSpiceRange);
-            } else {
+            } 
+
+
+            if(donee.getSpiceRange()==null){
+                donee.setSpiceRange(new DoneeSpiceRange());
+            }
                 donee.getSpiceRange().setStartLevel(command.getSpiceRange().getStart());
                 donee.getSpiceRange().setEndLevel(command.getSpiceRange().getStop());
 
-            }
+            
 
             // 5- add cuisine
             command.getCuisines().stream().forEach(c -> donee.addCuisine(c));
