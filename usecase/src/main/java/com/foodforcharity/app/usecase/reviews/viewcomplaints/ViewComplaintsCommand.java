@@ -1,41 +1,24 @@
 package com.foodforcharity.app.usecase.reviews.viewcomplaints;
 
 import com.foodforcharity.app.domain.constant.PersonRole;
+import com.foodforcharity.app.domain.entity.Complaint;
+import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
 import java.util.Optional;
 
-public class ViewComplaintsCommand implements Command<Void> {
-    long personId; // required to decide which complaints to show based on who the person is
+@Builder
+@Getter
+public class ViewComplaintsCommand implements Command<Response<List<Complaint>>> {
 
-    Optional<PersonRole> fromRole;
+    Long personId;
 
-    Optional<Boolean> isActive;
+    PersonRole fromRole;
 
-    public ViewComplaintsCommand() {
-
-    }
-
-    /**
-     * Public constructors
-     *
-     * @param personId
-     */
-    public ViewComplaintsCommand(long personId) {
-        this.personId = personId;
-        fromRole = Optional.empty();
-        isActive = Optional.empty();
-    }
-
-    /**
-     * @param personRole
-     */
-    public void setFromRole(PersonRole personRole) {
-        this.fromRole = Optional.of(personRole);
-    }
-
-    public void setisActive(Boolean isActive) {
-        this.isActive = Optional.of(isActive);
-    }
-
+    Boolean isActive;
 }

@@ -1,13 +1,12 @@
-package com.foodforcharity.app.usecase.reviews.filecomplaint;
+package com.foodforcharity.app.usecase.reviews.raterequest;
 
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Command;
 import lombok.Value;
 
 @Value
-public class FileComplaintCommand implements Command<Response<Void>> {
+public class RateRequestCommand implements Command<Response<Void>> {
     long personId; // id of the filer
     long requestId;
-    String descriptionText;
-
+    long rating;
 }
