@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class GetDonorTest {
 
     @Test
-    void success(){
+    public void success(){
     }
 
 }

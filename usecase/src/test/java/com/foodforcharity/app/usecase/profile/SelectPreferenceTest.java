@@ -3,6 +3,7 @@ package com.foodforcharity.app.usecase.profile;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.DoneeStatus;
@@ -93,4 +94,97 @@ public class SelectPreferenceTest {
         assert (response.success());
     }
 
+
+    @Test
+    public void DoneeDoesNotExistTest(){
+        SelectPreferencesCommand command = new SelectPreferencesCommand();
+
+        Range<SpiceLevel> spiceRange = command.new Range<SpiceLevel>(SpiceLevel.NoSpice, SpiceLevel.ExtraHot);
+        List<Allergen> allergens = new ArrayList<Allergen>();
+        allergens.add(Allergen.Dairy);
+        allergens.add(Allergen.Nuts);
+        Range<Integer> priceRange = command.new Range<Integer>(0, 25);
+        List<Cuisine> cuisines = new ArrayList<Cuisine>();
+        cuisines.add(Cuisine.NoPreference);
+        List<MealType> mealTypes = new ArrayList<MealType>();
+        mealTypes.add(MealType.Chicken);
+
+        command.setDoneeId(100);
+
+        command.setSpiceRange(spiceRange);
+        command.setPriceRange(priceRange);
+
+        command.setAllergens(allergens);
+        command.setMealTypes(mealTypes);
+        command.setCuisines(cuisines);
+
+        Response<Void> response = handler.handle(command);
+        assert (response.getError()==Error.DoneeDoesNotExist);
+
+    }
+
+    @Test
+    public void InvalidPriceRangeTest(){
+        SelectPreferencesCommand command = new SelectPreferencesCommand();
+
+        Range<SpiceLevel> spiceRange = command.new Range<SpiceLevel>(SpiceLevel.NoSpice, SpiceLevel.ExtraHot);
+        List<Allergen> allergens = new ArrayList<Allergen>();
+        allergens.add(Allergen.Dairy);
+        allergens.add(Allergen.Nuts);
+        Range<Integer> priceRange = command.new Range<Integer>(-5, 25);
+        List<Cuisine> cuisines = new ArrayList<Cuisine>();
+        cuisines.add(Cuisine.NoPreference);
+        List<MealType> mealTypes = new ArrayList<MealType>();
+        mealTypes.add(MealType.Chicken);
+
+        command.setDoneeId(donee.getId());
+
+        command.setSpiceRange(spiceRange);
+        command.setPriceRange(priceRange);
+
+        command.setAllergens(allergens);
+        command.setMealTypes(mealTypes);
+        command.setCuisines(cuisines);
+
+        Response<Void> response1 = handler.handle(command);
+
+        Range<Integer> priceRange2 = command.new Range<Integer>(28, 25);
+        command.setPriceRange(priceRange2);
+        Response<Void> response2 = handler.handle(command);
+
+        assert (response1.getError()==Error.InvalidPriceRange && response2.getError()==Error.InvalidPriceRange );
+
+    }
+
+
+    @Test
+    public void InvalidSpiceRangeTest(){
+
+
+        SelectPreferencesCommand command = new SelectPreferencesCommand();
+
+        Range<SpiceLevel> spiceRange = command.new Range<SpiceLevel>( SpiceLevel.ExtraHot, SpiceLevel.NoSpice);
+        List<Allergen> allergens = new ArrayList<Allergen>();
+        allergens.add(Allergen.Dairy);
+        allergens.add(Allergen.Nuts);
+        Range<Integer> priceRange = command.new Range<Integer>(0, 25);
+        List<Cuisine> cuisines = new ArrayList<Cuisine>();
+        cuisines.add(Cuisine.NoPreference);
+        List<MealType> mealTypes = new ArrayList<MealType>();
+        mealTypes.add(MealType.Chicken);
+
+        command.setDoneeId(donee.getId());
+
+        command.setSpiceRange(spiceRange);
+        command.setPriceRange(priceRange);
+
+        command.setAllergens(allergens);
+        command.setMealTypes(mealTypes);
+        command.setCuisines(cuisines);
+
+        Response<Void> response = handler.handle(command);
+
+        assert (response.getError()==Error.InvalidSpiceRange );
+
+    }
 }
