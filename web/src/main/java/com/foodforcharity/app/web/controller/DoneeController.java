@@ -81,14 +81,6 @@ public class DoneeController extends AbstractController {
         return "donee/view-profile";
     }
 
-    @PutMapping("profile")
-    public String changeProfileInfo() {
-
-        // Response<Void> response;
-
-        return "redirect:/";
-    }
-
     // --------------Food Preferences----------------
 
     @GetMapping(value = "/food-preferences")
@@ -101,68 +93,47 @@ public class DoneeController extends AbstractController {
         return "donee/edit-food-preferences";
     }
 
-    // @PostMapping(value = "/edit-food-preferences")
-    // public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model)
-    //         throws ExecutionException {
+    @PostMapping(value = "/edit-food-preferences")
+    public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model)
+            throws ExecutionException {
 
-    //     if (result.hasErrors()) {
-    //         return "donee/food-preferences";
-    //     }
+        if (result.hasErrors()) {
+            return "donee/food-preferences";
+        }
 
-    //     SelectPreferencesCommand selectPreferencesCommand = new SelectPreferencesCommand(getPersonId());
+        SelectPreferencesCommand command = new SelectPreferencesCommand();
 
-    //     Response<Void> response = publishAsync(selectPreferencesCommand).get();
+        command.setDoneeId(getPersonId());
 
-    //     if (!response.success()) {
-    //         foodPreferences.setError(response.getError());
-    //     } else {
-    //         foodPreferences = new FoodPreferences();
-    //         foodPreferences.setSuccess(true);
-    //     }
-    //     return getFoodPreferencesView(new FoodPreferences());
-    // }
+        Response<Void> response = publishAsync(command).get();
 
-    // @PutMapping("FoodPreferences")
-    // public String modifyPreferences(@ModelAttribute FoodPreferences
-    // foodPreferences, Model model){
+        if (!response.success()) {
+            foodPreferences.setError(response.getError());
+        } else {
+            foodPreferences = new FoodPreferences();
+            foodPreferences.setSuccess(true);
+        }
+        return getFoodPreferencesView(new FoodPreferences());
+    }
 
-    // Response<Void> response;
+    @PutMapping("FoodPreferences")
+    public String modifyPreferences(@ModelAttribute FoodPreferences foodPreferences, Model model)
+            throws ExecutionException {
 
-    // SelectPreferencesCommand selectPreferencesCommand = new
-    // SelectPreferencesCommand(getPersonId());
+        SelectPreferencesCommand command = new SelectPreferencesCommand();
 
-    // response = publishAsync(selectPreferencesCommand).get();
+        command.setDoneeId(getPersonId());
 
-    // if(!response.success()){
-    // model.addAttribute("IsError", true);
-    // model.addAttribute("ErrorMessage", response.getError().getMessage());
-    // }
-    // else {
-    // model.addAttribute("Success", "Food Preferences Modified Successfully!");
-    // }
-    // return "redirect:/";
-    // }
+        Response<Void> response = publishAsync(command).get();
 
-    // @DeleteMapping("FoodPreferences")
-    // public String deletePreferences(@ModelAttribute FoodPreferences
-    // foodPreferences, Model model){
-
-    // Response<Void> response;
-
-    // SelectPreferencesCommand selectPreferencesCommand = new
-    // SelectPreferencesCommand(getPersonId());
-
-    // response = publishAsync(selectPreferencesCommand).get();
-
-    // if(!response.success()){
-    // model.addAttribute("IsError", true);
-    // model.addAttribute("ErrorMessage", response.getError().getMessage());
-    // }
-
-    // model.addAttribute("Success", "Food Preferences Deleted Successfully!");
-
-    // return "redirect:/";
-    // }
+        if (!response.success()) {
+            model.addAttribute("IsError", true);
+            model.addAttribute("ErrorMessage", response.getError().getMessage());
+        } else {
+            model.addAttribute("Success", "Food Preferences Modified Successfully!");
+        }
+        return "redirect:/";
+    }
 
     // --------------Food Requests----------------
 
@@ -182,24 +153,5 @@ public class DoneeController extends AbstractController {
         // return "redirect:/";
 
     }
-
-    // @PostMapping("FoodRequest")
-    // public String createFoodRequest(@PathVariable("doneeId") long doneeId,
-    // @RequestParam(value = "donorId") long donorId, Model model) throws
-    // ExecutionException {
-
-    // CreateRequestCommand createRequestCommand = new CreateRequestCommand(doneeId,
-    // donorId);
-
-    // Response<Void> response = publishAsync(createRequestCommand).get();
-
-    // if (!response.success()) {
-    // model.addAttribute("IsError", true);
-    // model.addAttribute("ErrorMessage", response.getError().getMessage());
-    // } else {
-    // model.addAttribute("Success", "Food have been requested!");
-    // }
-    // return "redirect:/";
-    // }
 
 }
