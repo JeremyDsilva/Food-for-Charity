@@ -86,9 +86,9 @@ public class DoneeController extends AbstractController {
         return "donee/edit-food-preferences";
     }
 
-    @PostMapping(value = "/edit-food-preferences")
-    public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model)
-            throws ExecutionException {
+    // @PostMapping(value = "/edit-food-preferences")
+    // public String selectPreferences(@Valid FoodPreferences foodPreferences, BindingResult result, Model model)
+    //         throws ExecutionException {
 
     //     if (result.hasErrors()) {
     //         return "donee/food-preferences";
