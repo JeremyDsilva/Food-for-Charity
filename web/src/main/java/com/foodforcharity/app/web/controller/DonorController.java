@@ -26,6 +26,9 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 import static com.foodforcharity.app.web.model.Request.withSuccess;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/donor")
@@ -162,5 +165,25 @@ public class DonorController extends AbstractController {
         model.addAttribute("success", withSuccess(menuModel));
         return "menu";
     }
+
+    //--------Profile--------
+    @GetMapping(value="/profile")
+    public String getDonorProfile(Model model) throws ExecutionException {
+
+        GetDonorCommand command = new GetDonorCommand(getPersonId());
+
+        Response<Donor> response = publishAsync(command).get();
+
+        if (response.hasError()) {
+            model.addAttribute("error", response.getError());
+        }
+
+        DonorDto donor = new DonorDto(response.getResponse());
+
+        model.addAttribute("donor", donor);
+
+        return "donor/view-profile";
+    }
+    
 
 }

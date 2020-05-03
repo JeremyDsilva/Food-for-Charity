@@ -1,9 +1,12 @@
 package com.foodforcharity.app.web.controller;
 
+import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.reponse.Response;
 import com.foodforcharity.app.mediator.Mediator;
+import com.foodforcharity.app.usecase.account.getdonee.GetDoneeCommand;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
 import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand;
+import com.foodforcharity.app.web.dto.DoneeDto;
 import com.foodforcharity.app.web.model.FoodPreferences;
 import com.foodforcharity.app.web.model.FoodRequest;
 
@@ -62,7 +65,19 @@ public class DoneeController extends AbstractController {
     // --------------View Profile----------------
 
     @GetMapping("profile")
-    public String getProfileView() {
+    public String getDoneeProfile(Model model) throws ExecutionException {
+        GetDoneeCommand command = new GetDoneeCommand(getPersonId());
+
+        Response<Donee> response = publishAsync(command).get();
+
+        if (response.hasError()) {
+            model.addAttribute("error", response.getError());
+        }
+
+        DoneeDto donee = new DoneeDto(response.getResponse());
+
+        model.addAttribute("donee", donee);
+
         return "donee/view-profile";
     }
 
