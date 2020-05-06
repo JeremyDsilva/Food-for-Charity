@@ -1,5 +1,5 @@
 # Food for Charity 
-This project is still under development
+<b> This project is under development </b>
 
 Food for Charity is a web-based application that connects restaurants who have food in excess and wish to donate with individuals and organizations who need food. Restaurant supply information on the food they are willing to donate and those in need can reserve this food. The goal of this app is to reduce food wastage in society. This is a group software engineering university project built using Spring Boot, Spring Data and Spring Security. Our professor is our primary client.
 
@@ -12,12 +12,12 @@ The <b>Donor</b>, specifically, a restaurant, can donate a quantity of food to t
 The <b>Donee</b>, an individual or organization, can request for donated food. Once they have selected a food item to order, they must specify the quantity and the time of pickup. There are limits to the amount of food they can order in a given time interval. The quantity they can request is based on the number of members they have registered with. A donee can rate or file a complaint against the donor based on their interaction. Donees can exist in three states: Initial, Active or Suspended. Donees who register with the platform are in the Initial state awaiting approval from the broker. Only donees in the Active state can make food request. Donees in the Suspended state cannot access the app.
 </p>
 <p> 
-The <b>Broker</b> manages the system. Brokers can view all user profiles, requests, and donated food. The broker can update donor anddonee statuses and can resolve complaints.
+The <b>Broker</b> manages the system. Brokers can view all user profiles, requests, and donated food. The broker can update donor and donee statuses and can resolve complaints.
 </p>
 
 ## How To Run
 
-<b>This project is still under development</b>
+<b>This project is under development</b>
 
 Clone this repository. Make sure you are using JDK 13 and Maven 4.0
 
