@@ -4,15 +4,13 @@ import java.util.Optional;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.DoneePriceRange;
 import com.foodforcharity.app.domain.entity.DoneeSpiceRange;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.domain.service.DoneeService;
 import com.foodforcharity.app.mediator.CommandHandler;
-import com.foodforcharity.app.usecase.profile.selectpreferences.SelectPreferencesCommand.Range;
 
 import org.springframework.stereotype.Service;
 
 import com.foodforcharity.app.domain.constant.Error;
-import com.foodforcharity.app.domain.constant.SpiceLevel;
 
 @Service
 public class SelectPreferencesCommandHandler implements CommandHandler<SelectPreferencesCommand, Response<Void>> {

@@ -2,7 +2,7 @@ package com.foodforcharity.app.usecase.review;
 
 import com.foodforcharity.app.domain.constant.*;
 import com.foodforcharity.app.domain.entity.*;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.domain.service.*;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.reviews.viewcomplaint.ViewComplaintCommand;

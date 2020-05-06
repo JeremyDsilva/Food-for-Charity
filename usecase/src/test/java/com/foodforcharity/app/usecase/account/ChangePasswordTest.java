@@ -3,8 +3,7 @@ package com.foodforcharity.app.usecase.account;
 import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donor;
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.domain.service.DonorService;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.infrastructure.repository.DonorRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
@@ -16,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

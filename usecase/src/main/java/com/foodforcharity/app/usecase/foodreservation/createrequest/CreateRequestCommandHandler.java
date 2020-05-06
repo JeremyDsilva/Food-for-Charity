@@ -5,7 +5,7 @@ import com.foodforcharity.app.domain.constant.DoneeType;
 import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.*;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.domain.service.DoneeService;
 import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.domain.service.FoodService;

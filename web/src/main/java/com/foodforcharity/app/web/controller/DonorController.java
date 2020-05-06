@@ -2,7 +2,7 @@ package com.foodforcharity.app.web.controller;
 
 import com.foodforcharity.app.domain.entity.Donor;
 import com.foodforcharity.app.domain.entity.Food;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.getdonor.GetDonorCommand;
 import com.foodforcharity.app.usecase.profile.addmenu.AddMenuCommand;

@@ -42,7 +42,6 @@ public class Donee extends Person {
     @NotNull
     private Integer memberCount;
 
-
     @Column(name = "PHONE_NUMBER")
     @NotNull
     private String phoneNumber;

@@ -1,11 +1,9 @@
 package com.foodforcharity.app.usecase.reviews.viewcomplaints;
 
-import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.PersonRole;
 import com.foodforcharity.app.domain.entity.Complaint;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.domain.service.ComplaintService;
-import com.foodforcharity.app.domain.service.PersonService;
 import com.foodforcharity.app.mediator.CommandHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

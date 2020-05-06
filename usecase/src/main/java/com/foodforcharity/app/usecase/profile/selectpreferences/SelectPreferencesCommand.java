@@ -4,7 +4,7 @@ import com.foodforcharity.app.domain.constant.Allergen;
 import com.foodforcharity.app.domain.constant.Cuisine;
 import com.foodforcharity.app.domain.constant.MealType;
 import com.foodforcharity.app.domain.constant.SpiceLevel;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.mediator.Command;
 
 import lombok.Data;
@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package com.foodforcharity.app.domain.reponse;
+package com.foodforcharity.app.domain.response;
 
 import com.foodforcharity.app.domain.constant.Error;
 

@@ -1,7 +1,7 @@
 package com.foodforcharity.app.usecase.account;
 
 import com.foodforcharity.app.domain.constant.Error;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.infrastructure.repository.PersonRepository;
 import com.foodforcharity.app.mediator.CommandHandler;
 import com.foodforcharity.app.usecase.account.donorregisteration.DonorRegisterationCommand;

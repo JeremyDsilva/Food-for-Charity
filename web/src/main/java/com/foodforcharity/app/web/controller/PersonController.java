@@ -1,6 +1,6 @@
 package com.foodforcharity.app.web.controller;
 
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.changepassword.ChangePasswordCommand;
 import com.foodforcharity.app.usecase.account.doneeregisteration.DoneeRegisterationCommand;
@@ -53,7 +53,7 @@ public class PersonController extends AbstractController {
     public String changePassword(@Valid ChangePasswordRequest request, BindingResult result, Model model) throws ExecutionException {
 
         if (!request.getConfirmNewPassword().equals(request.getNewPassword())) {
-            result.addError(new ObjectError("confirmNewPassword", "Passwords don't match"));
+            result.rejectValue("confirmNewPassword", "error.changePasswordRequest", "Passwords don't match");
             return "change-password";
         }
 
@@ -61,7 +61,7 @@ public class PersonController extends AbstractController {
             return "change-password";
         }
 
-        ChangePasswordCommand command = new ChangePasswordCommand(Long.valueOf(1), request.getPassword(),
+        ChangePasswordCommand command = new ChangePasswordCommand(getPersonId(), request.getPassword(),
                 request.getNewPassword());
 
         Response<Void> response = publishAsync(command).get();
@@ -88,9 +88,9 @@ public class PersonController extends AbstractController {
             return "donee-register";
         }
 
-        if (result.hasErrors()) {
-            return "donee-register";
-        }
+//        if (result.hasErrors()) {
+//            return "donee-register";
+//        }
 
         DoneeRegisterationCommand command = new DoneeRegisterationCommand(request.getName(), request.getPassword(),
                 request.getEmail(), request.getPhoneNumber(), request.getCity(), request.getCountry(),

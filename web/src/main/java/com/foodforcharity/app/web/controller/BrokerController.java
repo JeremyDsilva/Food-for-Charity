@@ -1,13 +1,18 @@
 package com.foodforcharity.app.web.controller;
 
 import com.foodforcharity.app.mediator.Mediator;
+import com.foodforcharity.app.usecase.account.changestatus.ChangeStatusCommand;
+import com.foodforcharity.app.web.model.ChangeStatusRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -88,5 +93,34 @@ public class BrokerController extends AbstractController {
 
     //---------- Status ------------
 
+    @ResponseBody
+    @PostMapping(value = "change-status")
+    public boolean changeStatus(@Valid ChangeStatusRequest request, BindingResult result){
+
+        if(result.hasErrors()){
+            return false;
+        }
+
+        ChangeStatusCommand command = null;
+
+        if(request.getDoneeStatus() != null){
+            if(request.getDonorStatus() != null){
+                result.addError(new ObjectError("doneeStatus", "DoneeStatus and DonorStatus cannot be both"));
+                result.addError(new ObjectError("donorStatus", "DoneeStatus and DonorStatus cannot be both"));
+                return false;
+            }
+
+
+        } else {
+            if(request.getDoneeStatus() == null){
+                result.addError(new ObjectError("doneeStatus", "DoneeStatus and DonorStatus cannot be both"));
+                result.addError(new ObjectError("donorStatus", "DoneeStatus and DonorStatus cannot be both"));
+                return false;
+            }
+
+        }
+
+        return true;
+    }
 
 }

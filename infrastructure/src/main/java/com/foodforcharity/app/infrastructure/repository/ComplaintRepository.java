@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ComplaintRepository extends CrudRepository<Complaint, Long>, ComplaintService {
     // List<Complaint> findAllByRequest(Request request);
     // List<Complaint> findAllByFromDoneeAndIsActive(Boolean fromDonee, Boolean isActive);
+
+
+
 }

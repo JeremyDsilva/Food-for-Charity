@@ -1,6 +1,6 @@
 package com.foodforcharity.app.usecase.foodreservation.createrequest;
 
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.mediator.Command;
 
 import java.util.ArrayList;

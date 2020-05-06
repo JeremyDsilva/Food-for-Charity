@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.foodforcharity.app.infrastructure"})
 @ComponentScan(basePackages = {"com.foodforcharity.app.mediator"})
 @ComponentScan(basePackages = {"com.foodforcharity.app.usecase"})
+@ComponentScan(basePackages = {"com.foodforcharity.app.web"})
 @SpringBootApplication
 public class Application {
 

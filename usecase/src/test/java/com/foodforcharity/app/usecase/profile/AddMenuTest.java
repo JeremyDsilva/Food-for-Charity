@@ -3,7 +3,7 @@ package com.foodforcharity.app.usecase.profile;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.constant.*;
 import com.foodforcharity.app.domain.entity.Donor;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.domain.service.DonorService;
 import com.foodforcharity.app.infrastructure.repository.DonorRepository;
 import com.foodforcharity.app.infrastructure.repository.FoodRepository;

@@ -6,10 +6,7 @@ import com.foodforcharity.app.domain.constant.DonorStatus;
 import com.foodforcharity.app.domain.constant.Error;
 import com.foodforcharity.app.domain.entity.Donee;
 import com.foodforcharity.app.domain.entity.Donor;
-import com.foodforcharity.app.domain.reponse.Response;
-import com.foodforcharity.app.domain.service.DoneeService;
-import com.foodforcharity.app.domain.service.DonorService;
-import com.foodforcharity.app.domain.service.PersonService;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.infrastructure.repository.DoneeRepository;
 import com.foodforcharity.app.infrastructure.repository.DonorRepository;
 import com.foodforcharity.app.infrastructure.repository.PersonRepository;
@@ -23,8 +20,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.Optional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

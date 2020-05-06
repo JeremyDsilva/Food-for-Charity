@@ -1,7 +1,7 @@
 package com.foodforcharity.app.web.controller;
 
 import com.foodforcharity.app.domain.entity.Donee;
-import com.foodforcharity.app.domain.reponse.Response;
+import com.foodforcharity.app.domain.response.Response;
 import com.foodforcharity.app.mediator.Mediator;
 import com.foodforcharity.app.usecase.account.getdonee.GetDoneeCommand;
 import com.foodforcharity.app.usecase.foodreservation.createrequest.CreateRequestCommand;
