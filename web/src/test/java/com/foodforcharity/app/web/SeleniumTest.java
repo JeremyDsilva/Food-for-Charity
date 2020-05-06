@@ -9,25 +9,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class SeleniumTest {
 
     private static WebDriver driver;
 
-    @Before
+//    @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "/usr/local/Caskroom/chromedriver/81.0.4044.69/chromedriver");
         driver = new ChromeDriver();
     }
 
-    @Test
+//    @Test
     public void testChromeSelenium() {
         driver.get("http://localhost:8080/");
 //        driver.get("http://google.com");
     }
 
-    @After
+//    @After
     public void cleanUp() {
         if (driver != null) {
             driver.close();
